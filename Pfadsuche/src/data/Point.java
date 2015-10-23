@@ -11,6 +11,6 @@ package data;
  * @author Roland
  */
 public class Point {
-    //kasdkasldjaskldjaskldjklasdklaskldjasjd
+    //test
     
 }
