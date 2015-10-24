@@ -17,30 +17,41 @@ public class Points {
     
     HashSet<Point> points;
     HashMap<Point, HashSet<Point>> neighbourTable;
+    HashMap<Point, Double> costTable;
     
     public Points() {
         points = new HashSet<>();
         neighbourTable = new HashMap<>();
+        costTable = new HashMap<>();
     }
     
     public void addPoint(Point p) {
         points.add(p);
     }
     
-    public void addNeighbour(Point p, Point n) {
-        HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
-        if(neighbours == null) {
-            neighbours = new HashSet<>();
-            neighbours.add(n);
-            neighbourTable.put(p, neighbours);
+    public boolean addNeighbour(Point p, Point n) {
+        if(exists(p) && exists(n)) {
+            HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
+            if(neighbours == null) {
+                neighbours = new HashSet<>();
+                neighbours.add(n);
+                neighbourTable.put(p, neighbours);
+               
+            }
+            else {
+                neighbours.add(n);
+                neighbourTable.replace(p, neighbours);
+                
+            }
+            return true;
         }
         else {
-            neighbours.add(n);
-            neighbourTable.replace(p, neighbours);
+            return false;
         }
     }
     
     public Point getPoint(double x, double y) {
+        
         for(Point p : points) {
             if(p.getX() == x && p.getY() == y) {
                 return p;
@@ -48,6 +59,17 @@ public class Points {
         }
         
         throw new NoSuchElementException();
+        
+    }
+    
+    public boolean exists(Point p) {
+        try {
+            this.getPoint(p.getX(), p.getY());
+        }
+        catch(NoSuchElementException e) {
+            return false;
+        }
+        return true;
     }
     
     public HashSet<Point> getAllPoints() {
@@ -66,6 +88,11 @@ public class Points {
         HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
         neighbours.remove(n);
         neighbourTable.replace(p, neighbours);
+    }
+    
+    @Override
+    public String toString() {
+        return "Points:\n" + points.toString()+ "\n\n Neighbours:\n" + neighbourTable.toString();
     }
     
     
