@@ -50,7 +50,7 @@ public class Points {
         }
     }
     
-    public Point getPoint(double x, double y) {
+    public Point getPoint(double x, double y) throws NoSuchElementException {
         
         for(Point p : points) {
             if(p.getX() == x && p.getY() == y) {
@@ -84,16 +84,22 @@ public class Points {
         return points.remove(p);
     }
     
-    public void removeNeighbour(Point p, Point n) {
+    public boolean removeNeighbour(Point p, Point n) {
         HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
-        neighbours.remove(n);
-        neighbourTable.replace(p, neighbours);
+        if(neighbours.remove(n)) {
+            neighbourTable.replace(p, neighbours);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     @Override
     public String toString() {
         return "Points:\n" + points.toString()+ "\n\n Neighbours:\n" + neighbourTable.toString();
     }
+    
     
     
     
