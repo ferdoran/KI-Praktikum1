@@ -6,13 +6,22 @@
 
 package data;
 
+import java.awt.geom.Point2D;
+
 /**
  *
  * @author Roland
  */
-public class Point {
-    //test
+public class Point extends Point2D.Double {
     
-    //testneu
+    public Point(double x, double y) {
+        super(x, y);
+    }
+    
+    public double distance(Point p) {
+        return super.distance(p);
+    }
+    
+    
     
 }
