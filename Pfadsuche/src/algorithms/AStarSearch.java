@@ -11,20 +11,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Stack;
-import sun.rmi.runtime.Log;
 
 /**
  *
  * @author Mahdi
  */
 public class AStarSearch {
-    private static Log log = LogFactory.getLog(AStarSearch.class);
 
    public static List<NavNode> search(NavGraph graph, NavNode source, NavNode target) {
         Map<String, AStarNode> openSet = new HashMap<String, AStarNode>();
         PriorityQueue<AStarNode> pQueue = new PriorityQueue(30, new AStarNodeComparator());
         Map<String, AStarNode> closeSet = new HashMap<String, AStarNode>();
-        AStarNode start = new AStarNode(source, 0, graph.calcManhattanDistance(source, target));
+        AStarNode start = new AStarNode(source, 0, graph.calcHeuristicDistance(source, target));
         openSet.put(source.getId(), start);
         pQueue.add(start);
 
@@ -34,15 +32,9 @@ public class AStarSearch {
             openSet.remove(x.getId());
             if(x.getId().equals(target.getId())){
                 //found
-                if(log.isDebugEnabled()){
-                    log.debug("Found target node " + x.getId());
-                }
                 goal = x;
                 break;
-            }else{
-                if(log.isDebugEnabled()){
-                    log.debug("Search for node " + x.getId());
-                }
+            }else{                
                 closeSet.put(x.getId(), x);
                 Set<NavNode> neighbors = graph.getAdjacentNodes(x.getId());
                 for (NavNode neighbor : neighbors) {
@@ -78,13 +70,7 @@ public class AStarSearch {
                 stack.push(parent.getNode());
                 parent = parent.getCameFrom();
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Constructing search path: ");
-            }
             while(stack.size() > 0){
-                if (log.isDebugEnabled()) {
-                    log.debug("\t" + stack.peek().getId());
-                }
                 list.add(stack.pop());
             }
             return list;
