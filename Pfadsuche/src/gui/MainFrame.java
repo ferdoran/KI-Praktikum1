@@ -172,6 +172,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jButton5.setText("Exit");
         jButton5.setToolTipText("");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         log.setEditable(false);
         jScrollPane1.setViewportView(log);
@@ -368,6 +373,11 @@ public class MainFrame extends javax.swing.JFrame {
             selectedPointYField.setText("");
         }
     }//GEN-LAST:event_removePointButtonActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     private void addLogLine(String typeFlag, Point p, String logType) {
         double x = p.getX();
