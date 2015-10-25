@@ -84,6 +84,15 @@ public class Points {
         return points.remove(p);
     }
     
+    public boolean removePoint(double x, double y) {
+        for(Point p : points) {
+            if(p.getX() == x && p.getY() == y) {
+                return points.remove(p);
+            }
+        }
+        return false;
+    }
+    
     public boolean removeNeighbour(Point p, Point n) {
         HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
         if(neighbours.remove(n)) {

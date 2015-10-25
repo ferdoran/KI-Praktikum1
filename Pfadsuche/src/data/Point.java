@@ -13,13 +13,27 @@ import java.awt.geom.Point2D;
  * @author Roland
  */
 public class Point extends Point2D.Double {
+    private String name;
     
     public Point(double x, double y) {
         super(x, y);
     }
     
+    public Point(double x, double y, String s) {
+        super(x, y);
+        name = s;
+    }
+    
     public double distance(Point p) {
         return super.distance(p);
+    }
+    
+    public void setName(String s) {
+        name = s;
+    }
+    
+    public String getName() {
+        return name;
     }
     
     
