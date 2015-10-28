@@ -18,7 +18,7 @@ public class Position {
         return x;
     }
     
-        public double getY(){
-        return y;
+    public double getY(){
+    return y;
     }
 }

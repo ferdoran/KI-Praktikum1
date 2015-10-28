@@ -5,8 +5,12 @@
  */
 package algorithms;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
 import java.util.List;
 import java.util.Set;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
 
 /**
  *
@@ -19,13 +23,16 @@ class NavNode extends Node{
     protected List<String> extraData;
 
     String getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getId();
     }
 
-    Object getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    double getX() {
+        return this.getX();
     }
 
+    double getY() {
+        return this.getY();
+    }
 }
 
 class NavEdge extends Edge {
@@ -33,11 +40,14 @@ class NavEdge extends Edge {
     protected double cost;
 
     NavEdge(String firstId, String secondId, double cost) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.from = firstId;
+        this.to = secondId;
+        this.cost = cost;
     }
 
     NavEdge(String firstId, String secondId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.from = firstId;
+        this.to = secondId;
     }
 }
 
@@ -63,8 +73,7 @@ public class NavGraph extends Graph<NavNode, NavEdge>{
     }
 
     public double calcHeuristicDistance(NavNode a, NavNode b){
-        return sqrt(power(abs(a.getPosition().getX() - b.getPosition().getX()),2)
-                + (power(abs(a.getPosition().getY() - b.getPosition().getY())),2)));
+        return sqrt(power(abs(a.getX() - b.getX()),2) + (power(abs(a.getY() - b.getY()),2)));
     }
 
     Set<NavNode> getAdjacentNodes(String id) {

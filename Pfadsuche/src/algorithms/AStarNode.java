@@ -30,35 +30,35 @@ public class AStarNode {
     }
 
     public String getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return node.getId();
     }
 
     public double getF() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return g + h;
     }
 
-    double getG() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double getG() {
+        return g;
     }
 
     void setCameFrom(AStarNode x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        cameFrom = x;
     }
 
     void setG(double g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.g = g;
     }
 
     void setH(double calcHeuristicDistance) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        h = calcHeuristicDistance;
     }
 
     NavNode getNode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return node;
     }
 
     AStarNode getCameFrom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return cameFrom;
     }
 
 }
