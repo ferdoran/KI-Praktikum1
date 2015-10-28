@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -40,12 +41,12 @@ public class AStarSearch {
                 for (NavNode neighbor : neighbors) {
                     AStarNode visited = closeSet.get(neighbor.getId());
                     if (visited == null) {
-                        double g = x.getG() + graph.calcManhattanDistance(x.getNode(), neighbor);
+                        double g = x.getG() + graph.calcHeuristicDistance(x.getNode(), neighbor);
                         AStarNode n = openSet.get(neighbor.getId());
 
                         if (n == null) {
                             //not in the open set
-                            n = new AStarNode(neighbor, g, graph.calcManhattanDistance(neighbor, target));
+                            n = new AStarNode(neighbor, g, graph.calcHeuristicDistance(neighbor, target));
                             n.setCameFrom(x);
                             openSet.put(neighbor.getId(), n);
                             pQueue.add(n);
@@ -53,7 +54,7 @@ public class AStarSearch {
                             //Have a better route to the current node, change its parent
                             n.setCameFrom(x);
                             n.setG(g);
-                            n.setH(graph.calcManhattanDistance(neighbor, target));
+                            n.setH(graph.calcHeuristicDistance(neighbor, target));
                         }
                     }
                 }
