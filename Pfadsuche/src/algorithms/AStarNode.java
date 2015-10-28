@@ -11,7 +11,7 @@ package algorithms;
  */
 public class AStarNode {
 
-    private NavNode node;
+    private final NavNode node;
 
     //used to construct the path after the search is done
     private AStarNode cameFrom;
@@ -25,19 +25,18 @@ public class AStarNode {
     public AStarNode(NavNode n, double dist, double heu){
         node = n;
         g = dist;
-        h = heu;
-        
+        h = heu;    
     }
 
-    public String getId() {
+    String getId() {
        return node.getId();
     }
 
-    public double getF() {
+    double getF() {
         return g + h;
     }
 
-    public double getG() {
+    double getG() {
         return g;
     }
 
@@ -49,8 +48,8 @@ public class AStarNode {
         this.g = g;
     }
 
-    void setH(double calcHeuristicDistance) {
-        h = calcHeuristicDistance;
+    void setH(double heu) {
+        h = heu;
     }
 
     NavNode getNode() {
