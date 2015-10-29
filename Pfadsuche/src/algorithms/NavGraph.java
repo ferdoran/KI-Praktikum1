@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package algorithms;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
 import java.util.Set;
-import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
 
@@ -53,8 +47,8 @@ public class NavGraph<N extends NavNode, E extends NavEdge>{
         this.removeEdge(edge2);
     }
 
-    public double calcDistance(NavNode a, NavNode b){
-        return sqrt(power(abs(a.getX() - b.getX()),2) + (power(abs(a.getY() - b.getY()),2)));
+    double calcDistance(NavNode a, NavNode b){
+        return sqrt(power(a.getX() - b.getX(),2) + (power(a.getY() - b.getY(),2)));
     }
 
     Set<NavNode> getAdjacentNodes(String id) {
