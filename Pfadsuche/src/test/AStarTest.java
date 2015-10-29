@@ -159,50 +159,216 @@ public class AStarTest {
         p3_2.addNeighbour(p1_1);
         
         //Nachbarn des Knoten p3_3
+        p3_3.addNeighbour(p3_2);
+        p3_3.addNeighbour(p3_4);
+        p3_3.addNeighbour(p6_2);
+        p3_3.addNeighbour(p6_1);
+        p3_3.addNeighbour(p2_1);
+        p3_3.addNeighbour(p2_4);
+        p3_3.addNeighbour(p6_3);
+        p3_3.addNeighbour(p7_2);
+        p3_3.addNeighbour(p7_3);
+        
         
         //Nachbarn des Knoten p3_4
+        p3_4.addNeighbour(p3_3);
+        p3_4.addNeighbour(p3_5);
+        p3_4.addNeighbour(p2_4);
+        p3_4.addNeighbour(p2_1);
+        p3_4.addNeighbour(p6_3);
         
         //Nachbarn des Knoten p3_5
+        p3_5.addNeighbour(p3_4);
+        p3_5.addNeighbour(p3_6);
+        p3_5.addNeighbour(z);
+        p3_5.addNeighbour(p2_4);
         
         //Nachbarn des Knoten p3_6
+        p3_6.addNeighbour(p3_5);
+        p3_6.addNeighbour(p3_1);
+        p3_6.addNeighbour(p7_3);
+        p3_6.addNeighbour(p5_2);
+        
         
         //Nachbarn des Knoten p4_1
+        p4_1.addNeighbour(p4_2);
+        p4_1.addNeighbour(p4_5);
+        p4_1.addNeighbour(s);
         
         //Nachbarn des Knoten p4_2
+        p4_2.addNeighbour(p4_1);
+        p4_2.addNeighbour(p4_3);
+        p4_2.addNeighbour(p8_1);
+        p4_2.addNeighbour(p1_2);
+        p4_2.addNeighbour(p1_3);
+        
         
         //Nachbarn des Knoten p4_3
+        p4_3.addNeighbour(p4_2);
+        p4_3.addNeighbour(p4_4);
+        p4_3.addNeighbour(p8_1);
+        p4_3.addNeighbour(p8_3);
+        p4_3.addNeighbour(p1_2);
         
         //Nachbarn des Knoten p4_4
+        p4_4.addNeighbour(p4_3);
+        p4_4.addNeighbour(p4_5);
+        p4_4.addNeighbour(p8_1);
+        p4_4.addNeighbour(p8_3);
+        p4_4.addNeighbour(p5_4);
+        p4_4.addNeighbour(p5_3);
         
         //Nachbarn des Knoten p4_5
+        p4_5.addNeighbour(p4_1);
+        p4_5.addNeighbour(p4_4);
+        p4_5.addNeighbour(s);
+        p4_5.addNeighbour(p5_4);
+        p4_5.addNeighbour(p5_1);
+        
         
         //Nachbarn des Knoten p5_1
+        p5_1.addNeighbour(p5_4);
+        p5_1.addNeighbour(p5_2);
+        p5_1.addNeighbour(s);
+        p5_1.addNeighbour(p4_5);
         
         //Nachbarn des Knoten p5_2
+        p5_2.addNeighbour(p5_1);
+        p5_2.addNeighbour(p5_3);
+        p5_2.addNeighbour(p7_3);
+        p5_2.addNeighbour(p7_2);
+        p5_2.addNeighbour(p7_1);
+        p5_2.addNeighbour(p6_2);
+        p5_2.addNeighbour(p3_1);
+        p5_2.addNeighbour(p3_2);
+        p5_2.addNeighbour(p3_6);
         
         //Nachbarn des Knoten p5_3
+        p5_3.addNeighbour(p5_2);
+        p5_3.addNeighbour(p5_4);
+        p5_3.addNeighbour(p7_3);
+        p5_3.addNeighbour(p7_1);
+        p5_3.addNeighbour(p1_1);
+        p5_3.addNeighbour(p8_1);
+        p5_3.addNeighbour(p8_2);
+        p5_3.addNeighbour(p8_3);
+        p5_3.addNeighbour(p4_4);
+        p5_3.addNeighbour(p4_5);
         
         //Nachbarn des Knoten p5_4
+        p5_4.addNeighbour(p5_3);
+        p5_4.addNeighbour(p5_1);
+        p5_4.addNeighbour(s);
+        p5_4.addNeighbour(p4_4);
+        p5_4.addNeighbour(p4_5);
+        p5_4.addNeighbour(p8_1);
+        p5_4.addNeighbour(p8_2);
         
         //Nachbarn des Knoten p6_1
+        p6_1.addNeighbour(p6_2);
+        p6_1.addNeighbour(p6_4);
+        p6_1.addNeighbour(p3_1);
+        p6_1.addNeighbour(p3_2);
+        p6_1.addNeighbour(p3_3);
+        p6_1.addNeighbour(p7_1);
+        p6_1.addNeighbour(p7_2);
+        p6_1.addNeighbour(p1_1);
+        p6_1.addNeighbour(p1_4);
         
         //Nachbarn des Knoten p6_2
+        p6_2.addNeighbour(p6_1);
+        p6_2.addNeighbour(p6_3);
+        p6_2.addNeighbour(p3_1);
+        p6_2.addNeighbour(p3_2);
+        p6_2.addNeighbour(p2_4);
+        p6_2.addNeighbour(p2_1);
+        p6_2.addNeighbour(p7_2);
+        p6_2.addNeighbour(p7_3);
+        p6_2.addNeighbour(p5_2);
         
         //Nachbarn des Knoten p6_3
+        p6_3.addNeighbour(p6_4);
+        p6_3.addNeighbour(p6_2);
+        p6_3.addNeighbour(p2_1);
+        p6_3.addNeighbour(p2_2);
+        p6_3.addNeighbour(p2_4);
+        p6_3.addNeighbour(p3_3);
+        p6_3.addNeighbour(p3_4);
+        p6_3.addNeighbour(p1_3);
         
         //Nachbarn des Knoten p6_4
+        p6_4.addNeighbour(p6_1);
+        p6_4.addNeighbour(p6_3);
+        p6_4.addNeighbour(p1_3);
+        p6_4.addNeighbour(p1_4);
+        p6_4.addNeighbour(p2_1);
         
         //Nachbarn des Knoten p7_1
+        p7_1.addNeighbour(p7_2);
+        p7_1.addNeighbour(p7_3);
+        p7_1.addNeighbour(p5_2);
+        p7_1.addNeighbour(p5_3);
+        p7_1.addNeighbour(p8_2);
+        p7_1.addNeighbour(p1_1);
+        p7_1.addNeighbour(p1_2);
+        p7_1.addNeighbour(p6_1);
+        p7_1.addNeighbour(p3_2);
         
         //Nachbarn des Knoten p7_2
+        p7_2.addNeighbour(p7_1);
+        p7_2.addNeighbour(p7_3);
+        p7_2.addNeighbour(p3_1);
+        p7_2.addNeighbour(p3_2);
+        p7_2.addNeighbour(p3_3);
+        p7_2.addNeighbour(p6_1);
+        p7_2.addNeighbour(p6_2);
+        p7_2.addNeighbour(p5_2);
         
         //Nachbarn des Knoten p7_3
+        p7_3.addNeighbour(p7_1);
+        p7_3.addNeighbour(p7_2);
+        p7_3.addNeighbour(p3_1);
+        p7_3.addNeighbour(p3_2);
+        p7_3.addNeighbour(p3_3);
+        p7_3.addNeighbour(p3_6);
+        p7_3.addNeighbour(p6_2);
+        p7_3.addNeighbour(p5_2);
+        p7_3.addNeighbour(p5_3);
+        p7_3.addNeighbour(p1_1);
+        p7_3.addNeighbour(p8_1);
+        
         
         //Nachbarn des Knoten p8_1
+        p8_1.addNeighbour(p8_2);
+        p8_1.addNeighbour(p8_3);
+        p8_1.addNeighbour(p1_1);
+        p8_1.addNeighbour(p1_2);
+        p8_1.addNeighbour(p8_2);
+        p8_1.addNeighbour(p4_2);
+        p8_1.addNeighbour(p4_3);
+        p8_1.addNeighbour(p4_4);
+        p8_1.addNeighbour(p5_3);
+        p8_1.addNeighbour(p7_3);
         
         //Nachbarn des Knoten p8_2
+        p8_2.addNeighbour(p8_1);
+        p8_2.addNeighbour(p8_3);
+        p8_2.addNeighbour(p5_3);
+        p8_2.addNeighbour(p5_4);
+        p8_2.addNeighbour(p1_1);
+        p8_2.addNeighbour(p1_2);
+        p8_2.addNeighbour(p1_4);
+        p8_2.addNeighbour(p7_1);
         
         //Nachbarn des Knoten p8_3
+        p8_3.addNeighbour(p8_1);
+        p8_3.addNeighbour(p8_2);
+        p8_3.addNeighbour(p5_3);
+        p8_3.addNeighbour(p5_4);
+        p8_3.addNeighbour(p4_3);
+        p8_3.addNeighbour(p4_4);
+        
+        
 
     }
 }
