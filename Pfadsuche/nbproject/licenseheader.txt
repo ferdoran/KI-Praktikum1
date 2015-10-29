@@ -1,0 +1,10 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}TH Koeln Informatik BA
+${licensePrefix}5. Semester KI Praktikum
+${licensePrefix}Praktikum 1, Aufgabe 1
+${licensePrefix}Roland Mueller & Stephan Schneider
+<#if licenseLast??>
+${licenseLast}
+</#if>
