@@ -1,13 +1,10 @@
 package test;
 import algorithms.*;
-import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
 /**
  *
  * @author Mahdi
  * Diese Klasse dient dem Test des AStar-Algorithmus welcher im Package
- * 'algorithms'.
+ * 'algorithms' verwaltet wird.
  */
 public class AStarTest {
     
@@ -68,9 +65,9 @@ public class AStarTest {
     
     
     /*  Festlegen der 'Nachbarn' für die Aufgabe. 'Nachbarn' sind in diesem
-    *  Fall alle Knoten welche auf direktem Wege vom jeweiligen Knoten aus
-    *  erreicht werden können, ohne durch die Hindernisse zu gehen. Vorerst noch
-    *  'von Hand'.
+     *  Fall alle Knoten welche auf direktem Wege vom jeweiligen Knoten aus
+     *  erreicht werden können, ohne durch die Hindernisse zu gehen. Vorerst noch
+     *  'von Hand'.
      */
         //Nachbarn des Startknoten s
         s.addNeighbour(p5_1);
@@ -79,8 +76,133 @@ public class AStarTest {
         s.addNeighbour(p4_1);
         
         //Nachbarn des Knoten p1_1
-        //p1_1.addNeighbour(z);
-        sqrt(power(p5_4.getX() - p5_3.getX(),2) + (power(p5_4.getY() - p5_3.getY(),2)));
-    
+        p1_1.addNeighbour(p8_1);
+        p1_1.addNeighbour(p8_2);
+        p1_1.addNeighbour(p5_3);
+        p1_1.addNeighbour(p7_3);
+        p1_1.addNeighbour(p7_1);
+        p1_1.addNeighbour(p6_1);
+        p1_1.addNeighbour(p1_4);
+        p1_1.addNeighbour(p1_2);
+        p1_1.addNeighbour(p3_2);
+        
+        //Nachbarn des Knoten p1_2
+        p1_2.addNeighbour(p4_2);
+        p1_2.addNeighbour(p4_3);
+        p1_2.addNeighbour(p8_1);
+        p1_2.addNeighbour(p1_3);
+        p1_2.addNeighbour(p1_1);
+        
+        //Nachbarn des Knoten p1_3
+        p1_3.addNeighbour(p1_2);
+        p1_3.addNeighbour(p1_3);
+        p1_3.addNeighbour(p6_4);
+        p1_3.addNeighbour(p4_2);
+        p1_3.addNeighbour(p6_3);
+        p1_3.addNeighbour(p2_2);
+        
+        //Nachbarn des Knoten p1_4
+        p1_4.addNeighbour(p1_1);
+        p1_4.addNeighbour(p1_3);
+        p1_4.addNeighbour(p8_2);
+        p1_4.addNeighbour(p7_1);
+        p1_4.addNeighbour(p6_4);
+        p1_4.addNeighbour(p6_1);
+
+        //Nachbarn des Knoten p2_1
+        p2_1.addNeighbour(p2_2);
+        p2_1.addNeighbour(p2_4);
+        p2_1.addNeighbour(p6_2);
+        p2_1.addNeighbour(p6_3);
+        p2_1.addNeighbour(p3_3);
+        
+        //Nachbarn des Knoten p2_2
+        p2_2.addNeighbour(p2_1);
+        p2_2.addNeighbour(p2_3);
+        p2_2.addNeighbour(z);
+        p2_2.addNeighbour(p6_3);
+        p2_2.addNeighbour(p1_3);
+        p2_2.addNeighbour(p6_4);
+        
+        //Nachbarn des Knoten p2_3
+        p2_3.addNeighbour(p2_2);
+        p2_3.addNeighbour(p2_4);
+        p2_3.addNeighbour(z);
+
+        //Nachbarn des Knoten p2_4
+        p2_4.addNeighbour(p2_3);
+        p2_4.addNeighbour(p2_1);
+        p2_4.addNeighbour(z);
+        p2_4.addNeighbour(p6_3);
+        p2_4.addNeighbour(p6_2);
+        p2_4.addNeighbour(p3_3);
+        p2_4.addNeighbour(p3_4);
+        p2_4.addNeighbour(p3_5);
+        
+        //Nachbarn des Knoten p3_1
+        p3_1.addNeighbour(p3_2);
+        p3_1.addNeighbour(p3_6);
+        p3_1.addNeighbour(p5_2);
+        p3_1.addNeighbour(p7_3);
+        p3_1.addNeighbour(p7_2);
+        p3_1.addNeighbour(p6_1);
+        
+        //Nachbarn des Knoten p3_2
+        p3_2.addNeighbour(p3_3);
+        p3_2.addNeighbour(p3_1);
+        p3_2.addNeighbour(p5_2);
+        p3_2.addNeighbour(p7_3);
+        p3_2.addNeighbour(p7_2);
+        p3_2.addNeighbour(p6_1);
+        p3_2.addNeighbour(p6_4);
+        p3_2.addNeighbour(p7_1);
+        p3_2.addNeighbour(p1_1);
+        
+        //Nachbarn des Knoten p3_3
+        
+        //Nachbarn des Knoten p3_4
+        
+        //Nachbarn des Knoten p3_5
+        
+        //Nachbarn des Knoten p3_6
+        
+        //Nachbarn des Knoten p4_1
+        
+        //Nachbarn des Knoten p4_2
+        
+        //Nachbarn des Knoten p4_3
+        
+        //Nachbarn des Knoten p4_4
+        
+        //Nachbarn des Knoten p4_5
+        
+        //Nachbarn des Knoten p5_1
+        
+        //Nachbarn des Knoten p5_2
+        
+        //Nachbarn des Knoten p5_3
+        
+        //Nachbarn des Knoten p5_4
+        
+        //Nachbarn des Knoten p6_1
+        
+        //Nachbarn des Knoten p6_2
+        
+        //Nachbarn des Knoten p6_3
+        
+        //Nachbarn des Knoten p6_4
+        
+        //Nachbarn des Knoten p7_1
+        
+        //Nachbarn des Knoten p7_2
+        
+        //Nachbarn des Knoten p7_3
+        
+        //Nachbarn des Knoten p8_1
+        
+        //Nachbarn des Knoten p8_2
+        
+        //Nachbarn des Knoten p8_3
+
     }
 }
