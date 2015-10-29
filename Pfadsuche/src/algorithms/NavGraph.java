@@ -9,8 +9,6 @@ import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
 import java.util.Set;
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -35,8 +33,6 @@ class NavEdge {
 }
 
 public class NavGraph<N extends NavNode, E extends NavEdge>{
-    protected List<N> nodeList;
-    protected List<E> edgeList;
     
     public void addConnection(String firstId, String secondId){
         NavNode node1 = this.getNode(firstId);
@@ -57,7 +53,7 @@ public class NavGraph<N extends NavNode, E extends NavEdge>{
         this.removeEdge(edge2);
     }
 
-    double calcDistance(NavNode a, NavNode b){
+    public double calcDistance(NavNode a, NavNode b){
         return sqrt(power(abs(a.getX() - b.getX()),2) + (power(abs(a.getY() - b.getY()),2)));
     }
 
