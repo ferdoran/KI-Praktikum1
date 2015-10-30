@@ -25,8 +25,15 @@ public class Points {
         costTable = new HashMap<>();
     }
     
-    public void addPoint(Point p) {
-        points.add(p);
+    public boolean addPoint(Point p) {
+        if(!exists(p)) {
+           points.add(p);
+           return true;
+        }
+        else {
+            return false;
+        }
+            
     }
     
     public boolean addNeighbour(Point p, Point n) {
@@ -39,9 +46,13 @@ public class Points {
                
             }
             else {
-                neighbours.add(n);
-                neighbourTable.replace(p, neighbours);
-                
+                if(!neighbourTable.get(p).contains(n)) {
+                    neighbours.add(n);
+                    neighbourTable.replace(p, neighbours);
+                }
+                else {
+                    return false;
+                }
             }
             return true;
         }
@@ -65,6 +76,16 @@ public class Points {
     public boolean exists(Point p) {
         try {
             this.getPoint(p.getX(), p.getY());
+        }
+        catch(NoSuchElementException e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean exists(double x, double y) {
+        try {
+            getPoint(x, y);
         }
         catch(NoSuchElementException e) {
             return false;
