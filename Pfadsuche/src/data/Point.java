@@ -36,6 +36,15 @@ public class Point extends Point2D.Double {
         return name;
     }
     
+    public boolean equals(Point p) {
+        if(p.getX() == this.x && p.getY() == this.y) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
     
     
 }

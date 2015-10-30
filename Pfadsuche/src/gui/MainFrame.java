@@ -417,17 +417,21 @@ public class MainFrame extends javax.swing.JFrame {
         double y = Integer.parseInt(addPointDialogYField.getText());
         String name = addPointDialogNameField.getText();
         Point po = new Point(x,y,name);
-        p.addPoint(po);
-        StringBuilder sb = new StringBuilder();
-        sb.append(log.getText());
-        sb.append( "Punkt " +name+" (" + x + ", " + y + ") hinzugefügt\n");
-
-        addPointDialog.setVisible(false);
-        addPointDialogXField.setText("");
-        addPointDialogYField.setText("");
-        log.setText(sb.toString());
-        draw.setPoints(p.getAllPoints());
-        draw.drawAllPoints();
+        if(p.addPoint(po)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(log.getText());
+            sb.append( "Punkt " +name+" (" + x + ", " + y + ") hinzugefügt\n");
+            addPointDialog.setVisible(false);
+            addPointDialogXField.setText("");
+            addPointDialogYField.setText("");
+            log.setText(sb.toString());
+            draw.setPoints(p.getAllPoints());
+            draw.drawAllPoints();
+        } 
+        else {
+            JOptionPane.showMessageDialog(this, "Point already exists!");
+        }
+        
     }//GEN-LAST:event_addPointDialogAddButtonActionPerformed
 
     private void drawMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawMouseClicked
@@ -528,11 +532,15 @@ public class MainFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "The entered Neighbour does not exist.");
         }
         else {
-            p.addNeighbour(draw.selected, p.getPoint(x, y));
-            addLogLine("add", draw.selected, "nb");
-            addNeighbourDialog.setVisible(false);
-            addNeighbourDialogXField.setText("");
-            addNeighbourDialogYField.setText("");
+            if(p.addNeighbour(draw.selected, p.getPoint(x, y))) {
+                addLogLine("add", draw.selected, "nb");
+                addNeighbourDialog.setVisible(false);
+                addNeighbourDialogXField.setText("");
+                addNeighbourDialogYField.setText("");
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Adding neighbour failed. The neighbour already exists");
+            }
         }
     }//GEN-LAST:event_addNeighbourDialogAddButtonActionPerformed
 
