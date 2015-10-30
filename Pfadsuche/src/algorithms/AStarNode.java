@@ -1,5 +1,7 @@
 package algorithms;
 
+import data.NavNode;
+
 /**
  *
  * @author Mahdi

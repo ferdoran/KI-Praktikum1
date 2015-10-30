@@ -4,7 +4,7 @@
  * Praktikum 1, Aufgabe 1
  * Roland Mueller & Stephan Schneider
  */
-package algorithms;
+package data;
 
 /**
  *

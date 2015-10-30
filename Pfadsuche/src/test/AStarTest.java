@@ -1,4 +1,5 @@
 package test;
+import data.NavNode;
 import algorithms.*;
 /**
  *

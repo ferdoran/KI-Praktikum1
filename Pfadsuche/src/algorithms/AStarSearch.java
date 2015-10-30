@@ -1,5 +1,6 @@
 package algorithms;
 
+import data.NavNode;
 import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
 import static com.sun.org.apache.xalan.internal.lib.ExsltMath.sqrt;
 import java.util.ArrayList;
