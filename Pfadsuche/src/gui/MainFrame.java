@@ -161,32 +161,6 @@ public class MainFrame extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-
-    private void addNeighbourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNeighbourButtonActionPerformed
-
-    private void addNeighbourDialogXFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourDialogXFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNeighbourDialogXFieldActionPerformed
-
-    private void addNeighbourDialogCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourDialogCancelButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNeighbourDialogCancelButtonActionPerformed
-
-    private void addNeighbourDialogAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourDialogAddButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNeighbourDialogAddButtonActionPerformed
-
-    private void drawToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawToggleButtonActionPerformed
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_drawToggleButtonActionPerformed
-
-    private void drawMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawMouseMoved
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_drawMouseMoved
-
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_startButtonActionPerformed
