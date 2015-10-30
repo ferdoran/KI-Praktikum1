@@ -18,6 +18,7 @@ import java.util.HashSet;
 public class DrawingPanel extends javax.swing.JPanel {
     
     HashSet<Point> points;
+    HashSet<Point> drawnPoints;
     Point selected;
 
     /**
@@ -25,7 +26,7 @@ public class DrawingPanel extends javax.swing.JPanel {
      */
     public DrawingPanel() {
         initComponents();
-        
+        drawnPoints = new HashSet<>();
     }
     
     public boolean setPoints(HashSet<Point> p) {
@@ -37,16 +38,26 @@ public class DrawingPanel extends javax.swing.JPanel {
     }
     
     
-    public void paintPoints() {
+    public void drawAllPoints() {
         Graphics2D g = (Graphics2D) this.getGraphics();
         super.paintComponent(g);
         for(Point p: points) {
-            int x = (int) p.getX();
-            int y = (int) p.getY();
+                int x = (int) p.getX();
+                int y = (int) p.getY();
+                
+                g.drawOval(x, y, 5, 5);
+                g.fillOval(x, y, 5, 5);
+                g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 15+y);
+        }
+        if(selected != null) {
+            int x = (int) selected.getX();
+            int y = (int) selected.getY();
+            String name = selected.getName();
+            g.setColor(Color.RED);
+            g.drawOval(x, y, 5, 5);
+            g.fillOval(x, y, 5, 5);
+            g.drawString(name + "("+(x)+","+ y + ")", x, 15+y);
             
-            g.drawOval(20+x, 10+y, 5, 5);
-            g.fillOval(20+x, 10+y, 5, 5);
-            g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 30+y);
         }
     }
     
@@ -56,39 +67,57 @@ public class DrawingPanel extends javax.swing.JPanel {
         super.paintComponent(g);
         int x = (int) p.getX();
         int y = (int) p.getY();
+        
+        
+        drawAllPoints();
         g.setColor(Color.RED);
-        g.drawOval(20+x, 10+y, 5, 5);
-        g.fillOval(20+x, 10+y, 5, 5);
-        g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 30+y);
+        g.drawOval(x, y, 5, 5);
+        g.fillOval(x, y, 5, 5);
+        g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 15+y);
+    }
+    
+    public void drawPoint(Point p) {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        super.paintComponent(g);
+        int x = (int) p.getX();
+        int y = (int) p.getY();
+        g.drawOval(x, y, 5, 5);
+        g.fillOval(x, y, 5, 5);
+        g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 15+y);
     }
     
     public void unselectPoints() {
         if(selected != null) {
+            selected=null;
             Graphics2D g = (Graphics2D) this.getGraphics();
             super.paintComponent(g);
-            int x = (int) selected.getX();
-            int y = (int) selected.getY();
-            g.setColor(Color.BLACK);
-            g.drawOval(20+x, 10+y, 5, 5);
-            g.fillOval(20+x, 10+y, 5, 5);
-            g.drawString(selected.getName() + "("+(x)+","+ y + ")", x, 30+y);
-            selected=null;
+            undrawAllPoints();
+            drawAllPoints();
+            
         }
         else {
             
         }
     }
     
-    public void removePoint(Point p) {
+    
+    public void undrawPoint(Point p) {
         Graphics2D g = (Graphics2D) this.getGraphics();
         super.paintComponent(g);
-        int x = (int) p.getX();
-        int y = (int) p.getY();
-        
-        g.setColor(getBackground());
-        g.drawOval(20+x, 10+y, 5, 5);
-        g.fillOval(20+x, 10+y, 5, 5);
-        g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 30+y);
+        if(drawnPoints.contains(p)) {
+            int x = (int) p.getX();
+            int y = (int) p.getY();
+            g.setColor(getBackground());
+            g.drawOval(x, y, 5, 5);
+            g.fillOval(x, y, 5, 5);
+            g.drawString(p.getName() + "("+(x)+","+ y + ")", x, 15+y);
+        }
+    }
+    public void undrawAllPoints() {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        super.paintComponent(g);
+        drawnPoints.clear();
+        g.clearRect(0, 0, WIDTH, HEIGHT);
     }
 
     /**

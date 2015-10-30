@@ -72,6 +72,16 @@ public class Points {
         return true;
     }
     
+    public boolean exists(double x, double y) {
+        try {
+            getPoint(x, y);
+        }
+        catch(NoSuchElementException e) {
+            return false;
+        }
+        return true;
+    }
+    
     public HashSet<Point> getAllPoints() {
         return (HashSet<Point>) points.clone();
     }

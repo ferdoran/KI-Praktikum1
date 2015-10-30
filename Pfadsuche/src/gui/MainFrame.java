@@ -8,10 +8,15 @@ package gui;
 
 import data.Point;
 import data.Points;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import util.FileParser;
 
 /**
  *
@@ -19,12 +24,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class MainFrame extends javax.swing.JFrame {
     Points p;
+    boolean drawToggle;
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
         p = new Points();
+        drawToggle = true;
         
         
         
@@ -48,6 +55,14 @@ public class MainFrame extends javax.swing.JFrame {
         addPointDialogYLabel = new javax.swing.JLabel();
         addPointDialogNameField = new javax.swing.JTextField();
         addPointDialogNameLabel = new javax.swing.JLabel();
+        addNeighbourDialog = new javax.swing.JDialog();
+        addNeighbourDialogInfoLabel = new javax.swing.JLabel();
+        addNeighbourDialogXField = new javax.swing.JTextField();
+        addNeighbourDialogYField = new javax.swing.JTextField();
+        addNeighbourDialogAddButton = new javax.swing.JButton();
+        addNeighbourDialogCancelButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         addPointButton = new javax.swing.JButton();
         removePointButton = new javax.swing.JButton();
         addNeighbourButton = new javax.swing.JButton();
@@ -56,12 +71,13 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         log = new javax.swing.JTextPane();
         jLabel7 = new javax.swing.JLabel();
-        getAllPointsButton = new javax.swing.JButton();
+        showNeighboursButton = new javax.swing.JButton();
         draw = new DrawingPanel();
         selectedPointXField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         selectedPointYField = new javax.swing.JTextField();
+        drawToggleButton = new javax.swing.JButton();
 
         addPointDialog.setTitle("Add Point");
         addPointDialog.setBounds(new java.awt.Rectangle(200, 200, 200, 170));
@@ -148,9 +164,81 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        addNeighbourDialog.setTitle("Add Neighbour");
+        addNeighbourDialog.setMinimumSize(new java.awt.Dimension(250, 240));
+
+        addNeighbourDialogXField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNeighbourDialogXFieldActionPerformed(evt);
+            }
+        });
+
+        addNeighbourDialogAddButton.setText("Add Neighbour");
+        addNeighbourDialogAddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNeighbourDialogAddButtonActionPerformed(evt);
+            }
+        });
+
+        addNeighbourDialogCancelButton.setText("Cancel");
+        addNeighbourDialogCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNeighbourDialogCancelButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("X:");
+
+        jLabel2.setText("Y:");
+
+        javax.swing.GroupLayout addNeighbourDialogLayout = new javax.swing.GroupLayout(addNeighbourDialog.getContentPane());
+        addNeighbourDialog.getContentPane().setLayout(addNeighbourDialogLayout);
+        addNeighbourDialogLayout.setHorizontalGroup(
+            addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addNeighbourDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addNeighbourDialogLayout.createSequentialGroup()
+                        .addComponent(addNeighbourDialogInfoLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addNeighbourDialogLayout.createSequentialGroup()
+                        .addGroup(addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addNeighbourDialogXField)
+                            .addComponent(addNeighbourDialogYField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
+                    .addGroup(addNeighbourDialogLayout.createSequentialGroup()
+                        .addComponent(addNeighbourDialogAddButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(addNeighbourDialogCancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        addNeighbourDialogLayout.setVerticalGroup(
+            addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addNeighbourDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addNeighbourDialogInfoLabel)
+                .addGap(51, 51, 51)
+                .addGroup(addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addNeighbourDialogXField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addNeighbourDialogYField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(addNeighbourDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addNeighbourDialogAddButton)
+                    .addComponent(addNeighbourDialogCancelButton))
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KI-Prak1 - Pfadsuche");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(190, 140));
 
         addPointButton.setText("Add Point");
         addPointButton.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +255,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         addNeighbourButton.setText("Add Neighbour");
+        addNeighbourButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNeighbourButtonActionPerformed(evt);
+            }
+        });
 
         removeNeighbourButton.setText("Remove Neighbour");
 
@@ -183,9 +276,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel7.setText("Log:");
 
-        getAllPointsButton.setText("Get all points");
+        showNeighboursButton.setText("Show Neighbours");
 
         draw.setPreferredSize(new java.awt.Dimension(615, 0));
+        draw.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                drawMouseMoved(evt);
+            }
+        });
         draw.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 drawMouseClicked(evt);
@@ -213,6 +311,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        drawToggleButton.setText("Toggle Drawing");
+        drawToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawToggleButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,12 +325,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getAllPointsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addNeighbourButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(removeNeighbourButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,7 +344,14 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(selectedPointYField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 8, Short.MAX_VALUE)))
-                        .addGap(38, 38, 38)))
+                        .addGap(38, 38, 38))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(showNeighboursButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addNeighbourButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(removeNeighbourButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(drawToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(draw, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -263,9 +369,11 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)
                             .addComponent(selectedPointYField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addComponent(getAllPointsButton)
-                        .addGap(34, 34, 34)
+                        .addGap(18, 18, 18)
+                        .addComponent(drawToggleButton)
+                        .addGap(14, 14, 14)
+                        .addComponent(showNeighboursButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addNeighbourButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeNeighbourButton)
@@ -285,18 +393,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPointButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPointButtonActionPerformed
-        addPointDialog.setVisible(true);
-//        double x = Double.parseDouble(xAddPoint.getText());
-//        double y = Double.parseDouble(yAddPoint.getText());
-//        
-//        p.addPoint(new Point(x, y));
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(log.getText());
-//        sb.append( "Neuer Punkt(" + x + ", " + y + ") hinzugefügt\n");
-//        log.setText(sb.toString());
-//        draw.setPoints(p.getAllPoints());
-//        draw.paintPoints();
-        
+        addPointDialog.setVisible(true);      
     }//GEN-LAST:event_addPointButtonActionPerformed
 
     private void addPointDialogYFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPointDialogYFieldActionPerformed
@@ -310,6 +407,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void addPointDialogCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPointDialogCancelButtonActionPerformed
         // TODO add your handling code here:
         addPointDialog.setVisible(false);
+        addPointDialogXField.setText("");
+        addPointDialogYField.setText("");
     }//GEN-LAST:event_addPointDialogCancelButtonActionPerformed
 
     private void addPointDialogAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPointDialogAddButtonActionPerformed
@@ -317,17 +416,18 @@ public class MainFrame extends javax.swing.JFrame {
         double x = Integer.parseInt(addPointDialogXField.getText());
         double y = Integer.parseInt(addPointDialogYField.getText());
         String name = addPointDialogNameField.getText();
-
-        p.addPoint(new Point(x, y, name));
+        Point po = new Point(x,y,name);
+        p.addPoint(po);
         StringBuilder sb = new StringBuilder();
         sb.append(log.getText());
         sb.append( "Punkt " +name+" (" + x + ", " + y + ") hinzugefügt\n");
 
         addPointDialog.setVisible(false);
-
+        addPointDialogXField.setText("");
+        addPointDialogYField.setText("");
         log.setText(sb.toString());
         draw.setPoints(p.getAllPoints());
-        draw.paintPoints();
+        draw.drawAllPoints();
     }//GEN-LAST:event_addPointDialogAddButtonActionPerformed
 
     private void drawMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawMouseClicked
@@ -338,7 +438,7 @@ public class MainFrame extends javax.swing.JFrame {
         for(Point po : p.getAllPoints()) {
             int poX = (int) po.getX();
             int poY = (int) po.getY();
-            if((x >= poX-30 && x <= poX+30 && y >= poY-30 && y <= poY+30)) 
+            if((x >= poX-5 && x <= poX+5 && y >= poY-5 && y <= poY+5)) 
             {
                 selectedPointXField.setText(Integer.toString(poX));
                 selectedPointYField.setText(Integer.toString(poY));
@@ -349,7 +449,7 @@ public class MainFrame extends javax.swing.JFrame {
                 selectedPointXField.setText("");
                 selectedPointYField.setText("");
                 draw.unselectPoints();
-                break;
+                
             }
         }
     }//GEN-LAST:event_drawMouseClicked
@@ -362,12 +462,14 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String x1 = selectedPointXField.getText();
         String y1 = selectedPointYField.getText();
-        if(x1 != "" && y1 != "") {
+        if(!"".equals(x1) && !"".equals(y1)) {
             double x = Double.parseDouble(x1);
             double y = Double.parseDouble(y1);
             Point po = p.getPoint(x, y);
             p.removePoint(po);
-            draw.removePoint(po);
+            
+            draw.setPoints(p.getAllPoints());
+            draw.undrawPoint(po);
             addLogLine("remove", po, "p");
             selectedPointXField.setText("");
             selectedPointYField.setText("");
@@ -378,6 +480,92 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+
+    private void addNeighbourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourButtonActionPerformed
+        // TODO add your handling code here:
+        String x = selectedPointXField.getText();
+        String y = selectedPointYField.getText();
+        
+        if("".equals(x) || "".equals(y)) {
+            JOptionPane.showMessageDialog(this, "No Point selected");
+            
+        }
+        else if(!p.exists(Double.parseDouble(x), Double.parseDouble(y))) {
+            JOptionPane.showMessageDialog(this, "Selected Point does not exist.");
+        }
+        else {
+            addNeighbourDialog.setVisible(true);
+            
+            double x1 = Double.parseDouble(x);
+            double y1 = Double.parseDouble(y);
+            Point po = p.getPoint(x1, y1);
+            
+            addNeighbourDialogInfoLabel.setText("Add Neighbour to Point " + po.getName() + "(" + x1 + "," + y1 + ")");
+        }
+            
+        
+        
+    }//GEN-LAST:event_addNeighbourButtonActionPerformed
+
+    private void addNeighbourDialogXFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourDialogXFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addNeighbourDialogXFieldActionPerformed
+
+    private void addNeighbourDialogCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourDialogCancelButtonActionPerformed
+        // TODO add your handling code here:
+        addNeighbourDialog.setVisible(false);
+        addNeighbourDialogXField.setText("");
+        addNeighbourDialogYField.setText("");
+    }//GEN-LAST:event_addNeighbourDialogCancelButtonActionPerformed
+
+    private void addNeighbourDialogAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNeighbourDialogAddButtonActionPerformed
+        // TODO add your handling code here:
+        double x = Double.parseDouble(addNeighbourDialogXField.getText());
+        double y = Double.parseDouble(addNeighbourDialogYField.getText());
+        
+        if(!p.exists(x, y)) {
+            JOptionPane.showMessageDialog(this, "The entered Neighbour does not exist.");
+        }
+        else {
+            p.addNeighbour(draw.selected, p.getPoint(x, y));
+            addLogLine("add", draw.selected, "nb");
+            addNeighbourDialog.setVisible(false);
+            addNeighbourDialogXField.setText("");
+            addNeighbourDialogYField.setText("");
+        }
+    }//GEN-LAST:event_addNeighbourDialogAddButtonActionPerformed
+
+    private void drawToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawToggleButtonActionPerformed
+        // TODO add your handling code here:
+        if(drawToggle) {
+            drawToggle = false;
+            draw.undrawAllPoints();
+        }
+        else {
+            drawToggle = true;
+            draw.drawAllPoints();
+        }
+        
+    }//GEN-LAST:event_drawToggleButtonActionPerformed
+
+    private void drawMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_drawMouseMoved
+        // TODO add your handling code here:
+        int x = evt.getX();
+        int y = evt.getX();
+        
+        for(Point po : p.getAllPoints()) {
+            int poX = (int) po.getX();
+            int poY = (int) po.getY();
+            if((x >= poX-5 && x <= poX+5 && y >= poY-5 && y <= poY+5)) {
+                draw.setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.HAND_CURSOR));
+            }
+            else {
+                draw.setCursor(java.awt.Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_drawMouseMoved
+
     
     private void addLogLine(String typeFlag, Point p, String logType) {
         double x = p.getX();
@@ -411,6 +599,20 @@ public class MainFrame extends javax.swing.JFrame {
         
         log.setText(sb.toString());
     }
+    
+    public HashSet<Point> getPointsFromFile(String filepath) throws FileNotFoundException {
+        HashSet<Point> result = new HashSet<>();
+        File file = new File(filepath);
+        
+        if(!file.exists()) {
+            JOptionPane.showMessageDialog(this, "File does not exist");
+            throw new FileNotFoundException();
+        }
+        
+        FileParser fp = new FileParser(filepath);
+        
+        return result;
+    }
     /**
      * @param args the command line arguments
      */
@@ -422,7 +624,7 @@ public class MainFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("WindowsLookAndFeel".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -460,6 +662,12 @@ public class MainFrame extends javax.swing.JFrame {
     /*
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNeighbourButton;
+    private javax.swing.JDialog addNeighbourDialog;
+    private javax.swing.JButton addNeighbourDialogAddButton;
+    private javax.swing.JButton addNeighbourDialogCancelButton;
+    private javax.swing.JLabel addNeighbourDialogInfoLabel;
+    private javax.swing.JTextField addNeighbourDialogXField;
+    private javax.swing.JTextField addNeighbourDialogYField;
     private javax.swing.JButton addPointButton;
     private javax.swing.JDialog addPointDialog;
     private javax.swing.JButton addPointDialogAddButton;
@@ -471,8 +679,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField addPointDialogYField;
     private javax.swing.JLabel addPointDialogYLabel;
     private javax.swing.JPanel draw;
-    private javax.swing.JButton getAllPointsButton;
+    private javax.swing.JButton drawToggleButton;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -482,11 +692,16 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton removePointButton;
     private javax.swing.JTextField selectedPointXField;
     private javax.swing.JTextField selectedPointYField;
+    private javax.swing.JButton showNeighboursButton;
     // End of variables declaration//GEN-END:variables
 */
-    private javax.swing.JTextField selectedPointXField;
-    private javax.swing.JTextField selectedPointYField;
     private javax.swing.JButton addNeighbourButton;
+    private javax.swing.JDialog addNeighbourDialog;
+    private javax.swing.JButton addNeighbourDialogAddButton;
+    private javax.swing.JButton addNeighbourDialogCancelButton;
+    private javax.swing.JLabel addNeighbourDialogInfoLabel;
+    private javax.swing.JTextField addNeighbourDialogXField;
+    private javax.swing.JTextField addNeighbourDialogYField;
     private javax.swing.JButton addPointButton;
     private javax.swing.JDialog addPointDialog;
     private javax.swing.JButton addPointDialogAddButton;
@@ -497,14 +712,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel addPointDialogXLabel;
     private javax.swing.JTextField addPointDialogYField;
     private javax.swing.JLabel addPointDialogYLabel;
-    private javax.swing.JButton getAllPointsButton;
+    private javax.swing.JButton drawToggleButton;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -512,11 +723,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextPane log;
     private javax.swing.JButton removeNeighbourButton;
     private javax.swing.JButton removePointButton;
-    private javax.swing.JTextField x1AddNeighbour;
-    private javax.swing.JTextField x2AddNeighbour;
-    private javax.swing.JTextField xAddPoint;
-    private javax.swing.JTextField y1AddNeighbour;
-    private javax.swing.JTextField y2AddNeighbour;
-    private javax.swing.JTextField yAddPoint;
+    private javax.swing.JTextField selectedPointXField;
+    private javax.swing.JTextField selectedPointYField;
+    private javax.swing.JButton showNeighboursButton;
     private DrawingPanel draw;
     }
