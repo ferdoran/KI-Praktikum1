@@ -7,15 +7,11 @@ package gui;
 
 import data.Point;
 import data.Points;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import util.FileParser;
+
 
 /**
  *
@@ -195,19 +191,6 @@ public class MainFrame extends javax.swing.JFrame {
         log.setText(sb.toString());
     }
 
-    public HashSet<Point> getPointsFromFile(String filepath) throws FileNotFoundException {
-        HashSet<Point> result = new HashSet<>();
-        File file = new File(filepath);
-
-        if (!file.exists()) {
-            JOptionPane.showMessageDialog(this, "File does not exist");
-            throw new FileNotFoundException();
-        }
-
-        FileParser fp = new FileParser(filepath);
-
-        return result;
-    }
 
     /**
      * @param args the command line arguments
