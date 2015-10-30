@@ -1,5 +1,7 @@
 package algorithms;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
+import static com.sun.org.apache.xalan.internal.lib.ExsltMath.sqrt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,42 +16,42 @@ import java.util.Stack;
  */
 public class AStarSearch {
 
-   public static List<NavNode> search(NavGraph graph, NavNode source, NavNode target) {
-        Map<String, AStarNode> openSet = new HashMap<>();
-        PriorityQueue<AStarNode> pQueue = new PriorityQueue(40, new AStarNodeComparator());
-        Map<String, AStarNode> closeSet = new HashMap<>();
-        AStarNode start = new AStarNode(source, 0, graph.calcDistance(source, target));
-        openSet.put(source.getId(), start);
-        pQueue.add(start);
+   public static List<String> search(NavNode source, NavNode target) {
+        Map<String, AStarNode> offeneKnoten = new HashMap<>();
+        PriorityQueue<AStarNode> grenzListe = new PriorityQueue(40, new AStarNodeComparator());
+        Map<String, AStarNode> geschlosseneKnoten = new HashMap<>();
+        AStarNode start = new AStarNode(source, 0, calcDistance(source, target));
+        offeneKnoten.put(source.getId(), start);
+        grenzListe.add(start);
 
         AStarNode goal = null;
-        while(openSet.size() > 0){
-            AStarNode x = pQueue.poll();
-            openSet.remove(x.getId());
+        while(offeneKnoten.size() > 0){
+            AStarNode x = grenzListe.poll();
+            offeneKnoten.remove(x.getId());
             if(x.getId().equals(target.getId())){
                 //found
                 goal = x;
                 break;
             }else{                
-                closeSet.put(x.getId(), x);
-                Set<NavNode> neighbors = graph.getAdjacentNodes(x.getId());
+                geschlosseneKnoten.put(x.getId(), x);
+                Set<NavNode> neighbors = x.getNode().getNeighbours();
                 neighbors.stream().forEach((neighbor) -> {
-                    AStarNode visited = closeSet.get(neighbor.getId());
+                    AStarNode visited = geschlosseneKnoten.get(neighbor.getId());
                     if (visited == null) {
-                        double g = x.getG() + graph.calcDistance(x.getNode(), neighbor);
-                        AStarNode n = openSet.get(neighbor.getId());
+                        double g = x.getG() + calcDistance(x.getNode(), neighbor);
+                        AStarNode n = offeneKnoten.get(neighbor.getId());
 
                         if (n == null) {
                             //not in the open set
-                            n = new AStarNode(neighbor, g, graph.calcDistance(neighbor, target));
+                            n = new AStarNode(neighbor, g, calcDistance(neighbor, target));
                             n.setCameFrom(x);
-                            openSet.put(neighbor.getId(), n);
-                            pQueue.add(n);
+                            offeneKnoten.put(neighbor.getId(), n);
+                            grenzListe.add(n);
                         } else if (g < n.getG()) {
                             //Have a better route to the current node, change its parent
                             n.setCameFrom(x);
                             n.setG(g);
-                            n.setH(graph.calcDistance(neighbor, target));
+                            n.setH(calcDistance(neighbor, target));
                         }
                     }
                 });
@@ -69,10 +71,19 @@ public class AStarSearch {
             while(stack.size() > 0){
                 list.add(stack.pop());
             }
-            return list;
+            
+            List<String> idlist = new ArrayList<>();
+            for (NavNode list1 : list) {
+                idlist.add(list1.getId());
+            }
+            return idlist;
         }
         
         return null;  
+    }
+
+    private static double calcDistance(NavNode source, NavNode target) {
+        return sqrt(power(((source.getX()) - (target.getX())),2) + (power(((target.getY()) - (source.getY())),2)));
     }
 
 }

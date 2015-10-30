@@ -1,5 +1,6 @@
 package algorithms;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,15 +11,16 @@ public class NavNode {
     protected double x;
     protected double y;
     protected String id;
-    protected Set<NavNode> neighbors;
+    protected HashSet<NavNode> neighbours;
     
     public NavNode(double x, double y, String id){
         this.x = x;
         this.y = y;
         this.id = id;
+        this.neighbours = new HashSet<>();
     }
 
-    String getId() {
+    public String getId() {
         return id;
     }
 
@@ -31,6 +33,10 @@ public class NavNode {
     }
     
     public void addNeighbour(NavNode n){
-        this.neighbors.add(n);        
-    }    
+        this.neighbours.add(n);        
+    }
+    
+    public HashSet<NavNode> getNeighbours(){
+        return neighbours;
+    }
 }

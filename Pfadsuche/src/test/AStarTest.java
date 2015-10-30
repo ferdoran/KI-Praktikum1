@@ -8,7 +8,7 @@ import algorithms.*;
  */
 public class AStarTest {
     
-    public static void main(){
+    public static void main(String[] args){
         
         //Anlegen der Nodes aus der Aufgabe als NavNodes
         NavNode s = new NavNode(100,534,"Start");
@@ -261,7 +261,7 @@ public class AStarTest {
         p5_4.addNeighbour(s);
         p5_4.addNeighbour(p4_4);
         p5_4.addNeighbour(p4_5);
-        p5_4.addNeighbour(p8_1);
+        p5_4.addNeighbour(p8_3);
         p5_4.addNeighbour(p8_2);
         
         //Nachbarn des Knoten p6_1
@@ -368,7 +368,6 @@ public class AStarTest {
         p8_3.addNeighbour(p4_3);
         p8_3.addNeighbour(p4_4);
         
-        
-
+        System.out.printf(AStarSearch.search(s, z).toString());
     }
 }
