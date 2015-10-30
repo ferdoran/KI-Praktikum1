@@ -1,6 +1,6 @@
 package test;
+import algorithms.astar.AStarSearch;
 import data.NavNode;
-import algorithms.*;
 /**
  *
  * @author Mahdi

@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.astar;
 
 import data.NavNode;
 

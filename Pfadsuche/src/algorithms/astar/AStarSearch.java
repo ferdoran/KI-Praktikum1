@@ -1,4 +1,4 @@
-package algorithms;
+package algorithms.astar;
 
 import data.NavNode;
 import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
