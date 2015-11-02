@@ -10,18 +10,18 @@ package data;
  *
  * @author Mahdi
  */
-class NavEdge {
+class Edge {
     protected String from;
     protected String to;
     protected double cost;
 
-    NavEdge(String firstId, String secondId, double cost) {
+    Edge(String firstId, String secondId, double cost) {
         this.from = firstId;
         this.to = secondId;
         this.cost = cost;
     }
 
-    NavEdge(String firstId, String secondId) {
+    Edge(String firstId, String secondId) {
         this.from = firstId;
         this.to = secondId;
     }

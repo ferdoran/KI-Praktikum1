@@ -1,7 +1,8 @@
 package algorithms.astar;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltMath.power;
-import data.NavNode;
+
+import data.Point;
+import gui.DrawingPanel;
 import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +11,9 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextPane;
 
 /**
  *
@@ -17,9 +21,23 @@ import java.util.Stack;
  * 
  * Diese Klasse beinhaltet die eigentliche Suche nach A*.
  */
-public class AStarSearch {
+public class AStarSearch extends Thread {
+    
+    final Point source;
+    final Point target;
+    DrawingPanel d;
+    final int delay;
+    JTextPane log;
+    
+    public AStarSearch(Point source, Point target, DrawingPanel d, int delay, JTextPane log) {
+        this.source = source;
+        this.target = target;
+        this.d = d;
+        this.delay = delay;
+        this.log = log;
+    }
 
-   public static List<String> search(NavNode source, NavNode target) {
+    private List<String> search(/*Point source, Point target, DrawingPanel d, int delay*/) {
        
         // Map zur Überprüfung ob ein Knoten bereits in der PQ ist.
         Map<String, AStarNode> offeneKnoten = new HashMap<>();
@@ -41,7 +59,6 @@ public class AStarSearch {
         while(offeneKnoten.size() > 0){
             AStarNode x = grenzListe.poll();
             offeneKnoten.remove(x.getId());
-            
             /*// Kommandozeilenausgabe zu Testzwecken
             System.out.print(x.getId());*/
             
@@ -54,7 +71,7 @@ public class AStarSearch {
             // wenn nicht:
             else{                
                 geschlosseneKnoten.put(x.getId(), x);
-                Set<NavNode> neighbors = x.getNode().getNeighbours();
+                Set<Point> neighbors = x.getNode().getNeighbours();
                 neighbors.stream().forEach((neighbor) -> {
                     
                     // in der geschlossenen Liste?
@@ -74,6 +91,7 @@ public class AStarSearch {
                             n.setCameFrom(x);
                             offeneKnoten.put(neighbor.getId(), n);
                             grenzListe.add(n);
+                            
                         }
                         // wenn ja und der Weg ist kürzer als der bisher
                         // gefundene: Neuen Elternknoten sowie neue Entfernung
@@ -83,14 +101,22 @@ public class AStarSearch {
                             n.setG(g);
                         }
                     }
+                    d.drawPath(x.getNode(), neighbor);
                 });
+            }
+            
+            try {
+                
+                sleep(delay);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AStarSearch.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
         // Wenn das Ziel gefunden wurde, bereite die Ausgabe des Weges vor.
         if(goal != null){
-            Stack<NavNode> stack = new Stack<>();
-            List<NavNode> list = new ArrayList<>();
+            Stack<Point> stack = new Stack<>();
+            List<Point> list = new ArrayList<>();
             stack.push(goal.getNode());
             AStarNode parent = goal.getCameFrom();
             while(parent != null){
@@ -105,7 +131,18 @@ public class AStarSearch {
             list.stream().forEach((list1) -> {
                 idlist.add(list1.getId());
             });
-            return idlist;
+            StringBuilder sb = new StringBuilder();
+            sb.append(log.getText());
+            if(idlist != null) {
+                
+                sb.append("Der Pfad zum Ziel lautet: " + idlist + "\n");
+            }
+            else {
+                sb.append("Nichts gefunden.\n");
+            }
+            d.drawFinalPath(idlist);
+            log.setText(sb.toString());
+            
         }
         
         return null;  
@@ -113,8 +150,13 @@ public class AStarSearch {
 
    
     // Funktion zur Berechnung der Luftliniendistanz zwischen zwei Knoten
-    private static double calcDistance(NavNode source, NavNode target) {
-        return sqrt(power(((source.getX()) - (target.getX())),2) + (power(((target.getY()) - (source.getY())),2)));
+    private double calcDistance(Point source, Point target) {
+        return sqrt(Math.pow(((source.getX()) - (target.getX())),2) + (Math.pow(((target.getY()) - (source.getY())),2)));
+    }
+    
+    @Override
+    public void run() {
+        search();
     }
 
 }

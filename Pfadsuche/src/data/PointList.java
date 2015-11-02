@@ -13,15 +13,15 @@ import java.util.NoSuchElementException;
  *
  * @author Roland
  */
-public class PointList {
+public final class PointList {
     
     HashSet<Point> points;
-    HashMap<Point, HashSet<Point>> neighbourTable;
+    
     
     
     public PointList() {
         points = new HashSet<>();
-        neighbourTable = new HashMap<>();
+        
         
         //Definition der Punkte
         
@@ -79,7 +79,302 @@ public class PointList {
         points.add(new Point(182,574, "P83"));
         
         
+        //Definition der Nachbaren
         
+        //Nachbarn des Startknotens
+        getPointById("S").addNeighbour(getPointById("P51"));
+        getPointById("S").addNeighbour(getPointById("P54"));
+        getPointById("S").addNeighbour(getPointById("P45"));
+        getPointById("S").addNeighbour(getPointById("P41"));
+        
+        //Nachbarn des Knoten P11
+        getPointById("P11").addNeighbour(getPointById("P81"));
+        getPointById("P11").addNeighbour(getPointById("P82"));
+        getPointById("P11").addNeighbour(getPointById("P53"));
+        getPointById("P11").addNeighbour(getPointById("P73"));
+        getPointById("P11").addNeighbour(getPointById("P71"));
+        getPointById("P11").addNeighbour(getPointById("P61"));
+        getPointById("P11").addNeighbour(getPointById("P14"));
+        getPointById("P11").addNeighbour(getPointById("P12"));
+        getPointById("P11").addNeighbour(getPointById("P32"));
+        
+        //Nachbarn des Knoten P12
+        getPointById("P12").addNeighbour(getPointById("P42"));
+        getPointById("P12").addNeighbour(getPointById("P43"));
+        getPointById("P12").addNeighbour(getPointById("P81"));
+        getPointById("P12").addNeighbour(getPointById("P13"));
+        getPointById("P12").addNeighbour(getPointById("P11"));
+        
+        //Nachbarn des Knoten P13
+        getPointById("P13").addNeighbour(getPointById("P12"));
+        getPointById("P13").addNeighbour(getPointById("P13"));
+        getPointById("P13").addNeighbour(getPointById("P64"));
+        getPointById("P13").addNeighbour(getPointById("P42"));
+        getPointById("P13").addNeighbour(getPointById("P63"));
+        getPointById("P13").addNeighbour(getPointById("P22"));
+        
+        //Nachbarn des Knoten P14
+        getPointById("P14").addNeighbour(getPointById("P11"));
+        getPointById("P14").addNeighbour(getPointById("P13"));
+        getPointById("P14").addNeighbour(getPointById("P82"));
+        getPointById("P14").addNeighbour(getPointById("P71"));
+        getPointById("P14").addNeighbour(getPointById("P64"));
+        getPointById("P14").addNeighbour(getPointById("P61"));
+        
+        
+        
+        //Nachbarn des Knoten P21
+        getPointById("P21").addNeighbour(getPointById("P22"));
+        getPointById("P21").addNeighbour(getPointById("P24"));
+        getPointById("P21").addNeighbour(getPointById("P63"));
+        getPointById("P21").addNeighbour(getPointById("P33"));
+        getPointById("P21").addNeighbour(getPointById("P62"));
+        
+        //Nachbarn des Knoten P22
+        getPointById("P22").addNeighbour(getPointById("P21"));
+        getPointById("P22").addNeighbour(getPointById("P23"));
+        getPointById("P22").addNeighbour(getPointById("Z"));
+        getPointById("P22").addNeighbour(getPointById("P63"));
+        getPointById("P22").addNeighbour(getPointById("P13"));
+        getPointById("P22").addNeighbour(getPointById("P64"));
+        
+        //Nachbarn des Knoten P23
+        getPointById("P23").addNeighbour(getPointById("P22"));
+        getPointById("P23").addNeighbour(getPointById("P24"));
+        getPointById("P23").addNeighbour(getPointById("PZ"));
+        
+        //Nachbarn des Knoten P24
+        getPointById("P24").addNeighbour(getPointById("P23"));
+        getPointById("P24").addNeighbour(getPointById("P21"));
+        getPointById("P24").addNeighbour(getPointById("Z"));
+        getPointById("P24").addNeighbour(getPointById("P63"));
+        getPointById("P24").addNeighbour(getPointById("P62"));
+        getPointById("P24").addNeighbour(getPointById("P33"));
+        getPointById("P24").addNeighbour(getPointById("P34"));
+        getPointById("P24").addNeighbour(getPointById("P35"));
+        
+        //Nachbarn des Knoten P31
+        getPointById("P31").addNeighbour(getPointById("P32"));
+        getPointById("P31").addNeighbour(getPointById("P36"));
+        getPointById("P31").addNeighbour(getPointById("P52"));
+        getPointById("P31").addNeighbour(getPointById("P73"));
+        getPointById("P31").addNeighbour(getPointById("P72"));
+        getPointById("P31").addNeighbour(getPointById("P61"));
+        
+        //Nachbarn des Knoten P32
+        getPointById("P32").addNeighbour(getPointById("P33"));
+        getPointById("P32").addNeighbour(getPointById("P31"));
+        getPointById("P32").addNeighbour(getPointById("P52"));
+        getPointById("P32").addNeighbour(getPointById("P73"));
+        getPointById("P32").addNeighbour(getPointById("P72"));
+        getPointById("P32").addNeighbour(getPointById("P61"));
+        getPointById("P32").addNeighbour(getPointById("P64"));
+        getPointById("P32").addNeighbour(getPointById("P71"));
+        getPointById("P32").addNeighbour(getPointById("P11"));
+        
+        //Nachbarn des Knoten P33
+        getPointById("P33").addNeighbour(getPointById("P32"));
+        getPointById("P33").addNeighbour(getPointById("P34"));
+        getPointById("P33").addNeighbour(getPointById("P62"));
+        getPointById("P33").addNeighbour(getPointById("P61"));
+        getPointById("P33").addNeighbour(getPointById("P21"));
+        getPointById("P33").addNeighbour(getPointById("P24"));
+        getPointById("P33").addNeighbour(getPointById("P63"));
+        getPointById("P33").addNeighbour(getPointById("P72"));
+        getPointById("P33").addNeighbour(getPointById("P73"));
+        
+        //Nachbarn des Knoten P34
+        getPointById("P34").addNeighbour(getPointById("P33"));
+        getPointById("P34").addNeighbour(getPointById("P35"));
+        getPointById("P34").addNeighbour(getPointById("P24"));
+        getPointById("P34").addNeighbour(getPointById("P21"));
+        getPointById("P34").addNeighbour(getPointById("P63"));
+        
+        //Nachbarn des Knoten P35
+        getPointById("P35").addNeighbour(getPointById("P34"));
+        getPointById("P35").addNeighbour(getPointById("P36"));
+        getPointById("P35").addNeighbour(getPointById("Z"));
+        getPointById("P35").addNeighbour(getPointById("P24"));
+        
+        //Nachbarn des Knoten P36
+        getPointById("P36").addNeighbour(getPointById("P35"));
+        getPointById("P36").addNeighbour(getPointById("P31"));
+        getPointById("P36").addNeighbour(getPointById("P73"));
+        getPointById("P36").addNeighbour(getPointById("P52"));
+        
+        //Nachbarn des Knoten 41
+        getPointById("P41").addNeighbour(getPointById("P42"));
+        getPointById("P41").addNeighbour(getPointById("P45"));
+        getPointById("P41").addNeighbour(getPointById("S"));
+        
+        //Nachbarn des Knoten 42
+        getPointById("P42").addNeighbour(getPointById("P41"));
+        getPointById("P42").addNeighbour(getPointById("P43"));
+        getPointById("P42").addNeighbour(getPointById("P81"));
+        getPointById("P42").addNeighbour(getPointById("P12"));
+        getPointById("P42").addNeighbour(getPointById("P13"));
+        
+        //Nachbarn des Knoten 43
+        getPointById("P43").addNeighbour(getPointById("P42"));
+        getPointById("P43").addNeighbour(getPointById("P44"));
+        getPointById("P43").addNeighbour(getPointById("P81"));
+        getPointById("P43").addNeighbour(getPointById("P83"));
+        getPointById("P43").addNeighbour(getPointById("P12"));
+        
+        //Nachbarn des Knoten 44
+        getPointById("P44").addNeighbour(getPointById("P43"));
+        getPointById("P44").addNeighbour(getPointById("P45"));
+        getPointById("P44").addNeighbour(getPointById("P81"));
+        getPointById("P44").addNeighbour(getPointById("P83"));
+        getPointById("P44").addNeighbour(getPointById("P53"));
+        getPointById("P44").addNeighbour(getPointById("P54"));
+        
+        //Nachbarn des Knoten 45
+        getPointById("P45").addNeighbour(getPointById("P41"));
+        getPointById("P45").addNeighbour(getPointById("P44"));
+        getPointById("P45").addNeighbour(getPointById("S"));
+        getPointById("P45").addNeighbour(getPointById("P51"));
+        getPointById("P45").addNeighbour(getPointById("P54"));
+        
+        //Nachbarn des Knoten 51
+        getPointById("P51").addNeighbour(getPointById("P54"));
+        getPointById("P51").addNeighbour(getPointById("P52"));
+        getPointById("P51").addNeighbour(getPointById("S"));
+        getPointById("P51").addNeighbour(getPointById("P45"));
+        
+        //Nachbarn des Knoten 52
+        getPointById("P52").addNeighbour(getPointById("P51"));
+        getPointById("P52").addNeighbour(getPointById("P53"));
+        getPointById("P52").addNeighbour(getPointById("P71"));
+        getPointById("P52").addNeighbour(getPointById("P72"));
+        getPointById("P52").addNeighbour(getPointById("P73"));
+        getPointById("P52").addNeighbour(getPointById("P62"));
+        getPointById("P52").addNeighbour(getPointById("P31"));
+        getPointById("P52").addNeighbour(getPointById("P32"));
+        getPointById("P52").addNeighbour(getPointById("P36"));
+        
+        //Nachbarn des Knoten 53
+        getPointById("P53").addNeighbour(getPointById("P52"));
+        getPointById("P53").addNeighbour(getPointById("P54"));
+        getPointById("P53").addNeighbour(getPointById("P73"));
+        getPointById("P53").addNeighbour(getPointById("P71"));
+        getPointById("P53").addNeighbour(getPointById("P11"));
+        getPointById("P53").addNeighbour(getPointById("P81"));
+        getPointById("P53").addNeighbour(getPointById("P82"));
+        getPointById("P53").addNeighbour(getPointById("P83"));
+        getPointById("P53").addNeighbour(getPointById("P44"));
+        getPointById("P53").addNeighbour(getPointById("P45"));
+        
+        //Nachbarn des Knoten 54
+        getPointById("P54").addNeighbour(getPointById("P53"));
+        getPointById("P54").addNeighbour(getPointById("P51"));
+        getPointById("P54").addNeighbour(getPointById("S"));
+        getPointById("P54").addNeighbour(getPointById("P44"));
+        getPointById("P54").addNeighbour(getPointById("P45"));
+        getPointById("P54").addNeighbour(getPointById("P83"));
+        getPointById("P54").addNeighbour(getPointById("P82"));
+        
+        //Nachbarn des Knoten 61
+        getPointById("P61").addNeighbour(getPointById("P62"));
+        getPointById("P61").addNeighbour(getPointById("P64"));
+        getPointById("P61").addNeighbour(getPointById("P31"));
+        getPointById("P61").addNeighbour(getPointById("P32"));
+        getPointById("P61").addNeighbour(getPointById("P33"));
+        getPointById("P61").addNeighbour(getPointById("P71"));
+        getPointById("P61").addNeighbour(getPointById("P72"));
+        getPointById("P61").addNeighbour(getPointById("P11"));
+        getPointById("P61").addNeighbour(getPointById("P14"));
+        
+        //Nachbarn des Knoten 62
+        getPointById("P62").addNeighbour(getPointById("P61"));
+        getPointById("P62").addNeighbour(getPointById("P63"));
+        getPointById("P62").addNeighbour(getPointById("P31"));
+        getPointById("P62").addNeighbour(getPointById("P32"));
+        getPointById("P62").addNeighbour(getPointById("P21"));
+        getPointById("P62").addNeighbour(getPointById("P24"));
+        getPointById("P62").addNeighbour(getPointById("P72"));
+        getPointById("P62").addNeighbour(getPointById("P73"));
+        getPointById("P62").addNeighbour(getPointById("P52"));
+        
+        //Nachbarn des Knoten 63
+        getPointById("P63").addNeighbour(getPointById("P64"));
+        getPointById("P63").addNeighbour(getPointById("P62"));
+        getPointById("P63").addNeighbour(getPointById("P21"));
+        getPointById("P63").addNeighbour(getPointById("P22"));
+        getPointById("P63").addNeighbour(getPointById("P24"));
+        getPointById("P63").addNeighbour(getPointById("P33"));
+        getPointById("P63").addNeighbour(getPointById("P34"));
+        getPointById("P63").addNeighbour(getPointById("P13"));
+        
+        //Nachbarn des Knoten 64
+        getPointById("P64").addNeighbour(getPointById("P61"));
+        getPointById("P64").addNeighbour(getPointById("P63"));
+        getPointById("P64").addNeighbour(getPointById("P13"));
+        getPointById("P64").addNeighbour(getPointById("P14"));
+        getPointById("P64").addNeighbour(getPointById("P21"));
+        
+        //Nachbarn des Knoten 71
+        getPointById("P71").addNeighbour(getPointById("P72"));
+        getPointById("P71").addNeighbour(getPointById("P73"));
+        getPointById("P71").addNeighbour(getPointById("P52"));
+        getPointById("P71").addNeighbour(getPointById("P53"));
+        getPointById("P71").addNeighbour(getPointById("P82"));
+        getPointById("P71").addNeighbour(getPointById("P11"));
+        getPointById("P71").addNeighbour(getPointById("P12"));
+        getPointById("P71").addNeighbour(getPointById("P61"));
+        getPointById("P71").addNeighbour(getPointById("P32"));
+        
+        //Nachbarn des Knoten 72
+        getPointById("P72").addNeighbour(getPointById("P71"));
+        getPointById("P72").addNeighbour(getPointById("P73"));
+        getPointById("P72").addNeighbour(getPointById("P31"));
+        getPointById("P72").addNeighbour(getPointById("P32"));
+        getPointById("P72").addNeighbour(getPointById("P33"));
+        getPointById("P72").addNeighbour(getPointById("P61"));
+        getPointById("P72").addNeighbour(getPointById("P62"));
+        getPointById("P72").addNeighbour(getPointById("P52"));
+        
+        //Nachbarn des Knoten 73
+        getPointById("P73").addNeighbour(getPointById("P71"));
+        getPointById("P73").addNeighbour(getPointById("P72"));
+        getPointById("P73").addNeighbour(getPointById("P31"));
+        getPointById("P73").addNeighbour(getPointById("P32"));
+        getPointById("P73").addNeighbour(getPointById("P33"));
+        getPointById("P73").addNeighbour(getPointById("P36"));
+        getPointById("P73").addNeighbour(getPointById("P62"));
+        getPointById("P73").addNeighbour(getPointById("P52"));
+        getPointById("P73").addNeighbour(getPointById("P53"));
+        getPointById("P73").addNeighbour(getPointById("P11"));
+        getPointById("P73").addNeighbour(getPointById("P81"));
+        
+        //Nachbarn des Knoten 81
+        getPointById("P81").addNeighbour(getPointById("P82"));
+        getPointById("P81").addNeighbour(getPointById("P83"));
+        getPointById("P81").addNeighbour(getPointById("P11"));
+        getPointById("P81").addNeighbour(getPointById("P12"));
+        getPointById("P81").addNeighbour(getPointById("P42"));
+        getPointById("P81").addNeighbour(getPointById("P43"));
+        getPointById("P81").addNeighbour(getPointById("P44"));
+        getPointById("P81").addNeighbour(getPointById("P53"));
+        getPointById("P81").addNeighbour(getPointById("P73"));
+        
+        //Nachbarn des Knoten 82
+        getPointById("P82").addNeighbour(getPointById("P81"));
+        getPointById("P82").addNeighbour(getPointById("P83"));
+        getPointById("P82").addNeighbour(getPointById("P53"));
+        getPointById("P82").addNeighbour(getPointById("P54"));
+        getPointById("P82").addNeighbour(getPointById("P11"));
+        getPointById("P82").addNeighbour(getPointById("P12"));
+        getPointById("P82").addNeighbour(getPointById("P14"));
+        getPointById("P82").addNeighbour(getPointById("P71"));
+        
+        //Nachbarn des Knoten 83
+        getPointById("P83").addNeighbour(getPointById("P81"));
+        getPointById("P83").addNeighbour(getPointById("P82"));
+        getPointById("P83").addNeighbour(getPointById("P53"));
+        getPointById("P83").addNeighbour(getPointById("P54"));
+        getPointById("P83").addNeighbour(getPointById("P43"));
+        getPointById("P83").addNeighbour(getPointById("P44"));
     }
     
     public boolean addPoint(Point p) {
@@ -91,31 +386,6 @@ public class PointList {
             return false;
         }
             
-    }
-    
-    public boolean addNeighbour(Point p, Point n) {
-        if(exists(p) && exists(n)) {
-            HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
-            if(neighbours == null) {
-                neighbours = new HashSet<>();
-                neighbours.add(n);
-                neighbourTable.put(p, neighbours);
-               
-            }
-            else {
-                if(!neighbourTable.get(p).contains(n)) {
-                    neighbours.add(n);
-                    neighbourTable.replace(p, neighbours);
-                }
-                else {
-                    return false;
-                }
-            }
-            return true;
-        }
-        else {
-            return false;
-        }
     }
     
     public Point getPoint(double x, double y) {
@@ -163,9 +433,6 @@ public class PointList {
         return (HashSet<Point>) points.clone();
     }
     
-    public HashSet<Point> getNeighbours(Point p) {
-        return neighbourTable.get(p);
-    }
     
     public boolean removePoint(Point p) {
         return points.remove(p);
@@ -178,22 +445,6 @@ public class PointList {
             }
         }
         return false;
-    }
-    
-    public boolean removeNeighbour(Point p, Point n) {
-        HashSet<Point> neighbours = (HashSet)neighbourTable.get(p);
-        if(neighbours.remove(n)) {
-            neighbourTable.replace(p, neighbours);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    
-    @Override
-    public String toString() {
-        return "Points:\n" + points.toString()+ "\n\n Neighbours:\n" + neighbourTable.toString();
     }
     
     

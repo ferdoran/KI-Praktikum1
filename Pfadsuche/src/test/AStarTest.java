@@ -1,6 +1,6 @@
 package test;
 import algorithms.astar.AStarSearch;
-import data.NavNode;
+import data.Point;
 /**
  *
  * @author Mahdi
@@ -12,57 +12,57 @@ public class AStarTest {
     public static void main(String[] args){
         
         //Anlegen der Nodes aus der Aufgabe als NavNodes
-        NavNode s = new NavNode(100,534,"Start");
-        NavNode z = new NavNode(388,663,"Ziel");
+        Point s = new Point(100,534,"Start");
+        Point z = new Point(388,663,"Ziel");
         
         //Polygon 1
-        NavNode p1_1 = new NavNode(220,616,"P1_1");
-        NavNode p1_2 = new NavNode(220,666,"P1_2");
-        NavNode p1_3 = new NavNode(251,670,"P1_3");
-        NavNode p1_4 = new NavNode(272,647,"P1_4");
+        Point p1_1 = new Point(220,616,"P1_1");
+        Point p1_2 = new Point(220,666,"P1_2");
+        Point p1_3 = new Point(251,670,"P1_3");
+        Point p1_4 = new Point(272,647,"P1_4");
         
         //Polygon 2
-        NavNode p2_1 = new NavNode(341,655,"P2_1");
-        NavNode p2_2 = new NavNode(359,667,"P2_2");
-        NavNode p2_3 = new NavNode(374,651,"P2_3");
-        NavNode p2_4 = new NavNode(366,577,"P2_4");
+        Point p2_1 = new Point(341,655,"P2_1");
+        Point p2_2 = new Point(359,667,"P2_2");
+        Point p2_3 = new Point(374,651,"P2_3");
+        Point p2_4 = new Point(366,577,"P2_4");
         
         //Polygon 3
-        NavNode p3_1 = new NavNode(311,530,"P3_1");
-        NavNode p3_2 = new NavNode(311,559,"P3_2");
-        NavNode p3_3 = new NavNode(339,578,"P3_3");
-        NavNode p3_4 = new NavNode(361,560,"P3_4");
-        NavNode p3_5 = new NavNode(361,528,"P3_5");
-        NavNode p3_6 = new NavNode(336,516,"P3_6");
+        Point p3_1 = new Point(311,530,"P3_1");
+        Point p3_2 = new Point(311,559,"P3_2");
+        Point p3_3 = new Point(339,578,"P3_3");
+        Point p3_4 = new Point(361,560,"P3_4");
+        Point p3_5 = new Point(361,528,"P3_5");
+        Point p3_6 = new Point(336,516,"P3_6");
         
         //Polygon 4
-        NavNode p4_1 = new NavNode(105,628,"P4_1");
-        NavNode p4_2 = new NavNode(151,670,"P4_2");
-        NavNode p4_3 = new NavNode(180,629,"P4_3");
-        NavNode p4_4 = new NavNode(156,577,"P4_4");
-        NavNode p4_5 = new NavNode(113,587,"P4_5");
+        Point p4_1 = new Point(105,628,"P4_1");
+        Point p4_2 = new Point(151,670,"P4_2");
+        Point p4_3 = new Point(180,629,"P4_3");
+        Point p4_4 = new Point(156,577,"P4_4");
+        Point p4_5 = new Point(113,587,"P4_5");
         
         //Polygon 5
-        NavNode p5_1 = new NavNode(118,517,"P5_1");
-        NavNode p5_2 = new NavNode(245,517,"P5_2");
-        NavNode p5_3 = new NavNode(245,557,"P5_3");
-        NavNode p5_4 = new NavNode(118,557,"P5_4");
+        Point p5_1 = new Point(118,517,"P5_1");
+        Point p5_2 = new Point(245,517,"P5_2");
+        Point p5_3 = new Point(245,557,"P5_3");
+        Point p5_4 = new Point(118,557,"P5_4");
         
         //Polygon 6
-        NavNode p6_1 = new NavNode(280,583,"P6_1");
-        NavNode p6_2 = new NavNode(333,583,"P6_2");
-        NavNode p6_3 = new NavNode(333,665,"P6_3");
-        NavNode p6_4 = new NavNode(280,665,"P6_4");
+        Point p6_1 = new Point(280,583,"P6_1");
+        Point p6_2 = new Point(333,583,"P6_2");
+        Point p6_3 = new Point(333,665,"P6_3");
+        Point p6_4 = new Point(280,665,"P6_4");
         
         //Polygon 7
-        NavNode p7_1 = new NavNode(252,594,"P7_1");
-        NavNode p7_2 = new NavNode(290,562,"P7_2");
-        NavNode p7_3 = new NavNode(264,538,"P7_3");
+        Point p7_1 = new Point(252,594,"P7_1");
+        Point p7_2 = new Point(290,562,"P7_2");
+        Point p7_3 = new Point(264,538,"P7_3");
         
         //Polygon 8
-        NavNode p8_1 = new NavNode(198,635,"P8_1");
-        NavNode p8_2 = new NavNode(217,574,"P8_2");
-        NavNode p8_3 = new NavNode(182,574,"P8_3");
+        Point p8_1 = new Point(198,635,"P8_1");
+        Point p8_2 = new Point(217,574,"P8_2");
+        Point p8_3 = new Point(182,574,"P8_3");
     
     
     /*  Festlegen der 'Nachbarn' für die Aufgabe. 'Nachbarn' sind in diesem
@@ -344,7 +344,6 @@ public class AStarTest {
         p8_1.addNeighbour(p8_3);
         p8_1.addNeighbour(p1_1);
         p8_1.addNeighbour(p1_2);
-        p8_1.addNeighbour(p8_2);
         p8_1.addNeighbour(p4_2);
         p8_1.addNeighbour(p4_3);
         p8_1.addNeighbour(p4_4);
@@ -369,6 +368,6 @@ public class AStarTest {
         p8_3.addNeighbour(p4_3);
         p8_3.addNeighbour(p4_4);
         
-        System.out.printf(AStarSearch.search(s, z).toString());
+        //System.out.printf(AStarSearch.search(s, z).toString());
     }
 }

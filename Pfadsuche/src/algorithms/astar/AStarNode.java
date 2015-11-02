@@ -1,6 +1,6 @@
 package algorithms.astar;
 
-import data.NavNode;
+import data.Point;
 
 /**
  *
@@ -12,7 +12,7 @@ import data.NavNode;
 public class AStarNode {
 
     // Der zugehörige Knoten
-    private final NavNode node;
+    private final Point node;
 
     // wird genutzt um am Ende den Weg zu konstruieren
     private AStarNode cameFrom;
@@ -24,7 +24,7 @@ public class AStarNode {
     private final double h;
     
     // Konstruktor
-    public AStarNode(NavNode n, double dist, double heu){
+    public AStarNode(Point n, double dist, double heu){
         node = n;
         g = dist;
         h = heu;    
@@ -56,7 +56,7 @@ public class AStarNode {
     }
 
     // Abfrage des zugehörigen Knoten
-    NavNode getNode() {
+    Point getNode() {
         return node;
     }
 

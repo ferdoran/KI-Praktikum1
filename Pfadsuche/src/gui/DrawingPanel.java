@@ -8,10 +8,11 @@ package gui;
 import data.Line;
 import data.LineList;
 import data.Point;
+import data.PointList;
 import java.awt.Color;
 
 import java.awt.Graphics2D;
-import java.util.HashSet;
+import java.util.List;
 
 /**
  *
@@ -21,9 +22,8 @@ public class DrawingPanel extends javax.swing.JPanel {
     
     final int WIDTH_NEW = 900;
     final int HEIGHT_NEW = 456;
-    
-    HashSet<Point> points;
-    HashSet<Point> drawnPoints;
+    LineList lines;
+    PointList points;
     Point selected;
     final double scalingFactorX = WIDTH_NEW / (388 - 100);
     final double scalingFactorY = HEIGHT_NEW / (670 - 516);
@@ -32,11 +32,10 @@ public class DrawingPanel extends javax.swing.JPanel {
      * Creates new form DrawingPanel
      */
     public DrawingPanel() {
-        drawnPoints = new HashSet<>();
         initComponents();
     }
     
-    public boolean setPoints(HashSet<Point> p) {
+    public boolean setPoints(PointList p) {
         if(p == null) {
             return false;
         }
@@ -44,11 +43,19 @@ public class DrawingPanel extends javax.swing.JPanel {
         return true;
     }
     
+    public boolean setLines(LineList l) {
+        if(l == null) {
+            return false;
+        }
+        lines = l;
+        return true;
+    }
+    
     
     public void drawAllPoints() {
         Graphics2D g = (Graphics2D) this.getGraphics();
-        
-        for(Point p: points) {
+        g.setColor(Color.black);
+        for(Point p: points.getAllPoints()) {
                 int x = (int) p.getX();
                 int y = (int) p.getY();
                 String id = p.getId();
@@ -73,10 +80,29 @@ public class DrawingPanel extends javax.swing.JPanel {
         
     }
     
-    public void drawAllLines(LineList list) {
+    public void drawPath(Point from, Point to) {
         Graphics2D g = (Graphics2D) this.getGraphics();
+        g.setColor(Color.red);
         
-        for(Line l: list.getList()) {
+        int xFrom = (int) from.getX();
+        int yFrom = (int) from.getY();
+        int xTo = (int) to.getX();
+        int yTo = (int) to.getY();
+        g.drawOval((int) scalingFactorX * xFrom - xFrom-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY)-2+20, 4, 4);
+        g.fillOval((int) scalingFactorX * xFrom - xFrom-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY)-2+20, 4, 4);
+        
+        g.drawOval((int) scalingFactorX * xTo - xTo-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)-2+20, 4, 4);
+        g.fillOval((int) scalingFactorX * xTo - xTo-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)-2+20, 4, 4);
+        
+        g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
+        
+        
+    }
+    
+    public void drawAllLines() {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        g.setColor(Color.black);
+        for(Line l: lines.getList()) {
             int xFrom = (int) l.getPointFrom().getX();
             int yFrom = (int) l.getPointFrom().getY();
             int xTo = (int) l.getPointTo().getX();
@@ -84,6 +110,41 @@ public class DrawingPanel extends javax.swing.JPanel {
             g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
         }
         
+    }
+    
+    public void clear() {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        g.setColor(this.getBackground());
+        super.paintComponent(g);
+        //g.drawRect(0, 0, WIDTH_NEW+20, HEIGHT_NEW+20);
+    }
+    
+    public void drawFinalPath(List<String> idList) {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        g.setColor(Color.green);
+        super.paintComponent(g);
+        drawAllPoints();
+        drawAllLines();
+        Point last = null;
+        
+        for(String id : idList) {
+            if(last == null) {
+                last = points.getPointById(id);
+                continue;
+            }
+            int lastX = (int) last.getX();
+            int lastY = (int) last.getY();
+            Point current = points.getPointById(id);
+            int thisX = (int) current.getX();
+            int thisY = (int) current.getY();
+            g.drawOval((int) scalingFactorX * lastX - lastX-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - lastY)*scalingFactorY)-2+20, 4, 4);
+            g.fillOval((int) scalingFactorX * lastX - lastX-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - lastY)*scalingFactorY)-2+20, 4, 4);
+            
+            g.drawOval((int) scalingFactorX * thisX - thisX-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - thisY)*scalingFactorY)-2+20, 4, 4);
+            g.fillOval((int) scalingFactorX * thisX - thisX-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - thisY)*scalingFactorY)-2+20, 4, 4);
+            g.drawLine((int) scalingFactorX * lastX - lastX,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - lastY)*scalingFactorY) +20,(int) scalingFactorX * thisX - thisX,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - thisY)*scalingFactorY)+20);
+            last = current;
+        }
     }
     
     public void selectPoint(Point p) {
@@ -110,40 +171,12 @@ public class DrawingPanel extends javax.swing.JPanel {
         g.fillOval(x, y, 5, 5);
         g.drawString(p.getId() + "("+(x)+","+ y + ")", x, 15+y);
     }
-    
-    public void unselectPoints() {
-        if(selected != null) {
-            selected=null;
-            Graphics2D g = (Graphics2D) this.getGraphics();
-            super.paintComponent(g);
-            undrawAllPoints();
-            drawAllPoints();
-            
-        }
-        else {
-            
-        }
-    }
+
     
     
-    public void undrawPoint(Point p) {
-        Graphics2D g = (Graphics2D) this.getGraphics();
-        super.paintComponent(g);
-        if(drawnPoints.contains(p)) {
-            int x = (int) p.getX();
-            int y = (int) p.getY();
-            g.setColor(getBackground());
-            g.drawOval(x, y, 5, 5);
-            g.fillOval(x, y, 5, 5);
-            g.drawString(p.getId() + "("+(x)+","+ y + ")", x, 15+y);
-        }
-    }
-    public void undrawAllPoints() {
-        Graphics2D g = (Graphics2D) this.getGraphics();
-        super.paintComponent(g);
-        drawnPoints.clear();
-        g.clearRect(0, 0, WIDTH_NEW, HEIGHT_NEW);
-    }
+    
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
