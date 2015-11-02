@@ -5,8 +5,9 @@
  */
 package gui;
 
+import data.LineList;
 import data.Point;
-import data.Points;
+import data.PointList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -18,18 +19,17 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author Roland
  */
 public class MainFrame extends javax.swing.JFrame {
-
-    Points p;
+    LineList l;
+    PointList p;
     boolean drawToggle;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
+        p = new PointList();
+        l = new LineList(p);
         initComponents();
-        p = new Points();
-        drawToggle = true;
-
     }
 
     /**
@@ -55,6 +55,11 @@ public class MainFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KI-Prak1 - Pfadsuche");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jButton5.setText("Exit");
         jButton5.setToolTipText("");
@@ -70,17 +75,17 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setText("Log:");
 
         draw.setBorder(javax.swing.BorderFactory.createTitledBorder("Map"));
-        draw.setPreferredSize(new java.awt.Dimension(615, 0));
+        draw.setPreferredSize(new java.awt.Dimension(920, 476));
 
         javax.swing.GroupLayout drawLayout = new javax.swing.GroupLayout(draw);
         draw.setLayout(drawLayout);
         drawLayout.setHorizontalGroup(
             drawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 888, Short.MAX_VALUE)
+            .addGap(0, 908, Short.MAX_VALUE)
         );
         drawLayout.setVerticalGroup(
             drawLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
 
         aufgabeButtonGroup.add(jRadioButton1);
@@ -117,35 +122,34 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 83, Short.MAX_VALUE))
+                        .addGap(0, 116, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
-                .addComponent(draw, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(draw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(12, Short.MAX_VALUE)
-                        .addComponent(draw, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                            .addComponent(stopButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)))
-                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(143, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jButton5)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(draw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,12 +162,20 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         // TODO add your handling code here:
+        draw.setPoints(p.getAllPoints());
+        draw.drawAllPoints();
+        draw.drawAllLines(l);
     }//GEN-LAST:event_startButtonActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formComponentShown
 
     private void addLogLine(String typeFlag, Point p, String logType) {
         double x = p.getX();
         double y = p.getY();
-        String name = p.getName();
+        String name = p.getId();
 
         StringBuilder sb = new StringBuilder();
         sb.append(log.getText());
@@ -236,6 +248,7 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
     /*
     // Variables declaration - do not modify//GEN-BEGIN:variables

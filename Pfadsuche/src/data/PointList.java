@@ -13,16 +13,73 @@ import java.util.NoSuchElementException;
  *
  * @author Roland
  */
-public class Points {
+public class PointList {
     
     HashSet<Point> points;
     HashMap<Point, HashSet<Point>> neighbourTable;
-    HashMap<Point, Double> costTable;
     
-    public Points() {
+    
+    public PointList() {
         points = new HashSet<>();
         neighbourTable = new HashMap<>();
-        costTable = new HashMap<>();
+        
+        //Definition der Punkte
+        
+        //Start und Zielpunkt
+        points.add(new Point(100,534, "S"));
+        points.add(new Point(388,663, "Z"));
+        
+        //Polygon1
+        points.add(new Point(220,616, "P11"));
+        points.add(new Point(220,666, "P12"));
+        points.add(new Point(251,670, "P13"));
+        points.add(new Point(272,647, "P14"));
+        
+        //Polygon2
+        points.add(new Point(341,655, "P21"));
+        points.add(new Point(359,667, "P22"));
+        points.add(new Point(374,651, "P23"));
+        points.add(new Point(366,577, "P24"));
+        
+        //Polygon3
+        points.add(new Point(311,530, "P31"));
+        points.add(new Point(311,559, "P32"));
+        points.add(new Point(339,578, "P33"));
+        points.add(new Point(361,560, "P34"));
+        points.add(new Point(361,528, "P35"));
+        points.add(new Point(336,516, "P36"));
+        
+        //Polygon4
+        points.add(new Point(105,628, "P41"));
+        points.add(new Point(151,670, "P42"));
+        points.add(new Point(180,629, "P43"));
+        points.add(new Point(156,577, "P44"));
+        points.add(new Point(113,587, "P45"));
+        
+        //Polygon5
+        points.add(new Point(118,517, "P51"));
+        points.add(new Point(245,517, "P52"));
+        points.add(new Point(245,557, "P53"));
+        points.add(new Point(118,557, "P54"));
+        
+        //Polygon6
+        points.add(new Point(280,583, "P61"));
+        points.add(new Point(333,583, "P62"));
+        points.add(new Point(333,665, "P63"));
+        points.add(new Point(280,665, "P64"));
+        
+        //Polygon7
+        points.add(new Point(252,594, "P71"));
+        points.add(new Point(290,562, "P72"));
+        points.add(new Point(264,538, "P73"));
+        
+        //Polygon8
+        points.add(new Point(198,635, "P81"));
+        points.add(new Point(217,574, "P82"));
+        points.add(new Point(182,574, "P83"));
+        
+        
+        
     }
     
     public boolean addPoint(Point p) {
@@ -61,7 +118,7 @@ public class Points {
         }
     }
     
-    public Point getPoint(double x, double y) throws NoSuchElementException {
+    public Point getPoint(double x, double y) {
         
         for(Point p : points) {
             if(p.getX() == x && p.getY() == y) {
@@ -69,8 +126,17 @@ public class Points {
             }
         }
         
-        throw new NoSuchElementException();
+        return null;
         
+    }
+    
+    public Point getPointById(String id) {
+        for(Point p: points)  {
+            if(p.getId().equals(id)) {
+                return p;
+            }
+        }
+        return null;
     }
     
     public boolean exists(Point p) {

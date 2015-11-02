@@ -6,7 +6,7 @@
 package test;
 
 import data.Point;
-import data.Points;
+import data.PointList;
 
 /**
  *
@@ -15,7 +15,7 @@ import data.Points;
 public class PointsTest {
     
     public static void main(String[] args) {
-        Points points = new Points();
+        PointList points = new PointList();
         points.addPoint(new Point(1,1));
         points.addPoint(new Point(2,2));
         points.addPoint(new Point(3,3));

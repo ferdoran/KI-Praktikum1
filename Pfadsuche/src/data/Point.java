@@ -13,7 +13,7 @@ import java.awt.geom.Point2D;
  * @author Roland
  */
 public class Point extends Point2D.Double {
-    private String name;
+    private String id;
     
     public Point(double x, double y) {
         super(x, y);
@@ -21,28 +21,23 @@ public class Point extends Point2D.Double {
     
     public Point(double x, double y, String s) {
         super(x, y);
-        name = s;
+        id = s;
     }
     
     public double distance(Point p) {
         return super.distance(p);
     }
     
-    public void setName(String s) {
-        name = s;
+    public void setId(String s) {
+        id = s;
     }
     
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
     
     public boolean equals(Point p) {
-        if(p.getX() == this.x && p.getY() == this.y) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return p.getX() == this.x && p.getY() == this.y;
     }
     
     
