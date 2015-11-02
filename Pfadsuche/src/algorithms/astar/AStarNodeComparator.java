@@ -5,9 +5,13 @@ import java.util.Comparator;
 /**
  *
  * @author Mahdi
+ * 
+ * Dieser Comparator dient dazu die PriorityQueue entsprechend des geschätzten 
+ * kürzesten Weges zu sortieren.
  */
 public class AStarNodeComparator implements Comparator<AStarNode> {
 
+    @Override
     public int compare(AStarNode first, AStarNode second) {
         if(first.getF() < second.getF()){
             return -1;
