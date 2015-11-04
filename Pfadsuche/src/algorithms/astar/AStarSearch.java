@@ -61,6 +61,7 @@ public class AStarSearch extends Thread {
             offeneKnoten.remove(x.getId());
             /*// Kommandozeilenausgabe zu Testzwecken
             System.out.print(x.getId());*/
+            d.markPoint(x.getNode());
             
             // gefunden?
             if(x.getId().equals(target.getId())){
