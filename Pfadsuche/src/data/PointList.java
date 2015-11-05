@@ -312,6 +312,7 @@ public final class PointList {
         getPointById("P64").addNeighbour(getPointById("P13"));
         getPointById("P64").addNeighbour(getPointById("P14"));
         getPointById("P64").addNeighbour(getPointById("P21"));
+        getPointById("P64").addNeighbour(getPointById("P22"));
         
         //Nachbarn des Knoten 71
         getPointById("P71").addNeighbour(getPointById("P72"));
