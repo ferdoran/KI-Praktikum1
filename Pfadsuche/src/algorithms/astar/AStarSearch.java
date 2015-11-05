@@ -63,6 +63,8 @@ public class AStarSearch extends Thread {
             System.out.print(x.getId());*/
             d.markPoint(x.getNode());
             
+            
+            
             // gefunden?
             if(x.getId().equals(target.getId())){
                 goal = x;
@@ -93,16 +95,28 @@ public class AStarSearch extends Thread {
                             offeneKnoten.put(neighbor.getId(), n);
                             grenzListe.add(n);
                             
+                            
                         }
+                        
                         // wenn ja und der Weg ist kürzer als der bisher
                         // gefundene: Neuen Elternknoten sowie neue Entfernung
                         // setzen.
                         else if (g < n.getG()) {
+                            d.markPoint(n.getNode());
                             n.setCameFrom(x);
                             n.setG(g);
                         }
+                        else {
+                            d.markPoint(n.getNode());
+                        }
+                        
+                       
                     }
-                    d.drawPath(x.getNode(), neighbor);
+                    else {
+                        d.markPoint(visited.getNode());
+                    }
+                    
+                    
                 });
             }
             

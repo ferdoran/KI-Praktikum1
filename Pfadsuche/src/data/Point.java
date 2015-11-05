@@ -39,4 +39,8 @@ public class Point {
     public HashSet<Point> getNeighbours(){
         return neighbours;
     }
+    
+    public boolean isNeighbourOf(Point p) {
+        return neighbours.contains(p);
+    }
 }

@@ -27,7 +27,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     Point selected;
     final double scalingFactorX = WIDTH_NEW / (388 - 100);
     final double scalingFactorY = HEIGHT_NEW / (670 - 516);
-
+    Point lastVisited;
     /**
      * Creates new form DrawingPanel
      */
@@ -86,29 +86,45 @@ public class DrawingPanel extends javax.swing.JPanel {
         g.setColor(Color.black);
         int x = (int) p.getX();
         int y = (int) p.getY();
-        
+        if(lastVisited == null) {
+            lastVisited = p;
+        }
+        else {
+            drawPath(lastVisited, p);
+            lastVisited = p;
+        }
         g.drawOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
         g.fillOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
         
     }
     
+    public void trackPath(Point p) {
+        if(lastVisited == null) {
+            lastVisited = p;
+        }
+        else if (lastVisited.isNeighbourOf(p)) {
+            drawPath(lastVisited, p);
+            lastVisited = p;
+        }
+    }
+    
     public void drawPath(Point from, Point to) {
         Graphics2D g = (Graphics2D) this.getGraphics();
         g.setColor(Color.red);
-        
-        int xFrom = (int) from.getX();
-        int yFrom = (int) from.getY();
-        int xTo = (int) to.getX();
-        int yTo = (int) to.getY();
-//        g.drawOval((int) scalingFactorX * xFrom - xFrom-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY)-2+20, 4, 4);
-//        g.fillOval((int) scalingFactorX * xFrom - xFrom-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY)-2+20, 4, 4);
+        if(from.isNeighbourOf(to)) {
+            int xFrom = (int) from.getX();
+            int yFrom = (int) from.getY();
+            int xTo = (int) to.getX();
+            int yTo = (int) to.getY();
+//          g.drawOval((int) scalingFactorX * xFrom - xFrom-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY)-2+20, 4, 4);
+//          g.fillOval((int) scalingFactorX * xFrom - xFrom-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY)-2+20, 4, 4);
 //        
-//        g.drawOval((int) scalingFactorX * xTo - xTo-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)-2+20, 4, 4);
-//        g.fillOval((int) scalingFactorX * xTo - xTo-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)-2+20, 4, 4);
+//          g.drawOval((int) scalingFactorX * xTo - xTo-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)-2+20, 4, 4);
+//          g.fillOval((int) scalingFactorX * xTo - xTo-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)-2+20, 4, 4);
         
-        g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
+            g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
         
-        
+        }
     }
     
     public void drawAllLines() {
@@ -134,9 +150,9 @@ public class DrawingPanel extends javax.swing.JPanel {
     public void drawFinalPath(List<String> idList) {
         Graphics2D g = (Graphics2D) this.getGraphics();
         g.setColor(Color.green);
-        super.paintComponent(g);
-        drawAllPoints();
-        drawAllLines();
+//        super.paintComponent(g);
+//        drawAllPoints();
+//        drawAllLines();
         Point last = null;
         
         for(String id : idList) {
