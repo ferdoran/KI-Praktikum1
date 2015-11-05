@@ -102,12 +102,12 @@ public class AStarSearch extends Thread {
                         // gefundene: Neuen Elternknoten sowie neue Entfernung
                         // setzen.
                         else if (g < n.getG()) {
-                            d.markPoint(n.getNode());
+                            //d.markPoint(n.getNode());
                             n.setCameFrom(x);
                             n.setG(g);
                         }
                         else {
-                            d.markPoint(n.getNode());
+                            //d.markPoint(n.getNode());
                         }
                         
                        
