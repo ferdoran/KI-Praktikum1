@@ -9,13 +9,10 @@ import algorithms.astar.AStarSearch;
 import data.LineList;
 import data.Point;
 import data.PointList;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ChangeListener;
 
 
 /**
@@ -92,6 +89,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         aufgabeButtonGroup.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("Aufgabe 1");
 
         aufgabeButtonGroup.add(jRadioButton2);
@@ -202,21 +200,31 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         // TODO add your handling code here:
-        int delay = delaySlider.getValue();
-        if(firstRun) {
-            firstRun = false;
-            draw.setPoints(p);
-            draw.setLines(l);
-            draw.drawAllPoints();
-            draw.drawAllLines();
+        if(jRadioButton1.isSelected()) {
+            
+        
+            int delay = delaySlider.getValue();
+            if(firstRun) {
+                firstRun = false;
+                draw.setPoints(p);
+                draw.setLines(l);
+                draw.drawAllPoints();
+                draw.drawAllLines();
+            }
+            else {
+                draw.clear();
+                draw.drawAllPoints();
+                draw.drawAllLines();
+            }
+            suche = new AStarSearch(p.getPointById("S"), p.getPointById("Z"), draw, delay, log);
+            suche.start();
         }
-        else {
-            draw.clear();
-            draw.drawAllPoints();
-            draw.drawAllLines();
+        else if(jRadioButton2.isSelected()){
+            StringBuilder sb = new StringBuilder();
+            sb.append(log.getText());
+            sb.append("Diese Funktion ist noch nicht implementiert.");
+            log.setText(sb.toString());
         }
-        suche = new AStarSearch(p.getPointById("S"), p.getPointById("Z"), draw, delay, log);
-        suche.start();
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void delaySliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_delaySliderStateChanged
