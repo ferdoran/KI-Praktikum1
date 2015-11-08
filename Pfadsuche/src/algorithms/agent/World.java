@@ -15,7 +15,7 @@ public class World {
     
     final PointList points;
     final LineList polyLines;
-    Point2D.Double agentPosition;
+    Point agentPosition;
     final Point target;
     
     public World() {
@@ -55,7 +55,7 @@ public class World {
         return result;
     }
     
-    public void setAgentPosition (Point2D.Double pos){
+    public void setAgentPosition (Point pos){
         agentPosition = pos;
     }
     

@@ -1,5 +1,6 @@
 package test;
 import algorithms.agent.World;
+import data.Point;
 import java.awt.geom.Point2D;
 
 /**
@@ -9,7 +10,7 @@ import java.awt.geom.Point2D;
 public class WorldTest {
     public static void main(String[] args){
         World world = new World();
-        Point2D.Double start = new Point2D.Double(100,534);
+        Point start = new Point(100,534, "S");
         world.setAgentPosition(start);
         
         System.out.print(world.getAvailablePoints().toString());
