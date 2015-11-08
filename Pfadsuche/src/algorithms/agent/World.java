@@ -52,15 +52,10 @@ public class World {
                 }
                 else {
                     valid = false;
+                    break;
                 }
             }
             if(valid) {
-                for(Point p : points.getAllPoints()) {
-                    if(p.equals(new Point(randX, randY, "rand"))) {
-                        valid = false;
-                        break;
-                    }
-                }
                 res = new Point2D.Double(randX, randY);
                 break;
             }

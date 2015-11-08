@@ -32,7 +32,7 @@ public class Agent {
         int cost = 0;
         Point target = points.getPointById("Z");
         boolean goal = false;
-        
+        System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
         
         //Suche implementieren
         while(!goal) {
@@ -40,9 +40,12 @@ public class Agent {
             double distance = 1000000;
             Point nextPoint = null;
             
+            
+            
             //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
             for(Point p : ap) {
                 if(p.equals(target)) {
+                    nextPoint = p;
                     cost += p.distance(position);
                     cost -= 1000;
                     return cost;
@@ -53,10 +56,10 @@ public class Agent {
                 }
                 
             }
-            if(nextPoint == null) {
-                System.out.println("nextPoint null");
-                break;
-            }
+//            if(nextPoint == null) {
+//                System.out.println("nextPoint null");
+//                break;
+//            }
             world.setAgentPosition(nextPoint);
             cost += nextPoint.distance(position);
             position = nextPoint;
