@@ -69,9 +69,9 @@ public class World {
         ArrayList<Point> result = new ArrayList<>();
         actualLines.clear();
         
-        System.out.println("Agent: " + agentPosition.toString());
+        //System.out.println("Agent: " + agentPosition.toString());
         //für jeden der bekannten Punkte
-        points.getAllPoints().stream().forEach((Point p) -> {
+        for(Point p : points.getAllPoints()) {
             
             //erstellen der Linie von der AgentenPosition zum aktuellen Knoten der Liste (Here 2 Point)
             Line h2p = new Line(new Point(agentPosition.getX(),agentPosition.getY(),"apos"),p);
@@ -81,8 +81,14 @@ public class World {
             for(Line l : polyLines.getList()){
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
-                if(h2p.intersectsLine(l) && !(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2())) && !h2p.equals(l)){
-                    intersects = true;
+                if(h2p.intersectsLine(l)/* && !(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2())) && !h2p.equals(l)*/){
+                    if(!h2p.equals(l)) {
+                        if(!(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2()))) {
+                            intersects = true;
+                            break;
+                        }
+                    }
+                    
                     
                     //wenn eine "Mauer" gefunden wurde, müssen die anderen Linien nicht mehr geprüft werden für diesen Punkt
                     break;
@@ -98,15 +104,15 @@ public class World {
                 //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
                 actualLines.add(h2p);
             }
-        });
+        }
         
         return result;
     }
     
     //verändern der Agentenposition
-    public void setAgentPosition (Point pos){
+    public void setAgentPosition (Point2D.Double pos){
         agentPosition = pos;
-        System.out.println("Agenten Position: "+pos.toString());
+        //System.out.println("Agenten Position: "+pos.toString());
     }
     
     //gibt eine Liste der von diesem Punkt aus gültigen Linien zurück

@@ -25,4 +25,8 @@ public class Line extends Line2D.Double {
     public Point getP2() {
         return pTo;
     }
+    
+    public boolean equals(Line l) {
+        return (l.getP1().equals(pFrom) && l.getP2().equals(pTo)) || (l.getP1().equals(pTo) && l.getP2().equals(pFrom));
+    }
 }
