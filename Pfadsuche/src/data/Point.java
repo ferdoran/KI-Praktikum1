@@ -1,34 +1,24 @@
 package data;
 
+import java.awt.geom.Point2D;
 import java.util.HashSet;
 
 /**
  *
  * @author Mahdi
  */
-public class Point {
-    protected double x;
-    protected double y;
+public class Point extends Point2D.Double {
     protected String id;
     protected HashSet<Point> neighbours;
     
     public Point(double x, double y, String id){
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.id = id;
         this.neighbours = new HashSet<>();
     }
 
     public String getId() {
         return id;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
     }
     
     public void addNeighbour(Point n){
