@@ -69,6 +69,7 @@ public class World {
         ArrayList<Point> result = new ArrayList<>();
         actualLines.clear();
         
+        System.out.println("Agent: " + agentPosition.toString());
         //für jeden der bekannten Punkte
         points.getAllPoints().stream().forEach((Point p) -> {
             
@@ -80,7 +81,7 @@ public class World {
             for(Line l : polyLines.getList()){
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
-                if(h2p.intersectsLine(l)&& !(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2()))){
+                if(h2p.intersectsLine(l) && !(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2())) && !h2p.equals(l)){
                     intersects = true;
                     
                     //wenn eine "Mauer" gefunden wurde, müssen die anderen Linien nicht mehr geprüft werden für diesen Punkt
@@ -105,6 +106,7 @@ public class World {
     //verändern der Agentenposition
     public void setAgentPosition (Point pos){
         agentPosition = pos;
+        System.out.println("Agenten Position: "+pos.toString());
     }
     
     //gibt eine Liste der von diesem Punkt aus gültigen Linien zurück
