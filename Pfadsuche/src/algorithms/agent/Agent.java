@@ -40,7 +40,9 @@ public class Agent {
             //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
             for(Point p : ap) {
                 if(p.equals(target)) {
-                    return ++cost;
+                    cost += p.distance(target);
+                    cost -= 100;
+                    return cost;
                 }
                 if(p.distance((target)) < distance) {
                     distance = p.distance(target);
@@ -49,7 +51,7 @@ public class Agent {
                 
             }
             w.setAgentPosition(nextPoint);
-            cost++;
+            cost += distance;
         }
         return cost;
     }
