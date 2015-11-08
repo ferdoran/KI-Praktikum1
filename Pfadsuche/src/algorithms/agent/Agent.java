@@ -33,22 +33,25 @@ public class Agent {
         Point target = points.getPointById("Z");
         boolean goal = false;
         System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
-        
+        Point nextPoint = null;
         //Suche implementieren
         while(!goal) {
             ArrayList<Point> ap = world.getAvailablePoints();
+            System.out.println("Erreichbare Punkte: " + ap.toString());
             double distance = 1000000;
-            Point nextPoint = null;
+            
             
             
             
             //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
             for(Point p : ap) {
+                
                 if(p.equals(target)) {
                     nextPoint = p;
                     cost += p.distance(position);
                     cost -= 1000;
                     return cost;
+                    
                 }
                 if(p.distance((target)) < distance) {
                     distance = p.distance(target);
@@ -60,9 +63,10 @@ public class Agent {
 //                System.out.println("nextPoint null");
 //                break;
 //            }
-            world.setAgentPosition(nextPoint);
+            
             cost += nextPoint.distance(position);
-            position = nextPoint;
+            world.setAgentPosition(nextPoint);
+            position = (Point2D.Double) nextPoint;
             System.out.println("Next Point: " + nextPoint.toString());
         }
         return cost;
