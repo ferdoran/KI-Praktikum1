@@ -4,7 +4,11 @@ import data.Line;
 import data.LineList;
 import data.Point;
 import data.PointList;
+import data.PolygonList;
+import java.awt.Polygon;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -15,24 +19,54 @@ public class World {
     
     final PointList points;
     final LineList polyLines;
-    Point agentPosition;
+    Point2D.Double agentPosition;
     final Point target;
     ArrayList<Line> actualLines;
+    final PolygonList polygons;
     
     public World() {
         this.points = new PointList();
         this.polyLines = new LineList(points);
-        agentPosition = null;
+        
         this.target = points.getPointById("Z");
         actualLines = new ArrayList<>();
+        polygons = new PolygonList(points);
+        agentPosition = calcStartposition();
         
     }
     
-//    public Point2D.Double calcStartposition() {
-//        Point2D.Double res;
-//        
-//        return res;
-//    }
+    private Point2D.Double calcStartposition() {
+        Point2D.Double res = null;
+        int minX = 80;
+        int maxX = 388;
+        int minY = 496;
+        int maxY = 690;
+        Random r = new Random();
+        boolean valid = false;
+        while(true) {
+            int randX = r.nextInt((maxX - minX) +1) + minX;
+            int randY = r.nextInt((maxY - minY) +1) + minY;
+            for(Polygon p : polygons.getPolygons()) {
+                if(!p.contains(randX, randY)) {
+                    valid = true;
+                }
+                else {
+                    valid = false;
+                }
+            }
+            if(valid) {
+                for(Point p : points.getAllPoints()) {
+                    if(p.equals(new Point(randX, randY, "rand"))) {
+                        valid = false;
+                        break;
+                    }
+                }
+                res = new Point2D.Double(randX, randY);
+                break;
+            }
+        }
+        return res;
+    }
     
     //Ermitteln der erreichbaren Punkte
     public ArrayList<Point> getAvailablePoints() {

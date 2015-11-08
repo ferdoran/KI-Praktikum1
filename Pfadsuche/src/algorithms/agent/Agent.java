@@ -6,6 +6,7 @@
  */
 package algorithms.agent;
 
+import data.Line;
 import data.Point;
 import data.PointList;
 import java.awt.geom.Point2D;
@@ -18,14 +19,16 @@ import java.util.ArrayList;
  */
 public class Agent {
     final PointList points = new PointList();
-    
+    World world;
     Point2D.Double position;
     
-    public Agent() {
-        position = null;
+    public Agent(World w) {
+        world = w;
+        w.getAvailablePoints();
+        position = calcPosition(world);
     }
     
-    public double search(World w) {
+    public double search() {
         int cost = 0;
         Point target = points.getPointById("Z");
         boolean goal = false;
@@ -33,15 +36,15 @@ public class Agent {
         
         //Suche implementieren
         while(!goal) {
-            ArrayList<Point> ap = w.getAvailablePoints();
+            ArrayList<Point> ap = world.getAvailablePoints();
             double distance = 1000000;
             Point nextPoint = null;
             
             //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
             for(Point p : ap) {
                 if(p.equals(target)) {
-                    cost += p.distance(target);
-                    cost -= 100;
+                    cost += p.distance(position);
+                    cost -= 1000;
                     return cost;
                 }
                 if(p.distance((target)) < distance) {
@@ -50,14 +53,29 @@ public class Agent {
                 }
                 
             }
-            w.setAgentPosition(nextPoint);
-            cost += distance;
+            if(nextPoint == null) {
+                System.out.println("nextPoint null");
+                break;
+            }
+            world.setAgentPosition(nextPoint);
+            cost += nextPoint.distance(position);
+            position = nextPoint;
+            System.out.println("Next Point: " + nextPoint.toString());
         }
         return cost;
     }
     
-//    private Point2D.Double calcPosition(World w) {
-//        ArrayList<Point> ap = w.getAvailablePoints();
-//    }
-//    
+    private Point2D.Double calcPosition(World w) {
+        ArrayList<Line> al = w.getAvailableLines();
+        Line l = al.get(0);
+        if(points.getAllPoints().contains(l.getP1())) {
+            return l.getP2();
+        }
+        else if(points.getAllPoints().contains(l.getP2())) {
+            return l.getP1();
+        }
+        
+        else return null;
+    }
+    
 }
