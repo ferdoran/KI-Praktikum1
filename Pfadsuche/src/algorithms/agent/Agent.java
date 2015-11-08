@@ -56,8 +56,8 @@ public class Agent {
         return cost;
     }
     
-    private Point2D.Double calcPosition(World w) {
-        ArrayList<Point> ap = w.getAvailablePoints();
-    }
-    
+//    private Point2D.Double calcPosition(World w) {
+//        ArrayList<Point> ap = w.getAvailablePoints();
+//    }
+//    
 }

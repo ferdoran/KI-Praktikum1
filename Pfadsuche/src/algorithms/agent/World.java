@@ -42,7 +42,7 @@ public class World {
             Line h2p = new Line(new Point(agentPosition.getX(),agentPosition.getY(),"apos"),p);
             boolean intersects = false;
             for(Line l : polyLines.getList()){
-                if(h2p.intersectsLine(l)){
+                if(h2p.intersectsLine(l)&& (h2p.getP2()==l.getP1() || h2p.getP2()==l.getP2())){
                     intersects = true;
                     break;
                 }
