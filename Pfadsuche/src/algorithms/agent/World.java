@@ -1,9 +1,3 @@
-/*
- * TH Koeln Informatik BA
- * 5. Semester KI Praktikum
- * Praktikum 1, Aufgabe 1
- * Roland Mueller & Stephan Schneider
- */
 package algorithms.agent;
 
 import data.Line;
@@ -12,7 +6,6 @@ import data.Point;
 import data.PointList;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.lang.NullPointerException;
 
 /**
  *
@@ -33,29 +26,31 @@ public class World {
         
     }
     
-    public Point2D.Double calcStartposition() {
-        Point2D.Double res;
-        
-        return res;
-    }
+//    public Point2D.Double calcStartposition() {
+//        Point2D.Double res;
+//        
+//        return res;
+//    }
     
     public ArrayList<Point> getAvailablePoints() {
         if(agentPosition == null) throw new NullPointerException();
         ArrayList<Point> result = new ArrayList<>();
         
         //Ermitteln der erreichbaren Punkte
-        for(Point p : points.getAllPoints()) {
+        points.getAllPoints().stream().forEach((Point p) -> {
             //erstellen der Linie von der AgentenPosition zum aktuellen Knoten der Liste (Here 2 Point)
             Line h2p = new Line(new Point(agentPosition.getX(),agentPosition.getY(),"apos"),p);
             boolean intersects = false;
             for(Line l : polyLines.getList()){
                 if(h2p.intersectsLine(l)){
-                   intersects = true;
-                   break;
+                    intersects = true;
+                    break;
                 }
             }
-            
-        }
+            if (!intersects) {
+                result.add(p);
+            }
+        });
         
         return result;
     }
@@ -63,6 +58,7 @@ public class World {
     public void setAgentPosition (Point2D.Double pos){
         agentPosition = pos;
     }
+    
     public ArrayList<Line> getAvailableLines() {
         ArrayList<Line> result = new ArrayList<>();
         
