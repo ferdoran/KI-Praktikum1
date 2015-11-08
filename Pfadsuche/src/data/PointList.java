@@ -441,6 +441,16 @@ public final class PointList {
         }
         return false;
     }
+
+    HashSet<Point> getPolygonPoints(String polygonName) {
+        HashSet<Point> result = new HashSet<>();
+        for(Point p: points) {
+            if(p.getId().contains(polygonName)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
     
     
 }
