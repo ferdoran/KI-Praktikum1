@@ -1,9 +1,3 @@
-/*
- * TH Koeln Informatik BA
- * 5. Semester KI Praktikum
- * Praktikum 1, Aufgabe 1
- * Roland Mueller & Stephan Schneider
- */
 package data;
 
 import java.util.ArrayList;
@@ -72,27 +66,6 @@ public class LineList {
         lines.add(new Line(p.getPointById("P82"), p.getPointById("P83")));
         
     }
-    
-    public boolean addLine(Point from, Point to) {
-        
-        return true;
-    }
-    
-    public boolean addLine(String idFrom, String idTo) {
-        
-        return true;
-    }
-    
-    public boolean removeLine(String id) {
-        
-        return true;
-    }
-    
-    public boolean removeLine(Point from, Point to) {
-        
-        return true;
-    }
-    
     
     
     public Line getLine(Point from, Point to) {

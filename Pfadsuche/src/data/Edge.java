@@ -1,9 +1,3 @@
-/*
- * TH Koeln Informatik BA
- * 5. Semester KI Praktikum
- * Praktikum 1, Aufgabe 1
- * Roland Mueller & Stephan Schneider
- */
 package data;
 
 /**

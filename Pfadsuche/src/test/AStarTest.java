@@ -1,5 +1,4 @@
 package test;
-import algorithms.astar.AStarSearch;
 import data.Point;
 /**
  *
