@@ -71,7 +71,7 @@ public class LineList {
     public Line getLine(Point from, Point to) {
         
         for(Line line : lines) {
-            if((line.getPointFrom().equals(from) && line.getPointTo().equals(to)) || (line.getPointFrom().equals(to) && line.getPointTo().equals(from))) {
+            if((line.getP1().equals(from) && line.getP2().equals(to)) || (line.getP1().equals(to) && line.getP2().equals(from))) {
                 return line;
             }
         }
@@ -81,7 +81,7 @@ public class LineList {
     public Line getLine(String idFrom, String idTo) {
         
         for(Line line : lines) {
-            if((line.getPointFrom().getId().equals(idFrom) && line.getPointTo().getId().equals(idTo)) || (line.getPointFrom().getId().equals(idTo) && line.getPointTo().getId().equals(idFrom))) {
+            if((line.getP1().getId().equals(idFrom) && line.getP2().getId().equals(idTo)) || (line.getP1().getId().equals(idTo) && line.getP1().getId().equals(idFrom))) {
                 return line;
             }
         }

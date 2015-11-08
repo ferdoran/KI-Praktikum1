@@ -126,10 +126,10 @@ public class DrawingPanel extends javax.swing.JPanel {
         Graphics2D g = (Graphics2D) this.getGraphics();
         g.setColor(Color.lightGray);
         for(Line l: lines.getList()) {
-            int xFrom = (int) l.getPointFrom().getX();
-            int yFrom = (int) l.getPointFrom().getY();
-            int xTo = (int) l.getPointTo().getX();
-            int yTo = (int) l.getPointTo().getY();
+            int xFrom = (int) l.getP1().getX();
+            int yFrom = (int) l.getP1().getY();
+            int xTo = (int) l.getP2().getX();
+            int yTo = (int) l.getP2().getY();
             g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
         }
         

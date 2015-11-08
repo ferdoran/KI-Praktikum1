@@ -1,25 +1,25 @@
 package data;
 
+import java.awt.geom.Line2D;
+
 /**
  *
  * @author Roland
  */
-public class Line {
-    Point pointFrom;
-    Point pointTo;
-    
-    
+public class Line extends Line2D.Double {
+
     public Line(Point pFrom, Point pTo) {
-        pointFrom = pFrom;
-        pointTo = pTo;
-        
+        super(pFrom,pTo);
+
     }
     
-    public Point getPointFrom() {
-        return pointFrom;
+    @Override
+    public Point getP1() {
+        return (Point) super.getP1();
     }
     
-    public Point getPointTo() {
-        return pointTo;
+    @Override
+    public Point getP2() {
+        return (Point) super.getP2();
     }
 }
