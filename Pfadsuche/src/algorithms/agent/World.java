@@ -4,7 +4,6 @@ import data.Line;
 import data.LineList;
 import data.Point;
 import data.PointList;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /**
@@ -17,12 +16,14 @@ public class World {
     final LineList polyLines;
     Point agentPosition;
     final Point target;
+    ArrayList<Line> actualLines;
     
     public World() {
         this.points = new PointList();
         this.polyLines = new LineList(points);
         agentPosition = null;
         this.target = points.getPointById("Z");
+        actualLines = new ArrayList<>();
         
     }
     
@@ -35,6 +36,7 @@ public class World {
     public ArrayList<Point> getAvailablePoints() {
         if(agentPosition == null) throw new NullPointerException();
         ArrayList<Point> result = new ArrayList<>();
+        actualLines.clear();
         
         //Ermitteln der erreichbaren Punkte
         points.getAllPoints().stream().forEach((Point p) -> {
@@ -47,8 +49,9 @@ public class World {
                     break;
                 }
             }
-            if (!intersects) {
+            if (!intersects && !(p.equals(new Point(agentPosition.getX(),agentPosition.getY(),"apos")))) {
                 result.add(p);
+                actualLines.add(h2p);
             }
         });
         
@@ -60,8 +63,7 @@ public class World {
     }
     
     public ArrayList<Line> getAvailableLines() {
-        ArrayList<Line> result = new ArrayList<>();
-        
-        return result;        
+        return actualLines;        
     }
+    
 }
