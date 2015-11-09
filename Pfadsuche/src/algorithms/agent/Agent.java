@@ -6,6 +6,7 @@ import data.PointList;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import gui.DrawingPanel;
+import java.util.Random;
 import javax.swing.JTextPane;
 
 
@@ -67,7 +68,10 @@ public class Agent {
                     }
 
                 }
-
+                Random r = new Random();
+                if((r.nextInt()%10)<3){
+                    position = calcPosition(world);
+                }
                 cost += nextPoint.distance(position);
                 position = (Point2D.Double) nextPoint;
                 System.out.println("Next Point: " + nextPoint.toString());
