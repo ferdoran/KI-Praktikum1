@@ -4,9 +4,12 @@ import data.Line;
 import data.LineList;
 import data.Point;
 import data.PointList;
+import data.PolygonList;
 import java.awt.Color;
+import java.awt.Graphics;
 
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.util.List;
 
 /**
@@ -19,6 +22,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     final int HEIGHT_NEW = 456;
     LineList lines;
     PointList points;
+    PolygonList polygons;
     Point selected;
     final double scalingFactorX = WIDTH_NEW / (388 - 100);
     final double scalingFactorY = HEIGHT_NEW / (670 - 516);
@@ -29,6 +33,14 @@ public class DrawingPanel extends javax.swing.JPanel {
     public DrawingPanel() {
         initComponents();
         this.setBackground(Color.white);
+    }
+    
+    public boolean setPolygons(PolygonList p) {
+        if(p == null) {
+            return false;
+        }
+        polygons = p;
+        return true;
     }
     
     public boolean setPoints(PointList p) {
@@ -142,6 +154,17 @@ public class DrawingPanel extends javax.swing.JPanel {
         //g.drawRect(0, 0, WIDTH_NEW+20, HEIGHT_NEW+20);
     }
     
+    public void drawAllPolygons() {
+        Graphics g =  this.getGraphics();
+        g.setColor(Color.black);
+        
+        for(Polygon p : polygons.getPolygons()) {
+            int[] x = transferPolygonXPoints(p.xpoints);
+            int[] y = transferPolygonYPoints(p.ypoints);
+            g.drawPolyline(x, y, p.npoints);
+        }
+    }
+    
     public void drawFinalPath(List<String> idList) {
         Graphics2D g = (Graphics2D) this.getGraphics();
         g.setColor(Color.green);
@@ -222,6 +245,22 @@ public class DrawingPanel extends javax.swing.JPanel {
         );
         
     }// </editor-fold>//GEN-END:initComponents
+
+    private int[] transferPolygonXPoints(int[] xpoints) {
+        int[] result = new int[xpoints.length];
+        for(int i=0;i < xpoints.length; i++) {
+            result[i] = (int) scalingFactorX * xpoints[i] - xpoints[i];
+        }
+        return result;
+    }
+    
+    private int[] transferPolygonYPoints(int[] xpoints) {
+        int[] result = new int[xpoints.length];
+        for(int i=0;i < xpoints.length; i++) {
+            result[i] = HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - xpoints[i])*scalingFactorY)+20;
+        }
+        return result;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

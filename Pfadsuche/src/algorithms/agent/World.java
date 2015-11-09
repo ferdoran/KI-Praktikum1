@@ -6,6 +6,7 @@ import data.Point;
 import data.PointList;
 import data.PolygonList;
 import java.awt.Polygon;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,6 +34,7 @@ public class World {
         polygons = new PolygonList(points);
         agentPosition = calcStartposition();
         
+        
     }
     
     private Point2D.Double calcStartposition() {
@@ -41,19 +43,26 @@ public class World {
         int maxX = 388;
         int minY = 496;
         int maxY = 690;
-        Random r = new Random();
+        ArrayList<Point> failedPositions = new ArrayList();
+        
         boolean valid = false;
         while(true) {
+            Random r = new Random();
             int randX = r.nextInt((maxX - minX) +1) + minX;
             int randY = r.nextInt((maxY - minY) +1) + minY;
+            if(failedPositions.contains(new Point(randX, randY, "P"+randX+randY))) {
+                continue;
+            }
             for(Polygon p : polygons.getPolygons()) {
-                if(!p.contains(randX, randY)) {
-                    valid = true;
-                }
-                else {
+                if(p.contains(randX, randY)) {
                     valid = false;
+                    failedPositions.add(new Point(randX, randY, "P"+randX+randY));
                     break;
                 }
+                else {
+                    valid = true;
+                }
+                
             }
             if(valid) {
                 res = new Point2D.Double(randX, randY);
@@ -75,28 +84,34 @@ public class World {
             
             //erstellen der Linie von der AgentenPosition zum aktuellen Knoten der Liste (Here 2 Point)
             Line h2p = new Line(new Point(agentPosition.getX(),agentPosition.getY(),"apos"),p);
+            Point h2p1 = h2p.getP1();
+            Point h2p2 = h2p.getP2();
             boolean intersects = false;
             
             //diese Linie mit allen Polygon-Linien auf Schnittpunkte prüfen
             for(Line l : polyLines.getList()){
+                Point lp1 = l.getP1();
+                Point lp2 = l.getP2();
+                
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
-                if(h2p.intersectsLine(l)/* && !(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2())) && !h2p.equals(l)*/){
-                    if(!h2p.equals(l)) {
-                        if(!(h2p.getP2().equals(l.getP1()) || h2p.getP2().equals(l.getP2()))) {
-                            intersects = true;
-                            break;
-                        }
-                    }
+                if(h2p.intersectsLine(l) && !(h2p2.equals(l.getP1()) || h2p2.equals(l.getP2())) && !(h2p1.equals(l.getP1()) || h2p1.equals(l.getP2())) && !h2p.equals(l)){
+                    intersects = true;
+                    break;
+                        
+                    
                     
                     
                     //wenn eine "Mauer" gefunden wurde, müssen die anderen Linien nicht mehr geprüft werden für diesen Punkt
-                    break;
+                    
                 }
+
+                 
+                 
             }
             
             //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
-            if (!intersects && !(p.equals(new Point(agentPosition.getX(),agentPosition.getY(),"apos")))) {
+            if (!intersects && !(p.equals(new Point(agentPosition.getX(),agentPosition.getY(),"apos"))) ) {
                 
                 //füge den Punkt zur Ergebnisliste hinzu
                 result.add(p);
@@ -112,7 +127,20 @@ public class World {
     //verändern der Agentenposition
     public void setAgentPosition (Point2D.Double pos){
         agentPosition = pos;
-        //System.out.println("Agenten Position: "+pos.toString());
+        System.out.println("Agenten Position: "+pos.toString());
+    }
+    
+    public boolean isValidPoint(Point p) {
+        for(Polygon pol : polygons.getPolygons()) {
+            if(!pol.contains(p)) {
+                for(int i = 0;i < pol.npoints; i++) {
+                    System.out.print("("+pol.xpoints[i] + "," + pol.ypoints[i]+")");
+                }
+            }
+            else return false;
+            System.out.println("\n-----------");
+        }
+        return true;
     }
     
     //gibt eine Liste der von diesem Punkt aus gültigen Linien zurück

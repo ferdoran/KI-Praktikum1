@@ -19,6 +19,8 @@ public class PolygonList {
     public PolygonList(PointList p) {
         polygons = new HashSet<>();
         
+        
+        
         polygons.add(createPolygonFromPointList(p.getPolygonPoints("P1")));
         polygons.add(createPolygonFromPointList(p.getPolygonPoints("P2")));
         polygons.add(createPolygonFromPointList(p.getPolygonPoints("P3")));

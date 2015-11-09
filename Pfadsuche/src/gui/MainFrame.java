@@ -4,6 +4,7 @@ import algorithms.astar.AStarSearch;
 import data.LineList;
 import data.Point;
 import data.PointList;
+import data.PolygonList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -17,6 +18,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MainFrame extends javax.swing.JFrame {
     LineList l;
     PointList p;
+    PolygonList polygons;
     boolean firstRun;
     private Thread suche;
     /**
@@ -25,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         p = new PointList();
         l = new LineList(p);
+        polygons = new PolygonList(p);
         firstRun = true;
         initComponents();
     }
@@ -215,10 +218,22 @@ public class MainFrame extends javax.swing.JFrame {
             suche.start();
         }
         else if(jRadioButton2.isSelected()){
-            StringBuilder sb = new StringBuilder();
-            sb.append(log.getText());
-            sb.append("Diese Funktion ist noch nicht implementiert.");
-            log.setText(sb.toString());
+//            StringBuilder sb = new StringBuilder();
+//            sb.append(log.getText());
+//            sb.append("Diese Funktion ist noch nicht implementiert.");
+//            log.setText(sb.toString());
+            if(firstRun) {
+                firstRun = false;
+                draw.setPoints(p);
+                draw.setLines(l);
+                draw.setPolygons(polygons);
+                draw.drawAllPolygons();
+            }
+            else {
+                draw.drawAllPolygons();
+            }
+            
+            
         }
     }//GEN-LAST:event_startButtonActionPerformed
 

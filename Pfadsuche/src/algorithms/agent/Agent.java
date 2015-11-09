@@ -32,12 +32,13 @@ public class Agent {
         int cost = 0;
         Point target = points.getPointById("Z");
         boolean goal = false;
-        System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
+        
         Point nextPoint = null;
         Point2D.Double lastPoint = null;
         //Suche implementieren
         while(!goal) {
             world.setAgentPosition(position);
+            System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
             ArrayList<Point> ap = world.getAvailablePoints();
             System.out.println("Erreichbare Punkte: " + ap.toString());
             double distance = 1000000;
@@ -49,6 +50,7 @@ public class Agent {
                     nextPoint = p;
                     cost += p.distance(position);
                     cost -= 1000;
+                    System.out.println("Ziel gefunden");
                     return cost;
                     
                 }
