@@ -210,8 +210,8 @@ public class DrawingPanel extends javax.swing.JPanel {
         }
     }
     
-    public void setLastVisited(Point p) {
-        lastVisited = p;
+    public void clearLastVisited() {
+        lastVisited = null;
     }
     
     public void selectPoint(Point p) {
