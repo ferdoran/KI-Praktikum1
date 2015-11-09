@@ -6,7 +6,10 @@ import data.PointList;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import gui.DrawingPanel;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextPane;
 
 
@@ -14,16 +17,23 @@ import javax.swing.JTextPane;
  *
  * @author Roland
  */
-public class Agent {
+public class Agent extends Thread {
     final PointList points = new PointList();
+    final int delay;
+    final boolean randomize;
     World world;
-    Point2D.Double position;
+    DrawingPanel d;
+    Point position;
     JTextPane log;
     
-    public Agent(World w) {
+    public Agent(World w, DrawingPanel d, int delay, boolean randomize, JTextPane log) {
         world = w;
         w.getAvailablePoints();
         position = null;
+        this.d = d;
+        this.delay = delay;
+        this.randomize = randomize;
+        this.log = log;
 //        log.setText("Ich befinde mich bei: " + position.toString());
     }
     
@@ -38,8 +48,9 @@ public class Agent {
             world.setAgentPosition(world.calcStartposition());
             cost[i] = 0;
             //neue Startposition je Episode
-            position = calcPosition(world);
             
+            position = calcPosition(world);
+            d.markPoint(position,true);
             boolean goal = false;
             Point nextPoint = null;
             Point2D.Double lastPoint = null;
@@ -47,9 +58,9 @@ public class Agent {
             //Suche implementieren
             while(!goal) {
                 world.setAgentPosition(position);
-                System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
+                
                 ArrayList<Point> ap = world.getAvailablePoints();
-                System.out.println("Erreichbare Punkte: " + ap.toString());
+                
                 double distance = 1000000;
 
                 //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
@@ -59,8 +70,10 @@ public class Agent {
                         nextPoint = p;
                         cost[i] += p.distance(position);
                         cost[i] -= 1000;
-                        System.out.println("Ziel gefunden");
+                        addLogLine("Ziel gefunden");
                         goal=true;
+                        d.clear();
+                        d.drawAllPolygons();
                         found++;
 
                     }
@@ -72,24 +85,35 @@ public class Agent {
                     }
 
                 }
-                Random r = new Random();
-                if((r.nextInt()%10)<3){
-                    nextPoint = (Point) calcPosition(world);
-                    lastPoint = position;
-                    huch++;
+                if(randomize) {
+                    Random r = new Random();
+                    if((r.nextInt()%10)<3){
+                        nextPoint = (Point) calcPosition(world);
+                        lastPoint = position;
+                        huch++;
+                    }
                 }
+                d.markPoint(nextPoint,true);
                 cost[i] += nextPoint.distance(position);
-                position = (Point2D.Double) nextPoint;
-                System.out.println("Next Point: " + nextPoint.toString());
+                position = nextPoint;
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Agent.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            System.out.println(i+1);
+            
         }
-        System.out.println("Verlaufen: " + huch);
-        System.out.println("Gefunden: "+ found);
+        addLogLine("Die Suche ist beendet. Folgende Ergebnisse wurden festgestellt:");
+        addLogLine("Verlaufen: " + huch);
+        addLogLine("Gefunden: "+ found);
+        addLogLine("Durchschnittliche Kosten: " + Arrays.stream(cost).average().toString());
+        addLogLine("Maximale Kosten: " + Arrays.stream(cost).max().toString());
+        addLogLine("Minimale Kosten: " + Arrays.stream(cost).min().toString());
         return cost;
     }
     
-    private Point2D.Double calcPosition(World w) {
+    private Point calcPosition(World w) {
         ArrayList<Line> al = w.getAvailableLines();
         Line l = al.get(0);
         if(points.getAllPoints().contains(l.getP1())) {
@@ -100,6 +124,17 @@ public class Agent {
         }
         
         else return null;
+    }
+    
+    private void addLogLine(String s) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(log.getText());
+        sb.append(s + "\n");
+        log.setText(sb.toString());
+    }
+    
+    public void run() {
+        search();
     }
     
 }

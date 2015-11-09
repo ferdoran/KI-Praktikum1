@@ -24,6 +24,7 @@ public class World {
     final Point target;
     ArrayList<Line> actualLines;
     final PolygonList polygons;
+    ArrayList<Point2D.Double> usedStartpoints; 
     
     public World() {
         this.points = new PointList();
@@ -32,7 +33,9 @@ public class World {
         this.target = points.getPointById("Z");
         actualLines = new ArrayList<>();
         polygons = new PolygonList(points);
+        usedStartpoints = new ArrayList<>();
         agentPosition = calcStartposition();
+        
         
         
     }
@@ -64,8 +67,9 @@ public class World {
                 }
                 
             }
-            if(valid) {
+            if((!usedStartpoints.contains(new Point2D.Double(randX, randY))) && valid) {
                 res = new Point2D.Double(randX, randY);
+                usedStartpoints.add(res);
                 break;
             }
         }

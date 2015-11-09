@@ -1,5 +1,7 @@
 package gui;
 
+import algorithms.agent.Agent;
+import algorithms.agent.World;
 import algorithms.astar.AStarSearch;
 import data.LineList;
 import data.Point;
@@ -54,6 +56,7 @@ public class MainFrame extends javax.swing.JFrame {
         delaySlider = new javax.swing.JSlider();
         delayInfo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        randomize = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KI-Prak1 - Pfadsuche");
@@ -124,6 +127,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Delay");
 
+        randomize.setText("Randomize");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,25 +139,27 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton5)
-                                        .addComponent(jLabel7)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jRadioButton2)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(delaySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(delayInfo)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(delaySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(delayInfo))
                             .addComponent(jLabel1))
-                        .addGap(0, 39, Short.MAX_VALUE)))
+                        .addGap(0, 53, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton5)
+                            .addComponent(jLabel7)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jRadioButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(randomize))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(draw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -175,7 +182,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2))
+                            .addComponent(jRadioButton2)
+                            .addComponent(randomize))
                         .addGap(30, 30, 30)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,6 +226,8 @@ public class MainFrame extends javax.swing.JFrame {
             suche.start();
         }
         else if(jRadioButton2.isSelected()){
+            World w = new World();
+            int delay = delaySlider.getValue();
 //            StringBuilder sb = new StringBuilder();
 //            sb.append(log.getText());
 //            sb.append("Diese Funktion ist noch nicht implementiert.");
@@ -232,6 +242,8 @@ public class MainFrame extends javax.swing.JFrame {
             else {
                 draw.drawAllPolygons();
             }
+            suche = new Agent(w, draw,delay,true,log);
+            suche.start();
             
             
         }
@@ -252,32 +264,13 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_stopButtonActionPerformed
 
-    private void addLogLine(String typeFlag, Point p, String logType) {
-        double x = p.getX();
-        double y = p.getY();
-        String name = p.getId();
+    private void addLogLine(String s) {
+        
 
         StringBuilder sb = new StringBuilder();
         sb.append(log.getText());
-
-        switch (typeFlag) {
-            case "add": {
-                if (logType.equals("nb")) {
-                    sb.append("Nachbar zu Punkt " + name + "(" + x + ", " + y + ") hinzugefügt\n");
-                } else if (logType.equals("p")) {
-                    sb.append("Punkt " + name + "(" + x + ", " + y + ") hinzugefügt\n");
-                }
-                break;
-            }
-            case "remove": {
-                if (logType.equals("nb")) {
-                    sb.append("Nachbar von Punkt " + name + "(" + x + ", " + y + ") entfernt\n");
-                } else if (logType.equals("p")) {
-                    sb.append("Punkt " + name + "(" + x + ", " + y + ") entfernt\n");
-                }
-                break;
-            }
-        }
+        sb.append(s + "\n");
+        
 
         log.setText(sb.toString());
     }
@@ -343,6 +336,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane log;
+    private javax.swing.JCheckBox randomize;
     private javax.swing.JButton startButton;
     private javax.swing.JButton stopButton;
     // End of variables declaration//GEN-END:variables
@@ -362,4 +356,5 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton startButton;
     private javax.swing.JButton stopButton;
     private DrawingPanel draw;
+    private javax.swing.JCheckBox randomize;
 }

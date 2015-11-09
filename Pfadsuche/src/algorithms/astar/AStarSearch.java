@@ -61,7 +61,7 @@ public class AStarSearch extends Thread {
             offeneKnoten.remove(x.getId());
             /*// Kommandozeilenausgabe zu Testzwecken
             System.out.print(x.getId());*/
-            d.markPoint(x.getNode());
+            d.markPoint(x.getNode(),false);
             
             
             
@@ -113,7 +113,7 @@ public class AStarSearch extends Thread {
                        
                     }
                     else {
-                        d.markPoint(visited.getNode());
+                        d.markPoint(visited.getNode(),false);
                     }
                     
                     
