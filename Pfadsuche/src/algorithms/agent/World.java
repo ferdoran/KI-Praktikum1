@@ -37,7 +37,7 @@ public class World {
         
     }
     
-    private Point2D.Double calcStartposition() {
+    protected Point2D.Double calcStartposition() {
         Point2D.Double res = null;
         int minX = 80;
         int maxX = 388;

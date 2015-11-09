@@ -27,15 +27,16 @@ public class Agent {
 //        log.setText("Ich befinde mich bei: " + position.toString());
     }
     
-    public double search() {
-        int cost = 0;
+    public int[] search() {
+        int[] cost = new int[100];
         int huch = 0;
         int found = 0;
         Point target = points.getPointById("Z");
   
         //100 Episoden
-        for(int i=0;i<100;i++){
-            
+        for(int i=0;i<100;i++) {
+            world.setAgentPosition(world.calcStartposition());
+            cost[i] = 0;
             //neue Startposition je Episode
             position = calcPosition(world);
             
@@ -56,8 +57,8 @@ public class Agent {
 
                     if(p.equals(target)) {
                         nextPoint = p;
-                        cost += p.distance(position);
-                        cost -= 1000;
+                        cost[i] += p.distance(position);
+                        cost[i] -= 1000;
                         System.out.println("Ziel gefunden");
                         goal=true;
                         found++;
@@ -77,7 +78,7 @@ public class Agent {
                     lastPoint = position;
                     huch++;
                 }
-                cost += nextPoint.distance(position);
+                cost[i] += nextPoint.distance(position);
                 position = (Point2D.Double) nextPoint;
                 System.out.println("Next Point: " + nextPoint.toString());
             }
