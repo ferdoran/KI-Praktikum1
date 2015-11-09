@@ -29,6 +29,8 @@ public class Agent {
     
     public double search() {
         int cost = 0;
+        int huch = 0;
+        int found = 0;
         Point target = points.getPointById("Z");
   
         //100 Episoden
@@ -58,6 +60,7 @@ public class Agent {
                         cost -= 1000;
                         System.out.println("Ziel gefunden");
                         goal=true;
+                        found++;
 
                     }
 
@@ -70,14 +73,18 @@ public class Agent {
                 }
                 Random r = new Random();
                 if((r.nextInt()%10)<3){
-                    position = calcPosition(world);
+                    nextPoint = (Point) calcPosition(world);
+                    lastPoint = position;
+                    huch++;
                 }
                 cost += nextPoint.distance(position);
                 position = (Point2D.Double) nextPoint;
                 System.out.println("Next Point: " + nextPoint.toString());
             }
+            System.out.println(i+1);
         }
-        
+        System.out.println("Verlaufen: " + huch);
+        System.out.println("Gefunden: "+ found);
         return cost;
     }
     
