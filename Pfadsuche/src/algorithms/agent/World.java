@@ -104,7 +104,7 @@ public class World {
                 if(h2p.intersectsLine(l) && (!(h2p2.equals(lp1) || h2p2.equals(lp2)) && !(h2p1.equals(lp1) || h2p1.equals(lp2))) && !h2p.equals(l) && !h2p1.isNeighbourOf(h2p2)){
                         boolean inPolygon = false;
                         for(Polygon pol : polygons.getPolygons()) {
-                            if(pol.contains(getMiddleOfLine(h2p1, h2p2))) {
+                            if(!pol.contains(getMiddleOfLine(h2p1, h2p2))) {
                                 inPolygon = true;
                                 break;
                             }
