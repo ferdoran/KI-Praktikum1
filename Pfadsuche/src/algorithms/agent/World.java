@@ -53,13 +53,15 @@ public class World {
             Random r = new Random();
             int randX = r.nextInt((maxX - minX) +1) + minX;
             int randY = r.nextInt((maxY - minY) +1) + minY;
-            if(failedPositions.contains(new Point(randX, randY, "P"+randX+randY))) {
+            Point po = new Point(randX, randY, "P"+Integer.toString(randX)+Integer.toString(randY));
+            if(failedPositions.contains(po)) {
                 continue;
             }
             for(Polygon p : polygons.getPolygons()) {
-                if(p.contains(randX, randY)) {
+                if(p.contains(po)) {
                     valid = false;
-                    failedPositions.add(new Point(randX, randY, "P"+randX+randY));
+                    
+                    failedPositions.add(po);
                     break;
                 }
                 else {
@@ -67,9 +69,9 @@ public class World {
                 }
                 
             }
-            if(!(usedStartpoints.contains(points.getPointById("P"+randX+randY))) && valid) {
+            if(!(usedStartpoints.contains(po)) && valid) {
                 res = new Point2D.Double(randX, randY);
-                usedStartpoints.add(new Point(randX, randY, "P"+randX+randY));
+                usedStartpoints.add(po);
                 break;
             }
         }

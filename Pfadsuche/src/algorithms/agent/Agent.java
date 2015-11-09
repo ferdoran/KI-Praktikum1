@@ -46,11 +46,14 @@ public class Agent extends Thread {
         //100 Episoden
         for(int i=0;i<100;i++) {
             d.setLastVisited(null);
+            d.clear();
+            d.drawAllPolygons();
             world.setAgentPosition(world.calcStartposition());
             cost[i] = 0;
             //neue Startposition je Episode
             
             position = calcPosition(world);
+            
             d.markPoint(position,true);
             boolean goal = false;
             Point nextPoint = null;
@@ -58,7 +61,7 @@ public class Agent extends Thread {
             
             //Suche implementieren
             while(!goal) {
-                world.setAgentPosition(position);
+                
                 
                 ArrayList<Point> ap = world.getAvailablePoints();
                 
@@ -73,9 +76,11 @@ public class Agent extends Thread {
                         cost[i] -= 1000;
                         addLogLine("Ziel gefunden");
                         goal=true;
+                        d.setLastVisited(null);
                         d.clear();
                         d.drawAllPolygons();
                         found++;
+                        break;
 
                     }
 
@@ -97,6 +102,7 @@ public class Agent extends Thread {
                 d.markPoint(nextPoint,true);
                 cost[i] += nextPoint.distance(position);
                 position = nextPoint;
+                world.setAgentPosition(nextPoint);
                 try {
                     Thread.sleep(delay);
                 } catch (InterruptedException ex) {
