@@ -167,6 +167,19 @@ public class DrawingPanel extends javax.swing.JPanel {
             int[] y = transferPolygonYPoints(p.ypoints);
             g.drawPolygon(x, y, p.npoints);
         }
+        
+        int x = (int) points.getPointById("Z").getX();
+        int y = (int) points.getPointById("Z").getY();
+        int x1 = (int) points.getPointById("S").getX();
+        int y1 = (int) points.getPointById("S").getY();
+        
+        g.drawOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
+        g.fillOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
+        
+        g.drawOval((int) scalingFactorX * x1 - x1-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y1)*scalingFactorY)-2+20, 4, 4);
+        g.fillOval((int) scalingFactorX * x1 - x1-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y1)*scalingFactorY)-2+20, 4, 4);
+        
+        
     }
     
     public void drawFinalPath(List<String> idList) {
@@ -195,6 +208,10 @@ public class DrawingPanel extends javax.swing.JPanel {
             g.drawLine((int) scalingFactorX * lastX - lastX,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - lastY)*scalingFactorY) +20,(int) scalingFactorX * thisX - thisX,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - thisY)*scalingFactorY)+20);
             last = current;
         }
+    }
+    
+    public void setLastVisited(Point p) {
+        lastVisited = p;
     }
     
     public void selectPoint(Point p) {

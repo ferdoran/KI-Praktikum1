@@ -45,6 +45,7 @@ public class Agent extends Thread {
   
         //100 Episoden
         for(int i=0;i<100;i++) {
+            d.setLastVisited(null);
             world.setAgentPosition(world.calcStartposition());
             cost[i] = 0;
             //neue Startposition je Episode

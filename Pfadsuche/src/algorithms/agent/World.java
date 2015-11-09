@@ -24,7 +24,7 @@ public class World {
     final Point target;
     ArrayList<Line> actualLines;
     final PolygonList polygons;
-    ArrayList<Point2D.Double> usedStartpoints; 
+    ArrayList<Point> usedStartpoints; 
     
     public World() {
         this.points = new PointList();
@@ -40,7 +40,7 @@ public class World {
         
     }
     
-    protected Point2D.Double calcStartposition() {
+    public Point2D.Double calcStartposition() {
         Point2D.Double res = null;
         int minX = 80;
         int maxX = 388;
@@ -67,9 +67,9 @@ public class World {
                 }
                 
             }
-            if((!usedStartpoints.contains(new Point2D.Double(randX, randY))) && valid) {
+            if(!(usedStartpoints.contains(points.getPointById("P"+randX+randY))) && valid) {
                 res = new Point2D.Double(randX, randY);
-                usedStartpoints.add(res);
+                usedStartpoints.add(new Point(randX, randY, "P"+randX+randY));
                 break;
             }
         }
