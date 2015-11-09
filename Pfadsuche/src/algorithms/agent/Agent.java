@@ -22,53 +22,58 @@ public class Agent {
     public Agent(World w) {
         world = w;
         w.getAvailablePoints();
-        position = calcPosition(world);
-        log.setText("Ich befinde mich bei: " + position.toString());
+        position = null;
+//        log.setText("Ich befinde mich bei: " + position.toString());
     }
     
     public double search() {
         int cost = 0;
         Point target = points.getPointById("Z");
-        boolean goal = false;
-        
-        Point nextPoint = null;
-        Point2D.Double lastPoint = null;
-        //Suche implementieren
-        while(!goal) {
-            world.setAgentPosition(position);
-            System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
-            ArrayList<Point> ap = world.getAvailablePoints();
-            System.out.println("Erreichbare Punkte: " + ap.toString());
-            double distance = 1000000;
-
-            //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
-            for(Point p : ap) {
-                
-                if(p.equals(target)) {
-                    nextPoint = p;
-                    cost += p.distance(position);
-                    cost -= 1000;
-                    System.out.println("Ziel gefunden");
-                    return cost;
-                    
-                }
-                
-                else if(p.distance(target) < distance) {
-                    distance = p.distance(target);
-                    nextPoint = p;
-                    lastPoint = position;
-                }
-                
-            }
-//            if(nextPoint == null) {
-//                System.out.println("nextPoint null");
-//                break;
-//            }
+  
+        //100 Episoden
+        for(int i=0;i<100;i++){
             
-            cost += nextPoint.distance(position);
-            position = (Point2D.Double) nextPoint;
-            System.out.println("Next Point: " + nextPoint.toString());
+            //neue Startposition je Episode
+            position = calcPosition(world);
+            
+            boolean goal = false;
+            Point nextPoint = null;
+            Point2D.Double lastPoint = null;
+            
+            //Suche implementieren
+            while(!goal) {
+                world.setAgentPosition(position);
+                System.out.println("Startposition = (" + position.getX() + "," + position.getY() + ")");
+                ArrayList<Point> ap = world.getAvailablePoints();
+                System.out.println("Erreichbare Punkte: " + ap.toString());
+                double distance = 1000000;
+
+                //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
+                for(Point p : ap) {
+
+                    if(p.equals(target)) {
+                        nextPoint = p;
+                        cost += p.distance(position);
+                        cost -= 1000;
+                        System.out.println("Ziel gefunden");
+                        goal=true;
+
+                    }
+
+                    else if(p.distance(target) < distance) {
+                        distance = p.distance(target);
+                        nextPoint = p;
+                        lastPoint = position;
+                    }
+
+                }
+
+                cost += nextPoint.distance(position);
+                position = (Point2D.Double) nextPoint;
+                System.out.println("Next Point: " + nextPoint.toString());
+            }
         }
+        
         return cost;
     }
     
