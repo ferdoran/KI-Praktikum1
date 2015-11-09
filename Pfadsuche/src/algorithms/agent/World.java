@@ -102,11 +102,17 @@ public class World {
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
                 if(h2p.intersectsLine(l) && (!(h2p2.equals(lp1) || h2p2.equals(lp2)) && !(h2p1.equals(lp1) || h2p1.equals(lp2))) && !h2p.equals(l) && !h2p1.isNeighbourOf(h2p2)){
-                    
-                        
+                        boolean inPolygon = false;
+                        for(Polygon pol : polygons.getPolygons()) {
+                            if(pol.contains(getMiddleOfLine(h2p1, h2p2))) {
+                                inPolygon = true;
+                                break;
+                            }
+                        }
+                        if(inPolygon) {
                             intersects = true;
                             break;
-                          
+                        }  
                      
                     
                     //wenn eine "Mauer" gefunden wurde, müssen die anderen Linien nicht mehr geprüft werden für diesen Punkt
@@ -151,6 +157,17 @@ public class World {
     public ArrayList<Line> getAvailableLines() {
         if(actualLines==null) throw new NullPointerException();
         return actualLines;        
+    }
+    
+    private Point getMiddleOfLine(Point from, Point to) {
+        int x1 = (int) from.getX();
+        int y1 = (int) from.getY();
+        int x2 = (int) to.getX();
+        int y2 = (int) to.getY();
+        
+        int resX = ((Math.max(x1, x2) - Math.min(x1, x2)) / 2) + Math.min(x1, x2);
+        int resY = ((Math.max(y1, y2) - Math.min(y1, y2)) / 2) + Math.min(y1, y2);
+        return new Point(resX, resY, "P"+resX+resY);
     }
     
 }

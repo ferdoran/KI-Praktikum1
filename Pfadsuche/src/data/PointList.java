@@ -18,7 +18,7 @@ public final class PointList {
         
         
         //Definition der Punkte
-        points.add(new Point(352, 543, "TEST"));
+        
         
         //Start und Zielpunkt
         points.add(new Point(100,534, "S"));

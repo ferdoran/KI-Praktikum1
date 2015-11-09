@@ -22,7 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
     PointList p;
     PolygonList polygons;
     boolean firstRun;
-    private Thread suche;
+    Thread suche;
     /**
      * Creates new form MainFrame
      */
@@ -256,11 +256,21 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_delaySliderStateChanged
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        // TODO add your handling code here:
-        suche.stop();
-        draw.clear();
-        draw.drawAllPoints();
-        draw.drawAllLines();
+        try {
+            // TODO add your handling code here:
+            if(suche.isInterrupted()) {
+                suche.join();
+                suche.interrupt();
+            }
+            else {
+                suche.interrupt();
+            }
+            
+            draw.clear();
+            draw.drawAllPolygons();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_stopButtonActionPerformed
 
