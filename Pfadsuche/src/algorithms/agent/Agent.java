@@ -45,10 +45,11 @@ public class Agent extends Thread {
   
         //100 Episoden
         for(int i=0;i<100;i++) {
-            d.setLastVisited(null);
+            d.clearLastVisited();
             d.clear();
             d.drawAllPolygons();
-            world.setAgentPosition(world.calcStartposition());
+            Point2D.Double pos = world.calcStartposition();
+            world.setAgentPosition(pos);
             cost[i] = 0;
             //neue Startposition je Episode
             
@@ -72,11 +73,12 @@ public class Agent extends Thread {
 
                     if(p.equals(target)) {
                         nextPoint = p;
+                        d.markPoint(p, true);
                         cost[i] += p.distance(position);
                         cost[i] -= 1000;
                         addLogLine("Ziel gefunden");
                         goal=true;
-                        d.setLastVisited(null);
+                        d.clearLastVisited();
                         d.clear();
                         d.drawAllPolygons();
                         found++;
@@ -94,7 +96,8 @@ public class Agent extends Thread {
                 if(randomize) {
                     Random r = new Random();
                     if((r.nextInt()%10)<3){
-                        nextPoint = (Point) calcPosition(world);
+                        Point2D.Double next = calcPosition(world);
+                        nextPoint = new Point((int) next.getX(), (int) next.getY(), "P"+next.getX()+next.getY());
                         lastPoint = position;
                         huch++;
                     }
