@@ -28,7 +28,6 @@ public class Agent extends Thread {
     
     public Agent(World w, DrawingPanel d, int delay, boolean randomize, JTextPane log) {
         world = w;
-        w.getAvailablePoints();
         position = null;
         this.d = d;
         this.delay = delay;
@@ -50,6 +49,7 @@ public class Agent extends Thread {
             d.drawAllPolygons();
             Point2D.Double pos = world.calcStartposition();
             world.setAgentPosition(pos);
+            world.getAvailablePoints();
             cost[i] = 0;
             //neue Startposition je Episode
             
