@@ -156,12 +156,12 @@ public class DrawingPanel extends javax.swing.JPanel {
     
     public void drawAllPolygons() {
         Graphics g =  this.getGraphics();
-        g.setColor(Color.black);
+        g.setColor(Color.lightGray);
         
         for(Polygon p : polygons.getPolygons()) {
             int[] x = transferPolygonXPoints(p.xpoints);
             int[] y = transferPolygonYPoints(p.ypoints);
-            g.drawPolyline(x, y, p.npoints);
+            g.drawPolygon(x, y, p.npoints);
         }
     }
     

@@ -11,6 +11,8 @@ import data.Point;
 import data.PointList;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import gui.DrawingPanel;
+import javax.swing.JTextPane;
 
 
 /**
@@ -21,11 +23,13 @@ public class Agent {
     final PointList points = new PointList();
     World world;
     Point2D.Double position;
+    JTextPane log;
     
     public Agent(World w) {
         world = w;
         w.getAvailablePoints();
         position = calcPosition(world);
+        log.setText("Ich befinde mich bei: " + position.toString());
     }
     
     public double search() {

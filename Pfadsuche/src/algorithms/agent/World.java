@@ -95,19 +95,12 @@ public class World {
                 
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
-                if(h2p.intersectsLine(l) && !(h2p2.equals(l.getP1()) || h2p2.equals(l.getP2())) && !(h2p1.equals(l.getP1()) || h2p1.equals(l.getP2())) && !h2p.equals(l)){
+                if(h2p.intersectsLine(l) && !(h2p2.equals(lp1) || h2p2.equals(lp2)) && !(h2p1.equals(lp1) || h2p1.equals(lp2)) && !h2p.equals(l)){
                     intersects = true;
-                    break;
-                        
-                    
-                    
                     
                     //wenn eine "Mauer" gefunden wurde, müssen die anderen Linien nicht mehr geprüft werden für diesen Punkt
-                    
-                }
-
-                 
-                 
+                    break;    
+                }    
             }
             
             //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
