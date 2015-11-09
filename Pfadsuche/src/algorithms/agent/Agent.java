@@ -78,6 +78,11 @@ public class Agent extends Thread {
                         cost[i] -= 1000;
                         addLogLine("Ziel gefunden");
                         goal=true;
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(Agent.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         d.clearLastVisited();
                         d.clear();
                         d.drawAllPolygons();
