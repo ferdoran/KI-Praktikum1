@@ -27,6 +27,10 @@ public class Point extends Point2D.Double {
         this.neighbours.add(n);        
     }
     
+    public void addPolygonNeighbour(Point n){
+        this.polygonNeighbours.add(n);        
+    }
+    
     public HashSet<Point> getNeighbours(){
         return neighbours;
     }
