@@ -135,6 +135,10 @@ public class Agent extends Thread {
     
     private Point calcPosition(World w) {
         ArrayList<Line> al = w.getAvailableLines();
+        if(al.isEmpty()) {
+            addLogLine("Position kann nicht errechnet werden");
+            return null;
+        }
         Line l = al.get(0);
         if(points.getAllPoints().contains(l.getP1())) {
             return l.getP2();

@@ -84,7 +84,7 @@ public class World {
         if(agentPosition == null) throw new NullPointerException();
         ArrayList<Point> result = new ArrayList<>();
         actualLines.clear();
-        result.add(new Point(220, 616, "asdasdasd"));
+        
         
         //System.out.println("Agent: " + agentPosition.toString());
         //für jeden der bekannten Punkte
@@ -96,15 +96,18 @@ public class World {
             Point h2p1 = h2p.getP1();
             Point h2p2 = h2p.getP2();
             int count = 0;
-            int limit = 0;
+            int limit;
             
             
             if(points.contains(h2p1)) {
                 limit = 4;
+                //System.out.println("Limit 4");
             }
             else {
                 limit = 2;
+                //System.out.println("Limit 2");
             }
+            
             boolean intersects = false;
             
             
@@ -116,55 +119,89 @@ public class World {
                 Point lp1 = l.getP1();
                 Point lp2 = l.getP2();
                 
-                if(h2p.intersectsLine(l)) {
-                    count++;
-                }
                 
                 
+                
+            
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
 //                if(h2p.intersectsLine(l) && (!(h2p1.equals(lp1) || h2p1.equals(lp2) || !(h2p2.equals(lp1) || h2p2.equals(lp2)))) && !h2p.equals(l)) {
 //                    intersects = true;
-//                    break;
-//                }
-//                else {
-//                    result.add(p);
-//                }
-//                if(points.contains(h2p1)) {
-//                    if(h2p.intersectsLine(l)) {
-//                        intersects = true;
-//                        if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
-//                            intersects = false;
-//                            
-//                            if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
-//                                intersects = true;
-//                                
-//                            }
-//                            break;
-//                        }
-//                    }
-//                }
-//                else {
-//                    if(h2p.intersectsLine(l)) {
-//                        intersects = true;
+//                    
+//                    if(points.contains(h2p1) && !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY())) {
 //                        count++;
-//
-//                                                
 //                    }
+//                    else {
+//                        
+//                    }
+//                }
+//                else {
 //                    
 //                }
+                if(points.contains(h2p1)) {
+                    System.out.println("punkt vorhanden");
+                    if(h2p.intersectsLine(l)) {
+                        intersects = true;
+                        if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
+                            intersects = false;
+                                count++;
+                            if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
+                                intersects = true;
+                                count--;
+                                
+                            }
+                            
+                        }
+                        else {
+                            
+                            
+                        }
+                    }
+                }
+                else {
+                    if(h2p.intersectsLine(l)) {
+                        //System.out.println("Intersektion zwischen: " + h2p + " und " + l);
+                        if((h2p2.equals(lp2) || h2p2.equals(lp1)) && isValidPoint(h2p2)) {
+                            System.out.println("Count");
+                            count++;
+                            intersects = true;
+                            
+                        }
+
+                                                
+                    }
+                    
+                }
             
+            }
+            
+             if ( count <= limit ) {
+                
+                
+                //füge den Punkt zur Ergebnisliste hinzu
+                if(!result.contains(p)){
+                   result.add(p);
+                   System.out.println("punkt hinzugefügt");
+                }
+                 
+                //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
+                actualLines.add(h2p);
+                
             }
             
             //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
-            if (count <= limit ) {
-                
-                //füge den Punkt zur Ergebnisliste hinzu
-                result.add(p);
-                
-                //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
-                actualLines.add(h2p);
-                count = 0;
-            }
+//            if ( !intersects && !p.equals(agentPosition) ) {
+//                
+//                
+//                //füge den Punkt zur Ergebnisliste hinzu
+//                if(!result.contains(p)){
+//                   result.add(p);
+//                   System.out.println("punkt hinzugefügt");
+//                }
+//                 
+//                //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
+//                actualLines.add(h2p);
+//                
+//            }
         }
         
         return result;
@@ -179,12 +216,10 @@ public class World {
     public boolean isValidPoint(Point p) {
         for(Polygon pol : polygons.getPolygons()) {
             if(!pol.contains(p)) {
-                for(int i = 0;i < pol.npoints; i++) {
-                    System.out.print("("+pol.xpoints[i] + "," + pol.ypoints[i]+")");
-                }
+                
             }
             else return false;
-            System.out.println("\n-----------");
+            
         }
         return true;
     }

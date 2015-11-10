@@ -26,7 +26,16 @@ public class Line extends Line2D.Double {
         return pTo;
     }
     
+    
     public boolean equals(Line l) {
         return (l.getP1().equals(pFrom) && l.getP2().equals(pTo)) || (l.getP1().equals(pTo) && l.getP2().equals(pFrom));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(pFrom.toString());
+        sb.append(pTo.toString());
+        return sb.toString();
     }
 }

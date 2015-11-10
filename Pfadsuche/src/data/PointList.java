@@ -550,7 +550,7 @@ public final class PointList {
     
     public boolean contains(Point p) {
         for(Point po : points) {
-            if(p.getX() == po.getX() && p.getY() == po.getY()) {
+            if((int) p.getX() == (int) po.getX() && (int) p.getY() == (int) po.getY()) {
                 return true;
             }
         }

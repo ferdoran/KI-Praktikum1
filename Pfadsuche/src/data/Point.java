@@ -36,7 +36,12 @@ public class Point extends Point2D.Double {
     }
     
     public boolean isNeighbourOf(Point p) {
-        return neighbours.contains(p);
+        for(Point po : neighbours) {
+            if(po.equals(p)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public boolean isPolygonNeighbourOf(Point p) {
@@ -53,5 +58,10 @@ public class Point extends Point2D.Double {
         else {
             return false;
         }
+    }
+    
+    @Override
+    public String toString() {
+        return getId()+"(" + getX() + "," + getY() + ")";
     }
 }
