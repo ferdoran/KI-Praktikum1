@@ -27,6 +27,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     final double scalingFactorX = WIDTH_NEW / (388 - 100);
     final double scalingFactorY = HEIGHT_NEW / (670 - 516);
     Point lastVisited;
+    Point lastPosition;
     /**
      * Creates new form DrawingPanel
      */
@@ -57,6 +58,32 @@ public class DrawingPanel extends javax.swing.JPanel {
         }
         lines = l;
         return true;
+    }
+    
+    public void drawActualPosition(Point p) {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        g.setColor(Color.blue);
+        int x,y;
+        if(lastPosition == null) {
+            
+            x = (int) p.getX();
+            y = (int) p.getY();
+            lastPosition = p;
+        }
+        else {
+            x = (int) lastPosition.getX();
+            y = (int) lastPosition.getY();
+            g.setColor(this.getBackground());
+            g.drawRect((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+10, 6, 6);
+            g.fillRect((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+10, 6, 6);
+            lastPosition = p;
+            x = (int) p.getX();
+            y = (int) p.getY();
+        }
+        
+        g.setColor(Color.blue);
+        g.drawRect((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+10, 6, 6);
+        g.fillRect((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+10, 6, 6);
     }
     
     

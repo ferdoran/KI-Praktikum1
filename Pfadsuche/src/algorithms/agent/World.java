@@ -137,7 +137,7 @@ public class World {
 //                else {
 //                    
 //                }
-//                if(points.contains(h2p1)) {
+                if(points.contains(h2p1)) {
                     System.out.println("punkt vorhanden");
                     if(h2p.intersectsLine(l)) {
                         intersects = true;
@@ -145,10 +145,10 @@ public class World {
                             intersects = false;
                             
                             if(points.contains(h2p1)){
-//                                if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
-                                  if(!h2p1.isPolygonNeighbourOf(lp1)&&!h2p1.isPolygonNeighbourOf(lp2)&&!h2p2.isPolygonNeighbourOf(lp1)&&!h2p2.isPolygonNeighbourOf(lp2)){
+                                if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
+//                                  if(!h2p1.isPolygonNeighbourOf(lp1)&&!h2p1.isPolygonNeighbourOf(lp2)&&!h2p2.isPolygonNeighbourOf(lp1)&&!h2p2.isPolygonNeighbourOf(lp2)){
                                     intersects = true;
-                                    break;
+                                    
                                 }
                             }           
 //                            break;                            
@@ -158,20 +158,20 @@ public class World {
 //                            
 //                        }
                     }
-//                }
-//                else {
-//                    if(h2p.intersectsLine(l)) {
-//                        //System.out.println("Intersektion zwischen: " + h2p + " und " + l);
-//                        intersects = true;
-//                        if((h2p2.equals(lp2) || h2p2.equals(lp1))) {
-//                            intersects = false;
-//                            
-//                        }
-//
-//                                                
-//                    }
-//                    
-//                }
+                }
+                else {
+                    if(h2p.intersectsLine(l)) {
+                        //System.out.println("Intersektion zwischen: " + h2p + " und " + l);
+                        intersects = true;
+                        if((h2p2.equals(lp2) || h2p2.equals(lp1))) {
+                            intersects = false;
+                            
+                        }
+
+                                                
+                    }
+                    
+                }
             
             }
             
@@ -194,10 +194,10 @@ public class World {
                 
                 
                 //füge den Punkt zur Ergebnisliste hinzu
-                if(!result.contains(p)){
+//                if(!result.contains(p)){
                    result.add(p);
                    System.out.println("punkt hinzugefügt");
-                }
+//                }
                  
                 //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
                 actualLines.add(h2p);
@@ -240,6 +240,72 @@ public class World {
         int resX = ((Math.max(x1, x2) - Math.min(x1, x2)) / 2) + Math.min(x1, x2);
         int resY = ((Math.max(y1, y2) - Math.min(y1, y2)) / 2) + Math.min(y1, y2);
         return new Point(resX, resY, "P"+resX+resY);
+    }
+    
+    public ArrayList<Point> getAvPoints() {
+        ArrayList<Point> result = new ArrayList<>();
+        actualLines.clear();
+        Point agPos = new Point(agentPosition.getX(), agentPosition.getY(), "agPos");
+        
+        for(Point p : points.getAllPoints()) {
+            Line connection = new Line(agPos, p);
+            Point p1 = connection.getP1();
+            Point p2 = connection.getP2();
+            int count = 0;
+            int limit = 0;
+            boolean otherExists = false;
+            for(Line l : polyLines.getList()) {
+                if(intersection(connection, l)) {
+                    if(points.contains(p1)) {
+                        limit = 4;
+                        count++;
+                        
+                    }
+                    else {
+                        limit = 2;
+                        if(p.equals(target)) {
+                            limit = 0;
+                        }
+                        count++;
+                        
+                    }
+                }
+            }
+            if(count <= limit) {
+                
+                if(points.contains(p1) && points.neigbours(p1.getX(), p1.getY(), p2.getX(), p2.getY())) {
+                    result.add(p);
+                    actualLines.add(new Line(p1, p2));
+                }
+                else if(!points.contains(p1)) {
+                    result.add(p);
+                    actualLines.add(new Line(p1, p2));
+                }
+                
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        return result;
+    }
+    
+    public boolean intersection(Line a, Line b) {
+        Point a1 = a.getP1();
+        Point a2 = a.getP2();
+        
+        Point b1 = b.getP1();
+        Point b2 = b.getP2();
+        
+        
+        return Line2D.linesIntersect(a1.getX(), a1.getY(), a2.getX(), a2.getY(), b1.getX(), b1.getY(), b2.getX(), b2.getY());
+        
     }
     
 }

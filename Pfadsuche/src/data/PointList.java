@@ -489,7 +489,7 @@ public final class PointList {
     public Point getPoint(double x, double y) {
         
         for(Point p : points) {
-            if(p.getX() == x && p.getY() == y) {
+            if((int) p.getX() == (int) x && (int) p.getY() == (int) y) {
                 return p;
             }
         }
