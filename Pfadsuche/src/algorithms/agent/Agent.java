@@ -101,8 +101,7 @@ public class Agent extends Thread {
                 if(randomize) {
                     Random r = new Random();
                     if((r.nextInt()%10)<3){
-                        Point2D.Double next = calcPosition(world);
-                        nextPoint = new Point((int) next.getX(), (int) next.getY(), "P"+next.getX()+next.getY());
+                        nextPoint = ap.get(r.nextInt()%ap.size());
                         lastPoint = position;
                         huch++;
                     }
