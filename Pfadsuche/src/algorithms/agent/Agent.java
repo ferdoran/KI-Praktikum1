@@ -40,6 +40,7 @@ public class Agent extends Thread {
         int[] cost = new int[100];
         int huch = 0;
         int found = 0;
+        int steps = 0;
         Point target = points.getPointById("Z");
   
         //100 Episoden
@@ -49,22 +50,22 @@ public class Agent extends Thread {
             d.drawAllPolygons();
             Point2D.Double pos = world.calcStartposition();
             world.setAgentPosition(pos);
-            world.getAvailablePoints();
+            world.getAvPoints();
             cost[i] = 0;
             //neue Startposition je Episode
-            
+            int huchActual = 0;
             position = calcPosition(world);
             
             d.markPoint(position,true);
             boolean goal = false;
             Point nextPoint = null;
-            Point2D.Double lastPoint = null;
+            Point lastPoint = null;
             
             //Suche implementieren
             while(!goal) {
                 
                 
-                ArrayList<Point> ap = world.getAvailablePoints();
+                ArrayList<Point> ap = world.getAvPoints();
                 
                 double distance = 1000000;
 
@@ -72,14 +73,20 @@ public class Agent extends Thread {
                 for(Point p : ap) {
 
                     if(p.equals(target)) {
+                        
                         nextPoint = p;
+                        
                         d.markPoint(p, true);
+                        d.drawActualPosition(target);
                         cost[i] += p.distance(position);
                         cost[i] -= 1000;
-                        addLogLine("Ziel gefunden");
+                        addLogLine("[Suche " + (i+1) + "] Ziel gefunden");
+                        addLogLine("[Suche " + (i+1) + "] Verlaufen: " + huchActual);
+                        addLogLine("[Suche " + (i+1) + "] Kosten: " + cost[i]);
+                        addLogLine("");
                         goal=true;
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(50);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(Agent.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -102,8 +109,9 @@ public class Agent extends Thread {
                     Random r = new Random();
                     if((r.nextInt()%10)<3){
                         if(ap.size()>0) {
-                            nextPoint = ap.get(r.nextInt()%ap.size());
+                            nextPoint = ap.get( (Math.abs(r.nextInt()) % ap.size()));
                             huch++;
+                            huchActual++;
                             lastPoint = position;
                         }
                         else {
@@ -112,9 +120,12 @@ public class Agent extends Thread {
                         
                     }
                 }
+                
                 d.markPoint(nextPoint,true);
                 cost[i] += nextPoint.distance(position);
+                steps++;
                 position = nextPoint;
+                d.drawActualPosition(position);
                 world.setAgentPosition(nextPoint);
                 try {
                     Thread.sleep(delay);
@@ -125,8 +136,10 @@ public class Agent extends Thread {
             
         }
         addLogLine("Die Suche ist beendet. Folgende Ergebnisse wurden festgestellt:");
-        addLogLine("Verlaufen: " + huch);
-        addLogLine("Gefunden: "+ found);
+        addLogLine("Insgesamt Verlaufen: " + huch);
+        addLogLine("Durchschnittliche Schritte: " + steps/100);
+        addLogLine("Durchschnittlich Verlaufen: " + huch/100);
+        //addLogLine("Gefunden: "+ found);
         addLogLine("Durchschnittliche Kosten: " + Arrays.stream(cost).average().toString());
         addLogLine("Maximale Kosten: " + Arrays.stream(cost).max().toString());
         addLogLine("Minimale Kosten: " + Arrays.stream(cost).min().toString());
