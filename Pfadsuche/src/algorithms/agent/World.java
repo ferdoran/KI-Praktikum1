@@ -76,6 +76,8 @@ public class World {
                 break;
             }
         }
+        System.out.println("Failed Positions: "+failedPositions.toString());
+        System.out.println("Used Startpoints: "+usedStartpoints.toString());
         return res;
     }
     
@@ -119,10 +121,8 @@ public class World {
                 Point lp1 = l.getP1();
                 Point lp2 = l.getP2();
                 
+                System.out.println("Prüfe Linie: "+l.toString());
                 
-                
-                
-            
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
 //                if(h2p.intersectsLine(l) && (!(h2p1.equals(lp1) || h2p1.equals(lp2) || !(h2p2.equals(lp1) || h2p2.equals(lp2)))) && !h2p.equals(l)) {
 //                    intersects = true;
@@ -138,7 +138,7 @@ public class World {
 //                    
 //                }
 //                if(points.contains(h2p1)) {
-                    System.out.println("punkt vorhanden");
+//                    System.out.println("punkt vorhanden");
                     if(h2p.intersectsLine(l)) {
                         intersects = true;
                         if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
@@ -148,9 +148,10 @@ public class World {
 //                                if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
                                   if(!h2p1.isPolygonNeighbourOf(lp1)&&!h2p1.isPolygonNeighbourOf(lp2)&&!h2p2.isPolygonNeighbourOf(lp1)&&!h2p2.isPolygonNeighbourOf(lp2)){
                                     intersects = true;
-                                    break;
+                                    System.out.println("Punkt verworfen: "+p.toString());
+//                                    break;
                                 }
-                            }           
+                            }
 //                            break;                            
                         }
 //                        else {
@@ -196,7 +197,7 @@ public class World {
                 //füge den Punkt zur Ergebnisliste hinzu
                 if(!result.contains(p)){
                    result.add(p);
-                   System.out.println("punkt hinzugefügt");
+                   System.out.println("Punkt hinzugefügt: "+p.toString());
                 }
                  
                 //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
