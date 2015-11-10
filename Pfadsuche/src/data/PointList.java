@@ -371,6 +371,108 @@ public final class PointList {
         getPointById("P83").addNeighbour(getPointById("P54"));
         getPointById("P83").addNeighbour(getPointById("P43"));
         getPointById("P83").addNeighbour(getPointById("P44"));
+        
+        // Definition der PolygonNachbarn
+        
+        getPointById("P11").addPolygonNeighbour(getPointById("P12"));
+        getPointById("P11").addPolygonNeighbour(getPointById("P14"));
+        
+        getPointById("P12").addPolygonNeighbour(getPointById("P11"));
+        getPointById("P12").addPolygonNeighbour(getPointById("P13"));
+        
+        getPointById("P13").addPolygonNeighbour(getPointById("P12"));
+        getPointById("P13").addPolygonNeighbour(getPointById("P14"));
+        
+        getPointById("P14").addPolygonNeighbour(getPointById("P11"));
+        getPointById("P14").addPolygonNeighbour(getPointById("P13"));
+        
+        getPointById("P21").addPolygonNeighbour(getPointById("P22"));
+        getPointById("P21").addPolygonNeighbour(getPointById("P24"));
+        
+        getPointById("P22").addPolygonNeighbour(getPointById("P21"));
+        getPointById("P22").addPolygonNeighbour(getPointById("P23"));
+        
+        getPointById("P23").addPolygonNeighbour(getPointById("P22"));
+        getPointById("P23").addPolygonNeighbour(getPointById("P24"));
+        
+        getPointById("P24").addPolygonNeighbour(getPointById("P21"));
+        getPointById("P24").addPolygonNeighbour(getPointById("P23"));
+        
+        getPointById("P31").addPolygonNeighbour(getPointById("P32"));
+        getPointById("P31").addPolygonNeighbour(getPointById("P36"));
+        
+        getPointById("P32").addPolygonNeighbour(getPointById("P31"));
+        getPointById("P32").addPolygonNeighbour(getPointById("P33"));
+        
+        getPointById("P33").addPolygonNeighbour(getPointById("P32"));
+        getPointById("P33").addPolygonNeighbour(getPointById("P34"));
+        
+        getPointById("P34").addPolygonNeighbour(getPointById("P33"));
+        getPointById("P34").addPolygonNeighbour(getPointById("P35"));
+        
+        getPointById("P35").addPolygonNeighbour(getPointById("P34"));
+        getPointById("P35").addPolygonNeighbour(getPointById("P36"));
+        
+        getPointById("P36").addPolygonNeighbour(getPointById("P35"));
+        getPointById("P36").addPolygonNeighbour(getPointById("P31"));
+        
+        getPointById("P41").addPolygonNeighbour(getPointById("P42"));
+        getPointById("P41").addPolygonNeighbour(getPointById("P45"));
+        
+        getPointById("P42").addPolygonNeighbour(getPointById("P41"));
+        getPointById("P42").addPolygonNeighbour(getPointById("P43"));
+        
+        getPointById("P43").addPolygonNeighbour(getPointById("P42"));
+        getPointById("P43").addPolygonNeighbour(getPointById("P44"));
+        
+        getPointById("P44").addPolygonNeighbour(getPointById("P43"));
+        getPointById("P44").addPolygonNeighbour(getPointById("P45"));
+        
+        getPointById("P45").addPolygonNeighbour(getPointById("P44"));
+        getPointById("P45").addPolygonNeighbour(getPointById("P41"));
+        
+        getPointById("P51").addPolygonNeighbour(getPointById("P52"));
+        getPointById("P51").addPolygonNeighbour(getPointById("P54"));
+        
+        getPointById("P52").addPolygonNeighbour(getPointById("P51"));
+        getPointById("P52").addPolygonNeighbour(getPointById("P53"));
+        
+        getPointById("P53").addPolygonNeighbour(getPointById("P52"));
+        getPointById("P53").addPolygonNeighbour(getPointById("P54"));
+        
+        getPointById("P54").addPolygonNeighbour(getPointById("P53"));
+        getPointById("P54").addPolygonNeighbour(getPointById("P51"));
+        
+        getPointById("P61").addPolygonNeighbour(getPointById("P62"));
+        getPointById("P61").addPolygonNeighbour(getPointById("P64"));
+        
+        getPointById("P62").addPolygonNeighbour(getPointById("P61"));
+        getPointById("P62").addPolygonNeighbour(getPointById("P63"));
+        
+        getPointById("P63").addPolygonNeighbour(getPointById("P62"));
+        getPointById("P63").addPolygonNeighbour(getPointById("P64"));
+        
+        getPointById("P64").addPolygonNeighbour(getPointById("P63"));
+        getPointById("P64").addPolygonNeighbour(getPointById("P61"));
+        
+        getPointById("P71").addPolygonNeighbour(getPointById("P72"));
+        getPointById("P71").addPolygonNeighbour(getPointById("P73"));
+        
+        getPointById("P72").addPolygonNeighbour(getPointById("P71"));
+        getPointById("P72").addPolygonNeighbour(getPointById("P73"));
+        
+        getPointById("P73").addPolygonNeighbour(getPointById("P72"));
+        getPointById("P73").addPolygonNeighbour(getPointById("P71"));
+        
+        getPointById("P81").addPolygonNeighbour(getPointById("P82"));
+        getPointById("P81").addPolygonNeighbour(getPointById("P83"));
+        
+        getPointById("P82").addPolygonNeighbour(getPointById("P81"));
+        getPointById("P82").addPolygonNeighbour(getPointById("P83"));
+        
+        getPointById("P83").addPolygonNeighbour(getPointById("P82"));
+        getPointById("P83").addPolygonNeighbour(getPointById("P81"));
+
     }
     
     public boolean addPoint(Point p) {
