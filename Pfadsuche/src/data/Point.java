@@ -10,11 +10,13 @@ import java.util.HashSet;
 public class Point extends Point2D.Double {
     protected String id;
     protected HashSet<Point> neighbours;
+    protected HashSet<Point> polygonNeighbours;
     
     public Point(double x, double y, String id){
         super(x, y);
         this.id = id;
         this.neighbours = new HashSet<>();
+        this.polygonNeighbours = new HashSet<>();
     }
 
     public String getId() {
@@ -31,6 +33,10 @@ public class Point extends Point2D.Double {
     
     public boolean isNeighbourOf(Point p) {
         return neighbours.contains(p);
+    }
+    
+    public boolean isPolygonNeighbourOf(Point p) {
+        return polygonNeighbours.contains(p);
     }
     
     
