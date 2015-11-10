@@ -143,12 +143,13 @@ public class World {
                         intersects = true;
                         if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
                             intersects = false;
-                                count++;
+                                
                             if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
                                 intersects = true;
-                                count--;
+                                
                                 
                             }
+                            break;
                             
                         }
                         else {
@@ -160,10 +161,9 @@ public class World {
                 else {
                     if(h2p.intersectsLine(l)) {
                         //System.out.println("Intersektion zwischen: " + h2p + " und " + l);
-                        if((h2p2.equals(lp2) || h2p2.equals(lp1)) && isValidPoint(h2p2)) {
-                            System.out.println("Count");
-                            count++;
-                            intersects = true;
+                        intersects = true;
+                        if((h2p2.equals(lp2) || h2p2.equals(lp1))) {
+                            intersects = false;
                             
                         }
 
@@ -174,22 +174,7 @@ public class World {
             
             }
             
-             if ( count <= limit ) {
-                
-                
-                //füge den Punkt zur Ergebnisliste hinzu
-                if(!result.contains(p)){
-                   result.add(p);
-                   System.out.println("punkt hinzugefügt");
-                }
-                 
-                //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
-                actualLines.add(h2p);
-                
-            }
-            
-            //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
-//            if ( !intersects && !p.equals(agentPosition) ) {
+//             if ( count <= limit ) {
 //                
 //                
 //                //füge den Punkt zur Ergebnisliste hinzu
@@ -202,6 +187,21 @@ public class World {
 //                actualLines.add(h2p);
 //                
 //            }
+            
+            //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
+            if ( !intersects && !p.equals(point) ) {
+                
+                
+                //füge den Punkt zur Ergebnisliste hinzu
+                if(!result.contains(p)){
+                   result.add(p);
+                   System.out.println("punkt hinzugefügt");
+                }
+                 
+                //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
+                actualLines.add(h2p);
+                
+            }
         }
         
         return result;
