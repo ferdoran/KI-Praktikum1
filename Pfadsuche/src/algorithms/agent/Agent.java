@@ -101,8 +101,8 @@ public class Agent extends Thread {
                 if(randomize) {
                     Random r = new Random();
                     if((r.nextInt()%10)<3){
-                        nextPoint = ap.get(r.nextInt()%ap.size());
-                        lastPoint = position;
+                        if(ap.size()>0) nextPoint = ap.get(r.nextInt()%ap.size());
+                        else nextPoint = position;
                         huch++;
                     }
                 }
