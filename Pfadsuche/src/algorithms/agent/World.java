@@ -137,40 +137,41 @@ public class World {
 //                else {
 //                    
 //                }
-                if(points.contains(h2p1)) {
+//                if(points.contains(h2p1)) {
                     System.out.println("punkt vorhanden");
                     if(h2p.intersectsLine(l)) {
                         intersects = true;
                         if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
                             intersects = false;
-                                
-                            if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
-                                intersects = true;
-                                
-                                
-                            }
-                            break;
                             
+                            if(points.contains(h2p1)){
+//                                if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
+                                  if(!h2p1.isPolygonNeighbourOf(lp1)&&!h2p1.isPolygonNeighbourOf(lp2)&&!h2p2.isPolygonNeighbourOf(lp1)&&!h2p2.isPolygonNeighbourOf(lp2)){
+                                    intersects = true;
+                                    break;
+                                }
+                            }           
+//                            break;                            
                         }
-                        else {
-                            
-                            
-                        }
+//                        else {
+//                            
+//                            
+//                        }
                     }
-                }
-                else {
-                    if(h2p.intersectsLine(l)) {
-                        //System.out.println("Intersektion zwischen: " + h2p + " und " + l);
-                        intersects = true;
-                        if((h2p2.equals(lp2) || h2p2.equals(lp1))) {
-                            intersects = false;
-                            
-                        }
-
-                                                
-                    }
-                    
-                }
+//                }
+//                else {
+//                    if(h2p.intersectsLine(l)) {
+//                        //System.out.println("Intersektion zwischen: " + h2p + " und " + l);
+//                        intersects = true;
+//                        if((h2p2.equals(lp2) || h2p2.equals(lp1))) {
+//                            intersects = false;
+//                            
+//                        }
+//
+//                                                
+//                    }
+//                    
+//                }
             
             }
             
