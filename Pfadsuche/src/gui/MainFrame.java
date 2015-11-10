@@ -208,7 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(jRadioButton1.isSelected()) {
             
-        
+            
             int delay = delaySlider.getValue();
             if(firstRun) {
                 firstRun = false;
@@ -228,6 +228,7 @@ public class MainFrame extends javax.swing.JFrame {
         else if(jRadioButton2.isSelected()){
             World w = new World();
             int delay = delaySlider.getValue();
+            final boolean random = randomize.isSelected();
 //            StringBuilder sb = new StringBuilder();
 //            sb.append(log.getText());
 //            sb.append("Diese Funktion ist noch nicht implementiert.");
@@ -242,7 +243,7 @@ public class MainFrame extends javax.swing.JFrame {
             else {
                 draw.drawAllPolygons();
             }
-            suche = new Agent(w, draw,delay,true,log);
+            suche = new Agent(w, draw,delay,random,log);
             suche.start();
             
             

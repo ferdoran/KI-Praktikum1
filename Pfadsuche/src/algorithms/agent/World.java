@@ -9,6 +9,7 @@ import java.awt.Polygon;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -83,6 +84,7 @@ public class World {
         if(agentPosition == null) throw new NullPointerException();
         ArrayList<Point> result = new ArrayList<>();
         actualLines.clear();
+        result.add(new Point(220, 616, "asdasdasd"));
         
         //System.out.println("Agent: " + agentPosition.toString());
         //für jeden der bekannten Punkte
@@ -93,50 +95,75 @@ public class World {
             Line h2p = new Line(point,p);
             Point h2p1 = h2p.getP1();
             Point h2p2 = h2p.getP2();
+            int count = 0;
+            int limit = 0;
+            
+            
+            if(points.contains(h2p1)) {
+                limit = 4;
+            }
+            else {
+                limit = 2;
+            }
             boolean intersects = false;
+            
+            
 
             
             //diese Linie mit allen Polygon-Linien auf Schnittpunkte prüfen
             for(Line l : polyLines.getList()){
+                
                 Point lp1 = l.getP1();
                 Point lp2 = l.getP2();
                 
+                if(h2p.intersectsLine(l)) {
+                    count++;
+                }
+                
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
-                if(points.contains(h2p1)) {
-                    if(h2p.intersectsLine(l)) {
-                        intersects = true;
-                        if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
-                            intersects = false;
-                            if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
-                                intersects = true;
-                                
-                            }
-                            break;
-                        }
-                    }
-                }
-                else {
-                    if(h2p.intersectsLine(l)) {
-                        intersects = true;
-                        if(h2p2.equals(lp1) || h2p2.equals(lp2)) {
-                            intersects = false;    
-                        }
-                                                
-                    }
-                    
-                }
+//                if(h2p.intersectsLine(l) && (!(h2p1.equals(lp1) || h2p1.equals(lp2) || !(h2p2.equals(lp1) || h2p2.equals(lp2)))) && !h2p.equals(l)) {
+//                    intersects = true;
+//                    break;
+//                }
+//                else {
+//                    result.add(p);
+//                }
+//                if(points.contains(h2p1)) {
+//                    if(h2p.intersectsLine(l)) {
+//                        intersects = true;
+//                        if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
+//                            intersects = false;
+//                            
+//                            if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
+//                                intersects = true;
+//                                
+//                            }
+//                            break;
+//                        }
+//                    }
+//                }
+//                else {
+//                    if(h2p.intersectsLine(l)) {
+//                        intersects = true;
+//                        count++;
+//
+//                                                
+//                    }
+//                    
+//                }
             
             }
             
             //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
-            if (!intersects && !(p.equals(point)) ) {
+            if (count <= limit ) {
                 
                 //füge den Punkt zur Ergebnisliste hinzu
                 result.add(p);
                 
                 //für die Berechnung der eigenen Position des Agenten wird diese Liste von Linien geführt
                 actualLines.add(h2p);
+                count = 0;
             }
         }
         
