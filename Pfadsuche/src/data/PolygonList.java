@@ -10,7 +10,7 @@ import java.util.HashSet;
 public class PolygonList {
     HashSet<Polygon> polygons;
     
-    public PolygonList(PointList p) {
+    public PolygonList() {
         polygons = new HashSet<>();
             
 //        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P1")));

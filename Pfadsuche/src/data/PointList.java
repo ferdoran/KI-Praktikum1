@@ -434,6 +434,27 @@ public final class PointList {
         return points.remove(p);
     }
     
+    public boolean neigbours(double x1, double y1, double x2, double y2) {
+        Point p1 = getPoint(x1,y1);
+        Point p2 = getPoint(x2,y2);
+        
+        if(p1.isNeighbourOf(p2)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public boolean contains(Point p) {
+        for(Point po : points) {
+            if(p.getX() == po.getX() && p.getY() == po.getY()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public boolean removePoint(double x, double y) {
         for(Point p : points) {
             if(p.getX() == x && p.getY() == y) {

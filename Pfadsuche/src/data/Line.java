@@ -11,7 +11,7 @@ public class Line extends Line2D.Double {
     Point pTo;
 
     public Line(Point pFrom, Point pTo) {
-        super(pFrom, pTo);
+        
         this.pFrom = pFrom;
         this.pTo = pTo;
     }

@@ -29,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         p = new PointList();
         l = new LineList(p);
-        polygons = new PolygonList(p);
+        polygons = new PolygonList();
         firstRun = true;
         initComponents();
     }

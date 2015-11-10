@@ -32,7 +32,7 @@ public class World {
         
         this.target = points.getPointById("Z");
         actualLines = new ArrayList<>();
-        polygons = new PolygonList(points);
+        polygons = new PolygonList();
         usedStartpoints = new ArrayList<>();
         agentPosition = calcStartposition();
         
@@ -89,10 +89,12 @@ public class World {
         for(Point p : points.getAllPoints()) {
             
             //erstellen der Linie von der AgentenPosition zum aktuellen Knoten der Liste (Here 2 Point)
-            Line h2p = new Line(new Point(agentPosition.getX(),agentPosition.getY(),"apos"),p);
+            Point point = new Point(agentPosition.getX(), agentPosition.getY(), "apos");
+            Line h2p = new Line(point,p);
             Point h2p1 = h2p.getP1();
             Point h2p2 = h2p.getP2();
             boolean intersects = false;
+
             
             //diese Linie mit allen Polygon-Linien auf Schnittpunkte prüfen
             for(Line l : polyLines.getList()){
@@ -101,27 +103,34 @@ public class World {
                 
                 
                 //wenn es einen Schnittpunkt gibt, und dieser NICHT einer der Eckpunkte ist
-                if(h2p.intersectsLine(l) && (!(h2p2.equals(lp1) || h2p2.equals(lp2)) && !(h2p1.equals(lp1) || h2p1.equals(lp2))) && !h2p.equals(l) && !h2p1.isNeighbourOf(h2p2)){
-                        boolean inPolygon = false;
-                        for(Polygon pol : polygons.getPolygons()) {
-                            if(!pol.contains(getMiddleOfLine(h2p1, h2p2))) {
-                                inPolygon = true;
-                                break;
+                if(points.contains(h2p1)) {
+                    if(h2p.intersectsLine(l)) {
+                        intersects = true;
+                        if( (h2p1.equals(lp2) || h2p1.equals(lp1)) || (h2p2.equals(lp1) || h2p2.equals(lp2)) ) {
+                            intersects = false;
+                            if( !points.neigbours(h2p1.getX(), h2p1.getY(), h2p2.getX(), h2p2.getY()) ) {
+                                intersects = true;
+                                
                             }
-                        }
-                        if(inPolygon) {
-                            intersects = true;
                             break;
-                        }  
-                     
+                        }
+                    }
+                }
+                else {
+                    if(h2p.intersectsLine(l)) {
+                        intersects = true;
+                        if(h2p2.equals(lp1) || h2p2.equals(lp2)) {
+                            intersects = false;    
+                        }
+                                                
+                    }
                     
-                    //wenn eine "Mauer" gefunden wurde, müssen die anderen Linien nicht mehr geprüft werden für diesen Punkt
-                      
-                }    
+                }
+            
             }
             
             //wenn es keine "echten" Schnittpunkte gibt und der zu prüfende Punkt nicht der Agentenposition entspricht
-            if (!intersects && !(p.equals(new Point(agentPosition.getX(),agentPosition.getY(),"apos"))) ) {
+            if (!intersects && !(p.equals(point)) ) {
                 
                 //füge den Punkt zur Ergebnisliste hinzu
                 result.add(p);
