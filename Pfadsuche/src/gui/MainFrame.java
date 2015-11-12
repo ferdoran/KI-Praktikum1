@@ -70,7 +70,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setAutoscrolls(true);
+
         log.setEditable(false);
+        log.setDragEnabled(true);
         jScrollPane1.setViewportView(log);
 
         jLabel7.setText("Log:");
@@ -206,6 +209,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         // TODO add your handling code here:
+        log.setText("");
         if(jRadioButton1.isSelected()) {
             
             
@@ -214,13 +218,12 @@ public class MainFrame extends javax.swing.JFrame {
                 firstRun = false;
                 draw.setPoints(p);
                 draw.setLines(l);
-                draw.drawAllPoints();
-                draw.drawAllLines();
+                draw.setPolygons(polygons);
+                draw.drawAllPolygons();
             }
             else {
                 draw.clear();
-                draw.drawAllPoints();
-                draw.drawAllLines();
+                draw.drawAllPolygons();
             }
             suche = new AStarSearch(p.getPointById("S"), p.getPointById("Z"), draw, delay, log);
             suche.start();
@@ -257,21 +260,10 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_delaySliderStateChanged
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        try {
-            // TODO add your handling code here:
-            if(suche.isInterrupted()) {
-                suche.join();
-                suche.interrupt();
-            }
-            else {
-                suche.interrupt();
-            }
-            
-            draw.clear();
-            draw.drawAllPolygons();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        suche.stop();
+        suche = null;
+        draw.clear();
+        draw.drawAllPolygons();
         
     }//GEN-LAST:event_stopButtonActionPerformed
 

@@ -138,7 +138,7 @@ public class World {
                     }
                     else {
                         limit = 2;
-                        if(p.equals(target)) {
+                        if(p.equals(target) || p.equals(points.getPointById("S"))) {
                             limit = 0;
                         }
                         count++;

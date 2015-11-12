@@ -202,9 +202,11 @@ public class DrawingPanel extends javax.swing.JPanel {
         
         g.drawOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
         g.fillOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
+        g.drawString("Z",(int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)+10+25-2);
         
         g.drawOval((int) scalingFactorX * x1 - x1-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y1)*scalingFactorY)-2+20, 4, 4);
         g.fillOval((int) scalingFactorX * x1 - x1-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y1)*scalingFactorY)-2+20, 4, 4);
+        g.drawString("S",(int) scalingFactorX * x1 - x1-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y1)*scalingFactorY)+10+25-2);
         
         
     }
@@ -291,7 +293,6 @@ public class DrawingPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 300, Short.MAX_VALUE)
         );
-        
     }// </editor-fold>//GEN-END:initComponents
 
     private int[] transferPolygonXPoints(int[] xpoints) {

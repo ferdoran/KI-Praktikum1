@@ -168,6 +168,7 @@ public class Agent extends Thread {
         sb.append(log.getText());
         sb.append(s + "\n");
         log.setText(sb.toString());
+        log.selectAll();
     }
     
     public void run() {
