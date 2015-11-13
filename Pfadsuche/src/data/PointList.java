@@ -539,6 +539,9 @@ public final class PointList {
     public boolean neigbours(double x1, double y1, double x2, double y2) {
         Point p1 = getPoint(x1,y1);
         Point p2 = getPoint(x2,y2);
+        if(!(points.contains(p1) && points.contains(p2))) {
+            return false;
+        }
         
         if(p1.isNeighbourOf(p2)) {
             return true;
