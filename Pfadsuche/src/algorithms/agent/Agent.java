@@ -78,27 +78,33 @@ public class Agent extends Thread {
 
                     if(p.equals(target)) {
                         
-                        nextPoint = p;
+                        if(target.equals(points.getPointById("Z"))) {
                         
-                        d.markPoint(p, true);
-                        d.drawActualPosition(target);
-                        cost[i] += p.distance(position);
-                        cost[i] -= 1000;
-                        addLogLine("[Suche " + (i+1) + "] Ziel gefunden");
-                        addLogLine("[Suche " + (i+1) + "] Verlaufen: " + huchActual);
-                        addLogLine("[Suche " + (i+1) + "] Kosten: " + cost[i]);
-                        addLogLine("");
-                        goal=true;
-                        try {
-                            Thread.sleep(50);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Agent.class.getName()).log(Level.SEVERE, null, ex);
+                            nextPoint = p;
+                        
+                            d.markPoint(p, true);
+                            d.drawActualPosition(target);
+                            cost[i] += p.distance(position);
+                            cost[i] -= 1000;
+                            addLogLine("[Suche " + (i+1) + "] Ziel gefunden");
+                            addLogLine("[Suche " + (i+1) + "] Verlaufen: " + huchActual);
+                            addLogLine("[Suche " + (i+1) + "] Kosten: " + cost[i]);
+                            addLogLine("");
+                            goal=true;
+                            try {
+                                Thread.sleep(50);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Agent.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            d.clearLastVisited();
+                            d.clear();
+                            d.drawAllPolygons();
+                            found++;
+                            break;
                         }
-                        d.clearLastVisited();
-                        d.clear();
-                        d.drawAllPolygons();
-                        found++;
-                        break;
+                        else {
+                            target = points.getPointById("Z");
+                        }
 
                     }
 
