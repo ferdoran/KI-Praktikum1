@@ -82,13 +82,13 @@ public class Agent extends Thread {
                     if(p.equals(target)) {
                         
                         if(target.equals(points.getPointById("Z"))) {
-                        
+                            cost[i] += p.distance(position);
+                            cost[i] -= 1000;
                             nextPoint = p;
                         
                             d.markPoint(p, true);
                             d.drawActualPosition(target);
-                            cost[i] += p.distance(position);
-                            cost[i] -= 1000;
+                            
                             addLogLine("[Suche " + (i+1) + "] Ziel gefunden");
                             addLogLine("[Suche " + (i+1) + "] Verlaufen: " + huchActual);
                             addLogLine("[Suche " + (i+1) + "] Kosten: " + cost[i]);
@@ -116,7 +116,7 @@ public class Agent extends Thread {
 
                     }
 
-                    else if(p.distance(target) <= distance) {
+                    else if((p.distance(target) < distance) && (p.distance(target) < position.distance(target))) {
                         distance = p.distance(target);
                         nextPoint = p;
                         lastPoint = position;
