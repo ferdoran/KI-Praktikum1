@@ -191,7 +191,7 @@ public class Agent extends Thread {
                         for(int i = 1;i < size; i++) {
                             Vector2D v = al.get(i);
                             Point possiblePoint = pos.add(v).getPoint();
-                            if(points.contains(p)) {
+                            if(points.contains(possiblePoint)) {
                                 count++;
                             }
                         }
