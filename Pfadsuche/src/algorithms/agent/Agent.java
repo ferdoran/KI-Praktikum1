@@ -3,10 +3,12 @@ package algorithms.agent;
 import data.Line;
 import data.Point;
 import data.PointList;
+import data.PolygonList;
 import data.Vector2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import gui.DrawingPanel;
+import java.awt.Polygon;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
@@ -21,6 +23,7 @@ import javax.swing.JTextPane;
  */
 public class Agent extends Thread {
     final PointList points = new PointList();
+    final PolygonList polygons = new PolygonList();
     final int delay;
     final boolean randomize;
     World world;
@@ -166,20 +169,43 @@ public class Agent extends Thread {
     }
     
     private Point calcPosition(World w) {
-        ArrayList<Point> ap = w.getAvPoints();
-        HashMap<Point,Vector2D> al = w.getAvailableVectors();
+        ArrayList<Vector2D> al = w.getAvailableVectors();
         
         if(al.isEmpty()) {
             addLogLine("Position kann nicht errechnet werden.");
             return null;
         }
-        Point first = ap.get(0);
-        Vector2D a = al.get(first);
-        a = a.opposite();
+        else {
+            int size = al.size();
+            boolean found = false;
+            int count = 0;
+            
+            while(!found) {
+                Vector2D first = al.get(0);
+                first = first.opposite();
+                
+                for(Point p : points.getAllPoints()) {
+                    Vector2D pos = Vector2D.createVectorFromPoint(p).add(first);
+                    if(!polygons.inPolygon(p)) {
+                        for(int i = 1;i < size; i++) {
+                            Vector2D v = al.get(i);
+                            Point possiblePoint = pos.add(v).getPoint();
+                            if(points.contains(p)) {
+                                count++;
+                            }
+                        }
+                        if(count < size) {
+                            found = true;
+                            return pos.getPoint();
+                        }
+                    }
+                    
+                }
+                throw new NullPointerException();
+            }
+            throw new NullPointerException();
+        }
         
-        Vector2D b = new Vector2D(first.getX(), first.getY());
-        b.subtract(a);
-        return new Point(b.getX(), b.getY(),"apos");
         
     }
     

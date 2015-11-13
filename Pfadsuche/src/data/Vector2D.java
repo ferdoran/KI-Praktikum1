@@ -25,14 +25,12 @@ public class Vector2D {
         y = b.getY() - a.getY();
     }
     
-    public void add(Vector2D v) {
-        x += v.getX();
-        y += v.getY();
+    public Vector2D add(Vector2D v) {
+        return new Vector2D(x+v.getX(), y+v.getY());
     }
     
-    public void subtract(Vector2D v) {
-        x -= v.getX();
-        y -= v.getY();
+    public Vector2D subtract(Vector2D v) {
+        return new Vector2D(x-v.getX(), y-v.getY());
     }
     
     public Vector2D opposite() {
@@ -49,6 +47,14 @@ public class Vector2D {
     
     public String toString() {
         return "(" + x + "," + y + ")";
+    }
+    
+    public static Vector2D createVectorFromPoint(Point a) {
+        return new Vector2D(a.getX(), a.getY());
+    }
+    
+    public Point getPoint() {
+        return new Point(x,y,"Vector"+x+y);
     }
     
 }

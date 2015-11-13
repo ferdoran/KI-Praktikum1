@@ -99,4 +99,14 @@ public class PolygonList {
     public HashSet<Polygon> getPolygons() {
         return polygons;
     }
+    
+    public boolean inPolygon(Point p) {
+        for(Polygon pol : polygons) {
+            if(pol.contains(p)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

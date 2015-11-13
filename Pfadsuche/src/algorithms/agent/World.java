@@ -24,7 +24,7 @@ public class World {
     final LineList polyLines;
     Point2D.Double agentPosition;
     final Point target;
-    HashMap<Point, Vector2D> actualLines;
+    ArrayList<Vector2D> actualLines;
     final PolygonList polygons;
     ArrayList<Point> usedStartpoints; 
     
@@ -33,7 +33,7 @@ public class World {
         this.polyLines = new LineList(points);
         
         this.target = points.getPointById("Z");
-        actualLines = new HashMap<>();
+        actualLines = new ArrayList<>();
         polygons = new PolygonList();
         usedStartpoints = new ArrayList<>();
         agentPosition = calcStartposition();
@@ -102,7 +102,7 @@ public class World {
     }
     
     //gibt eine Liste der von diesem Punkt aus gültigen Linien zurück
-    public HashMap<Point,Vector2D > getAvailableVectors() {
+    public ArrayList<Vector2D > getAvailableVectors() {
         if(actualLines==null) throw new NullPointerException();
         return actualLines;        
     }
@@ -150,11 +150,11 @@ public class World {
                 
                 if(points.contains(p1) && points.neigbours(p1.getX(), p1.getY(), p2.getX(), p2.getY())) {
                     result.add(p);
-                    actualLines.put(p,new Vector2D(p1, p2));
+                    actualLines.add(new Vector2D(p1, p2));
                 }
                 else if(!points.contains(p1)) {
                     result.add(p);
-                    actualLines.put(p,new Vector2D(p1, p2));
+                    actualLines.add(new Vector2D(p1, p2));
                 }
                 
             }
