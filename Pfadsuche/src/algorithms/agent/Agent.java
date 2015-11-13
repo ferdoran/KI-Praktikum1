@@ -231,6 +231,7 @@ public class Agent extends Thread {
         log.selectAll();
     }
     
+    @Override
     public void run() {
         search();
     }

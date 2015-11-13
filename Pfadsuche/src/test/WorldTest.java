@@ -12,6 +12,7 @@ public class WorldTest {
     public static void main(String[] args){
         World world = new World();
         world.setAgentPosition(world.calcStartposition());
+        world.setAgentPosition(new Point(389, 500,"apos"));
         System.out.println(world.getAvPoints());
 //        world.setAgentPosition(start);
 //        
