@@ -106,6 +106,11 @@ public class Agent extends Thread {
                             break;
                         }
                         else {
+                            nextPoint = p;
+                            d.markPoint(p, true);
+                            d.drawActualPosition(target);
+                            cost[i] += p.distance(position);
+                            cost[i] -= 1000;
                             target = points.getPointById("Z");
                         }
 

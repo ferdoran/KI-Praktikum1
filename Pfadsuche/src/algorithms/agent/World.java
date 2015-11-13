@@ -145,6 +145,7 @@ public class World {
                         
                     }
                 }
+                
             }
             if(count <= limit) {
                 
@@ -152,6 +153,7 @@ public class World {
                     result.add(p);
                     actualLines.add(new Vector2D(p1, p2));
                 }
+                
                 else if(!points.contains(p1)) {
                     result.add(p);
                     actualLines.add(new Vector2D(p1, p2));
