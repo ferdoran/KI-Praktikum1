@@ -173,7 +173,7 @@ public class Agent extends Thread {
         
         if(al.isEmpty()) {
             addLogLine("Position kann nicht errechnet werden.");
-            return null;
+            throw new NullPointerException();
         }
         else {
             int size = al.size();
@@ -205,11 +205,12 @@ public class Agent extends Thread {
                     }
                     
                 }
-                throw new NullPointerException();
+                
+                
             }
-            throw new NullPointerException();
+            
         }
-        
+        throw new NullPointerException();
         
     }
     
