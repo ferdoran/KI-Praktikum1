@@ -127,6 +127,7 @@ public class Agent extends Thread {
                             huch++;
                             huchActual++;
                             lastPoint = position;
+                            addLogLine("Ich habe mich Verlaufen!!!");
                         }
                         else {
                             nextPoint = position;
@@ -140,6 +141,7 @@ public class Agent extends Thread {
                 else{
                     target = points.getPointById("Z");
                     lastValid = position;
+                    addLogLine("Ich bin wieder auf dem richtigen Weg!!!");
                 }
                 
                 
