@@ -77,8 +77,8 @@ public class World {
                 break;
             }
         }
-        System.out.println("Failed Positions: "+failedPositions.toString());
-        System.out.println("Used Startpoints: "+usedStartpoints.toString());
+//        System.out.println("Failed Positions: "+failedPositions.toString());
+//        System.out.println("Used Startpoints: "+usedStartpoints.toString());
         return res;
     }
     
@@ -87,7 +87,7 @@ public class World {
     //verändern der Agentenposition
     public void setAgentPosition (Point2D.Double pos){
         agentPosition = pos;
-        System.out.println("Agenten Position: "+pos.toString());
+//        System.out.println("Agenten Position: "+pos.toString());
     }
     
     public boolean isValidPoint(Point p) {

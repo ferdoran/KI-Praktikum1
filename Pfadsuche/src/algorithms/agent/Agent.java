@@ -73,6 +73,7 @@ public class Agent extends Thread {
                 
                 
                 ArrayList<Point> ap = world.getAvPoints();
+                System.out.println(ap.toString());
                 
                 double distance = 1000000;
 
@@ -103,6 +104,7 @@ public class Agent extends Thread {
                             d.clear();
                             d.drawAllPolygons();
                             found++;
+                            nextValid = nextPoint;
                             break;
                         }
                         else {
