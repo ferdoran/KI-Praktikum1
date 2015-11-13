@@ -185,8 +185,9 @@ public class Agent extends Thread {
                 first = first.opposite();
                 
                 for(Point p : points.getAllPoints()) {
+                 
                     Vector2D pos = Vector2D.createVectorFromPoint(p).add(first);
-                    if(!polygons.inPolygon(p)) {
+                    if(!polygons.inPolygon(pos.getPoint())) {
                         for(int i = 1;i < size; i++) {
                             Vector2D v = al.get(i);
                             Point possiblePoint = pos.add(v).getPoint();
@@ -194,9 +195,12 @@ public class Agent extends Thread {
                                 count++;
                             }
                         }
-                        if(count < size) {
+                        if(count == size-1) {
                             found = true;
                             return pos.getPoint();
+                        }
+                        else {
+                            count = 0;
                         }
                     }
                     
