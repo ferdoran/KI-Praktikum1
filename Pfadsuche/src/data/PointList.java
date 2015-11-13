@@ -136,7 +136,7 @@ public final class PointList {
         //Nachbarn des Knoten P23
         getPointById("P23").addNeighbour(getPointById("P22"));
         getPointById("P23").addNeighbour(getPointById("P24"));
-        getPointById("P23").addNeighbour(getPointById("PZ"));
+        getPointById("P23").addNeighbour(getPointById("Z"));
         
         //Nachbarn des Knoten P24
         getPointById("P24").addNeighbour(getPointById("P23"));

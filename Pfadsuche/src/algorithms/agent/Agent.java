@@ -116,7 +116,7 @@ public class Agent extends Thread {
 
                     }
 
-                    else if(p.distance(target) < distance) {
+                    else if(p.distance(target) <= distance) {
                         distance = p.distance(target);
                         nextPoint = p;
                         lastPoint = position;
