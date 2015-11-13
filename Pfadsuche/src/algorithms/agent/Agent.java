@@ -125,6 +125,14 @@ public class Agent extends Thread {
                         
                     }
                 }
+                if(!nextPoint.equals(nextValid)){
+                    target = lastValid;
+                }
+                else{
+                    target = points.getPointById("Z");
+                    lastValid = position;
+                }
+                
                 
                 d.markPoint(nextPoint,true);
                 cost[i] += nextPoint.distance(position);
