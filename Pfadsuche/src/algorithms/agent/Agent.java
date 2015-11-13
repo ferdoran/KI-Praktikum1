@@ -55,6 +55,8 @@ public class Agent extends Thread {
             //neue Startposition je Episode
             int huchActual = 0;
             position = calcPosition(world);
+            Point lastValid = position;
+            Point nextValid = null;
             
             d.markPoint(position,true);
             boolean goal = false;
@@ -103,7 +105,8 @@ public class Agent extends Thread {
                         nextPoint = p;
                         lastPoint = position;
                     }
-
+                
+                nextValid = nextPoint;
                 }
                 if(randomize) {
                     Random r = new Random();
