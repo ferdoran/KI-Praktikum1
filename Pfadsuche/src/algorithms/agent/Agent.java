@@ -3,10 +3,12 @@ package algorithms.agent;
 import data.Line;
 import data.Point;
 import data.PointList;
+import data.Vector2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import gui.DrawingPanel;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,20 +152,21 @@ public class Agent extends Thread {
     }
     
     private Point calcPosition(World w) {
-        ArrayList<Line> al = w.getAvailableLines();
+        ArrayList<Point> ap = w.getAvPoints();
+        HashMap<Point,Vector2D> al = w.getAvailableVectors();
+        
         if(al.isEmpty()) {
-            addLogLine("Position kann nicht errechnet werden");
+            addLogLine("Position kann nicht errechnet werden.");
             return null;
         }
-        Line l = al.get(0);
-        if(points.getAllPoints().contains(l.getP1())) {
-            return l.getP2();
-        }
-        else if(points.getAllPoints().contains(l.getP2())) {
-            return l.getP1();
-        }
+        Point first = ap.get(0);
+        Vector2D a = al.get(first);
+        a = a.opposite();
         
-        else return null;
+        Vector2D b = new Vector2D(first.getX(), first.getY());
+        b.subtract(a);
+        return new Point(b.getX(), b.getY(),"apos");
+        
     }
     
     private void addLogLine(String s) {
