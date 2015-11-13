@@ -128,7 +128,6 @@ public class World {
             Point p2 = connection.getP2();
             int count = 0;
             int limit = 0;
-            boolean otherExists = false;
             for(Line l : polyLines.getList()) {
                 if(intersection(connection, l)) {
                     if(points.contains(p1)) {
