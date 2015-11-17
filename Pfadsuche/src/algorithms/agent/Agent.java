@@ -18,8 +18,8 @@ import javax.swing.JTextPane;
 
 
 /**
- *
- * @author Roland
+ * Implementiert einen uninformierten Agenten
+ * @author Roland Müller & Stephan Schneider
  */
 public class Agent extends Thread {
     final PointList points = new PointList();
@@ -31,6 +31,14 @@ public class Agent extends Thread {
     Point position;
     JTextPane log;
     
+    /**
+     * Erstellt einen neuen Agenten
+     * @param w Welt in der sich der Agent befindet
+     * @param d JPanel in dem die grafische Ausgabe erfolgt
+     * @param delay Verzögerung für die Suche
+     * @param randomize 
+     * @param log Log in dem Geschehnisse ausgegeben werden
+     */
     public Agent(World w, DrawingPanel d, int delay, boolean randomize, JTextPane log) {
         world = w;
         position = null;
@@ -41,6 +49,10 @@ public class Agent extends Thread {
 //        log.setText("Ich befinde mich bei: " + position.toString());
     }
     
+    /**
+     * Führt die uninformierte Suche 100 mal aus
+     * @return Array der Kosten für die 100 Suchläufe
+     */
     public int[] search() {
         int[] cost = new int[100];
         int huch = 0;
@@ -50,24 +62,24 @@ public class Agent extends Thread {
   
         //100 Episoden
         for(int i=0;i<100;i++) {
+            //Grafische Ausgabe vorbereiten(resetten)
             d.clearLastVisited();
             d.clear();
             d.drawAllPolygons();
-            Point2D.Double pos = world.calcStartposition();
-            world.setAgentPosition(pos);
-            world.getAvPoints();
+            
             cost[i] = 0;
-            //neue Startposition je Episode
+            
+            //zählt wie oft der Agent sich für die aktuelle Episode verläuft
             int huchActual = 0;
             position = calcPosition(world);
             Point lastValid = position;
             Point nextValid = null;
             
             d.markPoint(position,true);
+            
             boolean goal = false;
             Point nextPoint = null;
             Point lastPoint = null;
-            
             //Suche implementieren
             while(!goal) {
                 
@@ -79,9 +91,11 @@ public class Agent extends Thread {
 
                 //Ermittle den Punkt mit der kürzesten Distanz zum Ziel
                 for(Point p : ap) {
-
+                    
+                    //Wenn der zu erreichende Punkt gleich dem Ziel ist (kann auch ein Eckpunkt sein)
                     if(p.equals(target)) {
                         
+                        //Wenn es sich dabei um das Ziel handelt
                         if(target.equals(points.getPointById("Z"))) {
                             cost[i] += p.distance(position);
                             cost[i] -= 1000;
@@ -95,11 +109,14 @@ public class Agent extends Thread {
                             addLogLine("[Suche " + (i+1) + "] Kosten: " + cost[i]);
                             addLogLine("");
                             goal=true;
+                            
                             try {
                                 Thread.sleep(50);
                             } catch (InterruptedException ex) {
                                 Logger.getLogger(Agent.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            
+                            //Grafische Ausgabe resetten
                             d.clearLastVisited();
                             d.clear();
                             d.drawAllPolygons();
@@ -107,6 +124,7 @@ public class Agent extends Thread {
                             nextValid = nextPoint;
                             break;
                         }
+                        //Ansonsten handelt es sich um ein Zwischenziel (wenn der Agent sich verlaufen hat)
                         else {
                             nextPoint = p;
                             d.markPoint(p, true);
@@ -117,15 +135,17 @@ public class Agent extends Thread {
                         }
 
                     }
-
+                    //Wenn kein Ziel, dann prüfe ob die Distanz zum target kleiner ist als die bisherige
                     else if((p.distance(target) < distance) && (p.distance(target) < position.distance(target))) {
                         distance = p.distance(target);
                         nextPoint = p;
                         lastPoint = position;
                     }
-                
+                //Nächste gültige Position
                 nextValid = nextPoint;
                 }
+                
+                //Das Verlaufen
                 if(randomize) {
                     Random r = new Random();
                     if((r.nextInt()%10)<3){
@@ -142,16 +162,18 @@ public class Agent extends Thread {
                         
                     }
                 }
+                //Wenn der nächste Punkt nicht dem nächst gültigen gleicht (z.B. wenn er sich verläuft), ist das Ziel die letzte gültige Position
                 if(!nextPoint.equals(nextValid)){
                     target = lastValid;
                 }
+                //Ansonsten ist das Ziel der Zielpunkt Z
                 else{
                     target = points.getPointById("Z");
                     lastValid = position;
                     addLogLine("Ich bin wieder auf dem richtigen Weg!!!");
                 }
                 
-                
+                //Grafische Ausgabe, sowie Aufbereitung für nächsten Durchlauf(nicht Episode!)
                 d.markPoint(nextPoint,true);
                 cost[i] += nextPoint.distance(position);
                 steps++;
@@ -177,6 +199,11 @@ public class Agent extends Thread {
         return cost;
     }
     
+    /**
+     * Berechnet die aktuelle Position des Agenten
+     * @param w Welt in der sich der Agent befindet
+     * @return aktuelle Position
+     */
     private Point calcPosition(World w) {
         ArrayList<Vector2D> al = w.getAvailableVectors();
         
