@@ -4,7 +4,6 @@ import algorithms.agent.Agent;
 import algorithms.agent.World;
 import algorithms.astar.AStarSearch;
 import data.LineList;
-import data.Point;
 import data.PointList;
 import data.PolygonList;
 import java.util.logging.Level;
