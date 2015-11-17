@@ -208,23 +208,32 @@ public class Agent extends Thread {
      */
     private Point calcPosition(World w) {
         ArrayList<Vector2D> al = w.getAvailableVectors();
-        
+        // Wenn keine Vektoren vorhanden Fehler ausgeben
         if(al.isEmpty()) {
             addLogLine("Position kann nicht errechnet werden.");
             throw new NullPointerException();
         }
+        // Ansonsten Position berechnen
         else {
             int size = al.size();
             boolean found = false;
             int count = 0;
             
+            // So lange die Position nicht bestimmt wurde
             while(!found) {
+                
+                // Nimm den ersten Vektor aus der Liste und bilde seinen Gegenvektor
                 Vector2D first = al.get(0);
                 first = first.opposite();
                 
+                // Prüfe für jeden Punkt der Polygone
                 for(Point p : points.getAllPoints()) {
                  
+                    // Bilde den Punkt auf einen Ortsvektor ab und addiere den Gegenvektor
                     Vector2D pos = Vector2D.createVectorFromPoint(p).add(first);
+                    
+                    // Wenn der neue Ortsvektor nicht auf einen Punkt innerhalb eines Polygons verweist
+                    // Prüfe ob dann für jeden Vektor, von diesem Ortsvektor aus, ob ein Eckpunkt erreicht wird
                     if(!polygons.inPolygon(pos.getPoint())) {
                         for(int i = 1;i < size; i++) {
                             Vector2D v = al.get(i);
@@ -233,10 +242,13 @@ public class Agent extends Thread {
                                 count++;
                             }
                         }
+                        // Wenn die Anzahl der Vektoren die einen Eckpunkt erreichen gleich der Anzahl der 
+                        // Vektoren-1 ist (der erste Vektor wird ja nicht mitgezählt), dann ist die Position bestimmt.
                         if(count == size-1) {
                             found = true;
                             return pos.getPoint();
                         }
+                        // Ansonsten wird der counter zurückgesetzt
                         else {
                             count = 0;
                         }
