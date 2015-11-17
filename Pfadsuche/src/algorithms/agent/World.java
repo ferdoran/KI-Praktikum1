@@ -96,19 +96,6 @@ public class World {
         agentPosition = pos;
     }
     
-    /**
-     * Prüft ob ein Punkt gültig ist => Ob er außerhalb der Polygone liegt
-     * @param p zu prüfender Punkt
-     * @return true wenn der Punkt gültig ist, sonst false
-     */
-    public boolean isValidPoint(Point p) {
-        for(Polygon pol : polygons.getPolygons()) {
-            if(pol.contains(p)) {
-                return false;
-            }         
-        }
-        return true;
-    }
     
     /**
      * Gibt die Variable 'actualLines' aus
