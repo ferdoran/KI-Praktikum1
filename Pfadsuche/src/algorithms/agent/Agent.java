@@ -61,6 +61,9 @@ public class Agent extends Thread {
             d.clearLastVisited();
             d.clear();
             d.drawAllPolygons();
+            // Muss einmal durchlaufen werden, damit auch Vektoren in der Liste vorhanden sind.
+            // Ansonsten kann die Position nicht bestimmt werden.
+            world.getAvPoints();
             
             cost[i] = 0;
             
