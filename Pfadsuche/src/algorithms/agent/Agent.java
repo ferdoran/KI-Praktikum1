@@ -73,7 +73,7 @@ public class Agent extends Thread {
             int huchActual = 0;
             position = calcPosition(world);
             Point lastValid = position;
-            Point nextValid = null;
+            Point nextValid = position;
             
             d.markPoint(position,true);
             
@@ -141,6 +141,7 @@ public class Agent extends Thread {
                         distance = p.distance(target);
                         nextPoint = p;
                     }
+                    
                     
                 //Nächste gültige Position
                 nextValid = nextPoint;
