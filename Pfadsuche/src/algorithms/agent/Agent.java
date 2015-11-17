@@ -78,14 +78,14 @@ public class Agent extends Thread {
             d.markPoint(position,true);
             
             boolean goal = false;
-            Point nextPoint = null;
+            Point nextPoint = position;
             
             //Suche implementieren
             while(!goal) {
                 
                 
                 ArrayList<Point> ap = world.getAvPoints();
-                System.out.println(ap.toString());
+                //System.out.println(ap.toString());
                 
                 double distance = 1000000;
 

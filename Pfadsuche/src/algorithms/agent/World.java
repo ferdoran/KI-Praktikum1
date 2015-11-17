@@ -132,6 +132,10 @@ public class World {
             Line connection = new Line(agPos, p);
             Point p1 = connection.getP1();
             Point p2 = connection.getP2();
+            if(p1.equals(target)) {
+                result.add(target);
+                actualLines.add(new Vector2D(p1,p1));
+            }
             int count = 0;
             int limit = 0;
             for(Line l : polyLines.getList()) {
