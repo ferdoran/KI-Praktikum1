@@ -62,7 +62,9 @@ public class Agent extends Thread {
             d.clear();
             d.drawAllPolygons();
             // Muss einmal durchlaufen werden, damit auch Vektoren in der Liste vorhanden sind.
-            // Ansonsten kann die Position nicht bestimmt werden.
+            // Ansonsten kann die Position nicht bestimmt werden. Die zufällige Agentenposition
+            // muss wieder erneut gesetzt werden. (Die Teleportation)
+            world.setAgentPosition(world.calcStartposition());
             world.getAvPoints();
             
             cost[i] = 0;
