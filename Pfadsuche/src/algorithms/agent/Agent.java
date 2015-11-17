@@ -74,7 +74,6 @@ public class Agent extends Thread {
             
             boolean goal = false;
             Point nextPoint = null;
-            Point lastPoint = null;
             
             //Suche implementieren
             while(!goal) {
@@ -136,7 +135,6 @@ public class Agent extends Thread {
                     else if((p.distance(target) < distance) && (p.distance(target) < position.distance(target))) {
                         distance = p.distance(target);
                         nextPoint = p;
-                        lastPoint = position;
                     }
                     
                 //Nächste gültige Position
@@ -151,7 +149,6 @@ public class Agent extends Thread {
                             nextPoint = ap.get( (Math.abs(r.nextInt()) % ap.size()));
                             huch++;
                             huchActual++;
-                            lastPoint = position;
                             addLogLine("Ich habe mich Verlaufen!!!");
                         }
                         else {
