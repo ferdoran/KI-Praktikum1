@@ -42,7 +42,6 @@ public class Agent extends Thread {
         this.delay = delay;
         this.randomize = randomize;
         this.log = log;
-//        log.setText("Ich befinde mich bei: " + position.toString());
     }
     
     /**
@@ -76,6 +75,7 @@ public class Agent extends Thread {
             boolean goal = false;
             Point nextPoint = null;
             Point lastPoint = null;
+            
             //Suche implementieren
             while(!goal) {
                 
@@ -91,7 +91,7 @@ public class Agent extends Thread {
                     //Wenn der zu erreichende Punkt gleich dem Ziel ist (kann auch ein Eckpunkt sein)
                     if(p.equals(target)) {
                         
-                        //Wenn es sich dabei um das Ziel handelt
+                        //Wenn es sich dabei um den vorgegebenen Zielpunkt handelt
                         if(target.equals(points.getPointById("Z"))) {
                             cost[i] += p.distance(position);
                             cost[i] -= 1000;
@@ -99,7 +99,8 @@ public class Agent extends Thread {
                         
                             d.markPoint(p, true);
                             d.drawActualPosition(target);
-                            
+                                                       
+                            //Ausgabe im Logfenster
                             addLogLine("[Suche " + (i+1) + "] Ziel gefunden");
                             addLogLine("[Suche " + (i+1) + "] Verlaufen: " + huchActual);
                             addLogLine("[Suche " + (i+1) + "] Kosten: " + cost[i]);
@@ -131,12 +132,13 @@ public class Agent extends Thread {
                         }
 
                     }
-                    //Wenn kein Ziel, dann prüfe ob die Distanz zum target kleiner ist als die bisherige
+                    //Wenn kein Ziel, dann prüfe ob die Distanz zum Ziel kleiner ist als die bisherige
                     else if((p.distance(target) < distance) && (p.distance(target) < position.distance(target))) {
                         distance = p.distance(target);
                         nextPoint = p;
                         lastPoint = position;
                     }
+                    
                 //Nächste gültige Position
                 nextValid = nextPoint;
                 }
@@ -158,15 +160,17 @@ public class Agent extends Thread {
                         
                     }
                 }
+                
                 //Wenn der nächste Punkt nicht dem nächst gültigen gleicht (z.B. wenn er sich verläuft), ist das Ziel die letzte gültige Position
                 if(!nextPoint.equals(nextValid)){
                     target = lastValid;
                 }
+                
                 //Ansonsten ist das Ziel der Zielpunkt Z
                 else{
                     target = points.getPointById("Z");
                     lastValid = position;
-                    addLogLine("Ich bin wieder auf dem richtigen Weg!!!");
+                    addLogLine("Ich bin auf dem richtigen Weg!!!");
                 }
                 
                 //Grafische Ausgabe, sowie Aufbereitung für nächsten Durchlauf(nicht Episode!)
@@ -184,14 +188,16 @@ public class Agent extends Thread {
             }
             
         }
+        
+        //Ausgabe im Logfenster
         addLogLine("Die Suche ist beendet. Folgende Ergebnisse wurden festgestellt:");
         addLogLine("Insgesamt Verlaufen: " + huch);
         addLogLine("Durchschnittliche Schritte: " + steps/100);
         addLogLine("Durchschnittlich Verlaufen: " + huch/100);
-        //addLogLine("Gefunden: "+ found);
         addLogLine("Durchschnittliche Kosten: " + Arrays.stream(cost).average().toString());
         addLogLine("Maximale Kosten: " + Arrays.stream(cost).max().toString());
         addLogLine("Minimale Kosten: " + Arrays.stream(cost).min().toString());
+        
         return cost;
     }
     
@@ -246,6 +252,10 @@ public class Agent extends Thread {
         
     }
     
+    /**
+     * Setzt übergebene Strings zusammen und übergibt sie an das Logfenster
+     * @param s übergebener String
+     */
     private void addLogLine(String s) {
         StringBuilder sb = new StringBuilder();
         sb.append(log.getText());

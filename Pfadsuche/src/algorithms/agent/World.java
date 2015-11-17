@@ -14,8 +14,7 @@ import java.util.Random;
 
 /**
  *
- * @author Roland
- * @author Mahdi
+ * @author Roland Müller & Stephan Schneider
  */
 public class World {
     
@@ -27,10 +26,13 @@ public class World {
     final PolygonList polygons;
     ArrayList<Point> usedStartpoints; 
     
+    
+    /**
+     * 
+     */
     public World() {
         this.points = new PointList();
         this.polyLines = new LineList(points);
-        
         this.target = points.getPointById("Z");
         actualLines = new ArrayList<>();
         polygons = new PolygonList();
