@@ -13,14 +13,6 @@ public class PolygonList {
     public PolygonList() {
         polygons = new HashSet<>();
             
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P1")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P2")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P3")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P4")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P5")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P6")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P7")));
-//        polygons.add(createPolygonFromPointList(p.getPolygonPoints("P8")));
 
 
       Polygon p1 = new Polygon();
@@ -84,17 +76,6 @@ public class PolygonList {
         
     }
     
-//    private Polygon createPolygonFromPointList(HashSet<Point> points) {
-//        int[] xpoints = new int[points.size()];
-//        int[] ypoints = new int[points.size()];
-//        int i = 0;
-//        for(Point p : points) {
-//            xpoints[i] = (int) p.getX();
-//            ypoints[i] = (int) p.getY();
-//            i++;
-//        }
-//        return new Polygon(xpoints, ypoints, points.size());
-//    }
     
     public HashSet<Polygon> getPolygons() {
         return polygons;

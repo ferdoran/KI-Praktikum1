@@ -231,10 +231,7 @@ public class MainFrame extends javax.swing.JFrame {
             World w = new World();
             int delay = delaySlider.getValue();
             final boolean random = randomize.isSelected();
-//            StringBuilder sb = new StringBuilder();
-//            sb.append(log.getText());
-//            sb.append("Diese Funktion ist noch nicht implementiert.");
-//            log.setText(sb.toString());
+
             if(firstRun) {
                 firstRun = false;
                 draw.setPoints(p);
