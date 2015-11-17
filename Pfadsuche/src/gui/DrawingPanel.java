@@ -10,6 +10,7 @@ import java.awt.Graphics;
 
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,13 +121,16 @@ public class DrawingPanel extends javax.swing.JPanel {
         g.setColor(Color.black);
         int x = (int) p.getX();
         int y = (int) p.getY();
-        if(lastVisited == null) {
-            lastVisited = p;
+        if(!aufg3) {
+            if(lastVisited == null) {
+                lastVisited = p;
+            }
+            else {
+                drawPath(lastVisited, p, aufg3);
+                lastVisited = p;
+            }
         }
-        else {
-            drawPath(lastVisited, p, aufg3);
-            lastVisited = p;
-        }
+    
         g.drawOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
         g.fillOval((int) scalingFactorX * x - x-2,HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - y)*scalingFactorY)-2+20, 4, 4);
         
@@ -188,6 +192,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     public void drawAllPolygons() {
         Graphics g =  this.getGraphics();
         g.setColor(Color.lightGray);
+        clear();
         
         for(Polygon p : polygons.getPolygons()) {
             int[] x = transferPolygonXPoints(p.xpoints);
@@ -309,6 +314,28 @@ public class DrawingPanel extends javax.swing.JPanel {
             result[i] = HEIGHT_NEW - (int)(Math.abs(HEIGHT_NEW - xpoints[i])*scalingFactorY)+20;
         }
         return result;
+    }
+    
+    public void drawLines(ArrayList<Line> lines) {
+        Graphics2D g = (Graphics2D) this.getGraphics();
+        g.setColor(Color.red);
+        
+        for(Line l : lines) {
+            Point p1 = l.getP1();
+            Point p2 = l.getP2();
+            int xFrom = (int) p1.getX();
+            int yFrom = (int) p1.getY();
+            int xTo = (int) p2.getX();
+            int yTo = (int) p2.getY();
+            if(points.contains(p1)) {
+                if(p1.isNeighbourOf(p2)) {
+                    g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
+                }
+            }
+            else {
+                g.drawLine((int) scalingFactorX * xFrom - xFrom,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yFrom)*scalingFactorY) +20,(int) scalingFactorX * xTo - xTo,HEIGHT_NEW -  (int) (Math.abs(HEIGHT_NEW - yTo)*scalingFactorY)+20);
+            }
+        }
     }
 
 

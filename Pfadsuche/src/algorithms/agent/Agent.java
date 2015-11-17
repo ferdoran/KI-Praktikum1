@@ -1,5 +1,6 @@
 package algorithms.agent;
 
+import data.Line;
 import data.Point;
 import data.PointList;
 import data.PolygonList;
@@ -26,6 +27,7 @@ public class Agent extends Thread {
     DrawingPanel d;
     Point position;
     JTextPane log;
+    ArrayList<Line> visitedLines;
     
     /**
      * Erstellt einen neuen Agenten
@@ -42,6 +44,7 @@ public class Agent extends Thread {
         this.delay = delay;
         this.randomize = randomize;
         this.log = log;
+        visitedLines = new ArrayList();
     }
     
     /**
@@ -58,6 +61,7 @@ public class Agent extends Thread {
         //100 Episoden
         for(int i=0;i<100;i++) {
             //Grafische Ausgabe vorbereiten(resetten)
+            visitedLines.clear();
             d.clearLastVisited();
             d.clear();
             d.drawAllPolygons();
@@ -121,6 +125,7 @@ public class Agent extends Thread {
                             d.clearLastVisited();
                             d.clear();
                             d.drawAllPolygons();
+                            d.drawLines(visitedLines);
                             found++;
                             nextValid = nextPoint;
                             break;
@@ -131,7 +136,6 @@ public class Agent extends Thread {
                             d.markPoint(p, true);
                             d.drawActualPosition(target);
                             cost[i] += p.distance(position);
-                            cost[i] -= 1000;
                             target = points.getPointById("Z");
                         }
 
@@ -177,6 +181,9 @@ public class Agent extends Thread {
                 }
                 
                 //Grafische Ausgabe, sowie Aufbereitung für nächsten Durchlauf(nicht Episode!)
+                
+                visitedLines.add(new Line(position, nextPoint));
+                d.drawLines(visitedLines);
                 d.markPoint(nextPoint,true);
                 cost[i] += nextPoint.distance(position);
                 steps++;
@@ -191,7 +198,8 @@ public class Agent extends Thread {
             }
             
         }
-        
+        d.clear();
+        d.drawAllPolygons();
         //Ausgabe im Logfenster
         addLogLine("Die Suche ist beendet. Folgende Ergebnisse wurden festgestellt:");
         addLogLine("Insgesamt Verlaufen: " + huch);
