@@ -37,7 +37,7 @@ public class AStarSearch extends Thread {
         this.log = log;
     }
 
-    private List<String> search(/*Point source, Point target, DrawingPanel d, int delay*/) {
+    private List<String> search() {
        
         // Map zur Überprüfung ob ein Knoten bereits in der PQ ist.
         Map<String, AStarNode> offeneKnoten = new HashMap<>();
@@ -59,8 +59,7 @@ public class AStarSearch extends Thread {
         while(offeneKnoten.size() > 0){
             AStarNode x = grenzListe.poll();
             offeneKnoten.remove(x.getId());
-            /*// Kommandozeilenausgabe zu Testzwecken
-            System.out.print(x.getId());*/
+
             d.markPoint(x.getNode(),false);
             
             
@@ -102,21 +101,13 @@ public class AStarSearch extends Thread {
                         // gefundene: Neuen Elternknoten sowie neue Entfernung
                         // setzen.
                         else if (g < n.getG()) {
-                            //d.markPoint(n.getNode());
                             n.setCameFrom(x);
                             n.setG(g);
-                        }
-                        else {
-                            //d.markPoint(n.getNode());
-                        }
-                        
-                       
+                        }                                           
                     }
                     else {
                         d.markPoint(visited.getNode(),false);
-                    }
-                    
-                    
+                    }                   
                 });
             }
             
@@ -156,10 +147,8 @@ public class AStarSearch extends Thread {
                 sb.append("Nichts gefunden.\n");
             }
             d.drawFinalPath(idlist);
-            log.setText(sb.toString());
-            
-        }
-        
+            log.setText(sb.toString());           
+        }       
         return null;  
     }
 
